@@ -157,27 +157,47 @@ img.photo{display:block;width:100%;height:100%;max-width:100%;object-fit:cover}
 .hello b{display:block;font-weight:500;font-size:.92rem}
 .hello small{display:block;color:var(--muted);font-size:.8rem}
 .hello:hover b{text-decoration:underline}
-.landing{overflow-x:clip}
-.vh-ads{position:relative;width:100vw;margin:3rem calc(50% - 50vw) 0;aspect-ratio:21/9;max-height:82vh;min-height:360px;overflow:hidden;background:#2E2620}
+.vh-ads{position:relative;width:100%;height:clamp(440px,calc(100svh - 78px),920px);overflow:hidden;background:#1E1915}
 .vh-ads-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
 .vh-ads-track::-webkit-scrollbar{display:none}
 .vh-ad{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start;display:block;color:#FAF8F4;text-decoration:none;isolation:isolate}
-.vh-ad img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 6s ease-out}
-.vh-ad:hover img{transform:scale(1.03)}
-.vh-ad.has-words::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,14,11,.55) 0%,rgba(18,14,11,0) 55%),linear-gradient(0deg,rgba(18,14,11,.35) 0%,rgba(18,14,11,0) 40%);z-index:-1}
-.vh-ad .in{position:absolute;left:clamp(1.25rem,6vw,6rem);bottom:clamp(1.6rem,7vh,4.5rem);right:1.25rem;text-align:left}
-.vh-ad b{display:block;font:500 clamp(2rem,5.4vw,4.6rem)/1.02 var(--sans);letter-spacing:-.02em;max-width:12ch;text-wrap:balance}
-.vh-ad .go{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.1rem;font:500 .8rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.vh-ad img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 8s ease-out}
+.vh-ad:hover img{transform:scale(1.025)}
+.vh-ad.has-words::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,14,11,.6) 0%,rgba(18,14,11,0) 60%),linear-gradient(0deg,rgba(18,14,11,.45) 0%,rgba(18,14,11,0) 45%);z-index:-1}
+.vh-ad .in{position:absolute;left:max(var(--gutter),calc((100% - 1240px)/2));bottom:clamp(2rem,9vh,5.5rem);right:var(--gutter);text-align:left}
+.vh-ad b{display:block;font:500 clamp(2.4rem,6vw,5.4rem)/1 var(--sans);letter-spacing:-.025em;max-width:11ch;text-wrap:balance}
+.vh-ad p{font:300 clamp(.95rem,1.3vw,1.15rem)/1.5 var(--sans);max-width:38ch;margin-top:1rem;opacity:.92}
+.vh-ad .go{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.4rem;font:500 .78rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
 .vh-ad .go .ico{width:16px;height:16px}
-.vh-ad:not(.has-words) .in{left:auto;right:1.25rem;bottom:1.25rem}
-.vh-ad:not(.has-words) .go{background:rgba(18,14,11,.5);padding:.55rem .8rem;border-radius:99px;margin:0}
+.vh-ad:not(.has-words) .in{left:auto;right:var(--gutter)}
+.vh-ad:not(.has-words) .go{background:rgba(18,14,11,.5);padding:.6rem .9rem;border-radius:99px;margin:0}
 .vh-ad:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
-.vh-dots{position:absolute;right:clamp(1.25rem,6vw,6rem);bottom:clamp(1.6rem,7vh,4.5rem);display:flex;gap:.5rem;z-index:2}
-.vh-ad:not(.has-words) ~ .vh-dots{bottom:4.2rem}
+.vh-dots{position:absolute;right:max(var(--gutter),calc((100% - 1240px)/2));bottom:clamp(2rem,9vh,5.5rem);display:flex;gap:.5rem;z-index:2}
 .vh-dots button{width:28px;height:3px;padding:0;border:0;border-radius:2px;background:rgba(250,248,244,.45);cursor:pointer;transition:background .2s,width .2s}
 .vh-dots button[aria-current="true"]{background:var(--accent);width:44px}
 .vh-dots button::before{content:"";display:block;margin:-12px 0;height:27px}
-@media (max-width:720px){.vh-ads{aspect-ratio:4/5;max-height:none;min-height:0}.vh-ad .in{left:1.25rem;bottom:3.4rem}.vh-dots{left:1.25rem;right:auto;bottom:1.5rem}}
+@media (max-width:720px){.vh-ads{height:min(82svh,720px)}.vh-ad .in{bottom:4rem}.vh-dots{left:var(--gutter);right:auto;bottom:1.8rem}}
+.m-claim{padding-block:clamp(4rem,10vw,8rem);text-align:center}
+.m-claim h1{font:400 clamp(2rem,4.4vw,3.8rem)/1.1 var(--sans);letter-spacing:-.02em;max-width:18ch;margin-inline:auto}
+.m-claim h1 em{font-style:normal;color:var(--clay)}
+.m-claim .hero-ctas{justify-content:center;margin-top:2.2rem}
+.m-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.5rem,1vw,.9rem)}
+.m-tile{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;border-radius:6px;color:#FAF8F4;text-decoration:none;isolation:isolate}
+.m-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.m-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(18,14,11,.55),rgba(18,14,11,0) 45%);z-index:-1}
+.m-tile:hover img{transform:scale(1.04)}
+.m-tile b{position:absolute;left:1.3rem;bottom:1.2rem;font:500 clamp(1.3rem,2vw,1.7rem)/1 var(--sans);display:flex;align-items:center;gap:.6rem}
+.m-tile b .ico{width:20px;height:20px;color:var(--accent)}
+.m-mosaic{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(.5rem,1vw,.9rem);height:clamp(420px,70vh,760px)}
+.m-mosaic figure{margin:0;overflow:hidden;border-radius:6px}
+.m-mosaic figure:first-child{grid-row:span 2}
+.m-mosaic img{width:100%;height:100%;object-fit:cover}
+.m-cap{display:flex;justify-content:space-between;gap:1rem;margin-top:.9rem;font-size:.82rem;color:var(--muted)}
+.m-quote{text-align:center;padding-block:clamp(4rem,9vw,7rem)}
+.m-quote blockquote{font:300 clamp(1.3rem,2.4vw,2rem)/1.4 var(--sans);max-width:30ch;margin:0 auto}
+.m-quote .sig{margin-top:1.4rem;font-size:.85rem;color:var(--muted)}
+.m-quote .hero-ctas{justify-content:center;margin-top:2rem}
+@media (max-width:760px){.m-tiles{grid-template-columns:1fr}.m-tile{aspect-ratio:16/10}.m-mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;height:auto}.m-mosaic figure:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}.m-mosaic figure{aspect-ratio:1/1}}
 .card.ad-row{display:grid;grid-template-columns:220px 1fr;gap:1.2rem;align-items:start;background:var(--bg)}
 .card.ad-row .ph{width:100%;aspect-ratio:16/9;border-radius:6px;overflow:hidden}
 .ad-row .ph img{width:100%;height:100%;object-fit:cover}
@@ -579,7 +599,7 @@ function villa(i=0, opt={}){
   return s + `</svg>`;
 }
 
-const PH = {fachada:'fachada.jpg', solar:'solar.jpg', aerotermia:'aerotermia.jpg', sala:'sala.jpg', aerea:'sienna-aerea.jpg', atardecer:'sienna-atardecer.jpg', terraza:'sienna-terraza.jpg', azotea:'sienna-azotea.jpg', dia:'sienna-fachada.jpg', chillout:'sienna-chillout.jpg', entrada:'sienna-entrada.jpg'};
+const PH = {cine:'cine.jpg', fachada:'fachada.jpg', solar:'solar.jpg', aerotermia:'aerotermia.jpg', sala:'sala.jpg', aerea:'sienna-aerea.jpg', atardecer:'sienna-atardecer.jpg', terraza:'sienna-terraza.jpg', azotea:'sienna-azotea.jpg', dia:'sienna-fachada.jpg', chillout:'sienna-chillout.jpg', entrada:'sienna-entrada.jpg'};
 const photo = (k, alt, ratio='4/3') => `<div class="ph" style="aspect-ratio:${ratio}"><img class="photo" src="${PH[k]}" alt="${alt}" loading="lazy" decoding="async"></div>`;
 function workGallery(){
   return `<div class="works">
@@ -676,11 +696,11 @@ const ADMIN_NAV = [['admin','Panel','grid'],['admin-propiedades','Propiedades','
 const state = { guide:{cliente:'resumen', admin:'panel'}, myMsgs:[], folder:null, q:'', budget:null, loginTab: store.get('lps-tab') || 'cliente', menu:false };
 
 function route(){
-  const h = (location.hash || '#bienvenida').slice(1) || 'bienvenida';
+  let h = (location.hash || '#inicio').slice(1) || 'inicio';
+  if (h === 'bienvenida') h = 'inicio';
   const root = $('#root');
   let html;
-  if (h === 'bienvenida') html = landingView();
-  else if (PUBLIC.includes(h)) html = publicShell(h);
+  if (PUBLIC.includes(h)) html = publicShell(h);
   else if (h === 'acceso') html = loginView();
   else if (h.startsWith('cliente') || h.startsWith('admin')) {
     const role = h.startsWith('admin') ? 'admin' : 'cliente', ss = session();
@@ -696,30 +716,33 @@ function route(){
   document.title = titleFor(h);
 }
 function titleFor(h){
-  if (h==='bienvenida') return 'Velarehome · Project Management & Home Care';
-  const m = {inicio:'Velarehome', servicios:'Servicios · Velarehome', sobre:'Francisco Gatell · Velarehome', contacto:'Contacto · Velarehome', acceso:'Acceso clientes · Velarehome'};
+  const m = {inicio:'Velarehome · Project Management & Home Care', servicios:'Servicios · Velarehome', sobre:'Francisco Gatell · Velarehome', contacto:'Contacto · Velarehome', acceso:'Acceso clientes · Velarehome'};
   return m[h] || 'Área privada · Velarehome';
 }
 window.addEventListener('hashchange', route);
 
 /* ================= Banner de Francisco (editable desde admin) ================= */
 const DEFAULT_ADS = [
-  {on:true, img:'aerotermia', t:'Adiós al gas', go:'svc-reformas'},
-  {on:true, img:'solar', t:'Energía solar', go:'svc-reformas'},
-  {on:true, img:'chillout', t:'Tu casa, lista', go:'svc-concierge'},
+  {on:true, img:'cine', t:'El cine, en tu casa', s:'Francisco trabaja con especialistas en salas de cine privadas para llevar el cine a tu villa.', go:'whatsapp'},
+  {on:true, img:'aerotermia', t:'Adiós al gas', s:'', go:'svc-reformas'},
+  {on:true, img:'solar', t:'Energía solar', s:'', go:'svc-reformas'},
 ];
-const PROMO_GO = [['svc-reformas','Reformas y mejoras'],['svc-gestion','Cuidado de la vivienda'],['svc-concierge','Servicio premium'],['svc-planes','Paquetes'],['contacto','Contacto']];
-function ads(){ try{ const l=JSON.parse(localStorage.getItem('lps-ads')); if(Array.isArray(l)) return l; }catch(e){} return DEFAULT_ADS.map(a=>({...a})); }
+const PROMO_GO = [['whatsapp','WhatsApp con Francisco'],['svc-reformas','Reformas y mejoras'],['svc-gestion','Cuidado de la vivienda'],['svc-concierge','Servicio premium'],['svc-planes','Paquetes'],['contacto','Contacto']];
+const ADS_KEY = 'lps-ads-v2';
+function ads(){ try{ const l=JSON.parse(localStorage.getItem(ADS_KEY)); if(Array.isArray(l)) return l; }catch(e){} return DEFAULT_ADS.map(a=>({...a})); }
 const adSrc = img => PH[img] || img;
+function adHref(a){ const w=(a.t||'').trim();
+  if (a.go==='whatsapp') return `href="https://wa.me/34665601092?text=${encodeURIComponent('Hola Francisco, me interesa: '+(w||'vuestros nuevos servicios'))}" target="_blank" rel="noopener"`;
+  if (a.go==='contacto') return 'href="#contacto"';
+  return `href="#servicios" data-jumpto="${esc(a.go||'svc-reformas')}"`; }
 function promoBlock(){
   const list = ads().filter(a=>a.on && a.img); if(!list.length) return '';
-  return `<section class="vh-ads" id="vhAds" aria-label="Nuevos servicios" aria-roledescription="carrusel">
+  return `<section class="vh-ads" id="vhAds" aria-label="Novedades" aria-roledescription="carrusel">
     <div class="vh-ads-track">${list.map((a,i)=>{
-      const href = a.go==='contacto' ? '#contacto' : '#servicios';
-      const w = (a.t||'').trim();
-      return `<a class="vh-ad ${w?'has-words':''}" href="${href}" ${a.go!=='contacto'?`data-jumpto="${esc(a.go||'svc-reformas')}"`:''} aria-label="${esc(w||'Nuevo servicio')} (${i+1} de ${list.length})"><img src="${adSrc(a.img)}" alt="" ${i?'loading="lazy"':''} decoding="async"><div class="in">${w?`<b>${esc(w)}</b>`:''}<span class="go">Descubrir ${ico('arrow')}</span></div></a>`;
+      const w=(a.t||'').trim(), s=(a.s||'').trim();
+      return `<a class="vh-ad ${w||s?'has-words':''}" ${adHref(a)} aria-label="${esc(w||'Novedad')} (${i+1} de ${list.length})"><img src="${adSrc(a.img)}" alt="" ${i?'loading="lazy"':'fetchpriority="high"'} decoding="async"><div class="in">${w?`<b>${esc(w)}</b>`:''}${s?`<p>${esc(s)}</p>`:''}<span class="go">${a.go==='whatsapp'?'Pregúntale a Francisco':'Descubrir'} ${ico('arrow')}</span></div></a>`;
     }).join('')}</div>
-    ${list.length>1?`<div class="vh-dots">${list.map((_,i)=>`<button type="button" aria-label="Anuncio ${i+1}" ${i?'':'aria-current="true"'}></button>`).join('')}</div>`:''}
+    ${list.length>1?`<div class="vh-dots">${list.map((_,i)=>`<button type="button" aria-label="Novedad ${i+1}" ${i?'':'aria-current="true"'}></button>`).join('')}</div>`:''}
   </section>`;
 }
 function bindAds(){
@@ -736,30 +759,9 @@ function bindAds(){
   state.adTimer = setInterval(()=>{ if(!paused && document.contains(track)) go(cur()+1); }, 6000);
 }
 
-/* ================= Landing de entrada ================= */
-function landingView(){
-  const items = [['helmet','Gestión<br>de proyectos','svc-reformas'],['home','Cuidado<br>de viviendas','svc-gestion'],['gear','Mantenimiento<br>integral','svc-planes'],['cloche','Servicio<br>premium','svc-concierge']];
-  return `<main class="landing view">
-    <svg class="vh-logo" viewBox="0 0 560 150" aria-hidden="true" fill="none" stroke="#8C7556" stroke-linecap="round">
-      <path d="M150 104 L300 26 L405 82" stroke-width="2.4"/>
-      <path d="M352 112 C 420 92, 470 96, 545 128" stroke-width="2.2"/>
-      <path d="M418 108 C 404 80, 404 52, 412 30 C 420 52, 424 80, 418 108Z" fill="#8C7556" stroke="none"/>
-      <path d="M444 112 C 428 78, 430 42, 440 14 C 450 42, 456 78, 444 112Z" fill="#8C7556" stroke="none"/>
-    </svg>
-    <h1 class="vh-word">Velarehome</h1>
-    <p class="vh-sub">Project Management<br>&amp; Home Care</p>
-    <p class="vh-tag">Velamos por tu casa como si fuera la nuestra</p>
-    <div class="vh-rule"></div>
-    <nav class="vh-icons" aria-label="Servicios">${items.map(([i,t,id])=>`<a href="#servicios" data-jumpto="${id}">${ico(i)}<span>${t}</span></a>`).join('')}</nav>
-    <div class="vh-ctas"><a class="btn btn-primary" href="#inicio">Entrar en la web ${ico('arrow')}</a>${(()=>{ const ss=session(); return ss?`<a class="btn" href="#${ss.role}">${ico('home')}${ss.role==='admin'?'Ir a mi panel':'Ver mi casa'}</a>`:`<a class="btn" href="#acceso">${ico('lock')}Acceso clientes</a>`; })()}</div>
-    ${promoBlock()}
-    <p class="vh-foot">Marbella · Nueva Andalucía · Benahavís · San Pedro</p>
-  </main>`;
-}
-
 /* ================= Público ================= */
 function header(cur){
-  const L = [['servicios','Servicios'],['sobre','Sobre Francisco'],['inicio#metodo','Cómo trabajamos'],['contacto','Contacto']];
+  const L = [['servicios','Servicios'],['sobre','Sobre Francisco'],['contacto','Contacto']];
   return `<header class="site-header"><div class="wrap">
     <a class="logo" href="#inicio">Velarehome<small>Project Management &amp; Home Care</small></a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">${ico('menu')}</button>
@@ -804,125 +806,36 @@ const PLANS = `
 
 function homeView(){
   return `
-  <section class="hero"><div class="wrap">
-    <div class="hero-grid">
-      <div class="hero-text">
-        <div class="eyebrow">Gestión de villas · Costa del Sol</div>
-        <h1>Solo 10 villas por gestor. Tu casa, cuidada como si fuera <em>la nuestra</em>.</h1>
-        <p class="lead">Cuidamos tu casa y la hacemos crecer: mantenimiento, reformas, ampliaciones y concierge en Marbella, Nueva Andalucía, Benahavís y San Pedro.</p>
-        <div class="hero-ctas"><a class="btn btn-primary" href="#contacto">Hablar con tu gestor ${ico('arrow')}</a><a class="link" href="#servicios">Ver servicios</a></div>
-        <a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener"><span class="av">FG</span><span><b>Te atiende Francisco Gatell</b><small>Fundador. Escríbele directamente: +34 665 601 092</small></span></a>
-      </div>
-      <div class="hero-img">${photo('atardecer','Villa Sienna al atardecer: piscina iluminada frente a la fachada acristalada','3/2')}
-        <div class="caption"><span>Villa Sienna · El Madroñal, Benahavís</span><span>Una de las villas que gestionamos</span></div></div>
-    </div>
-    <div class="figures">
-      <div class="figure"><b><span class="ten">10</span></b><span>villas como máximo por gestor</span></div>
-      <div class="figure"><b>24/7</b><span>atención a propietarios</span></div>
-      <div class="figure"><b>2 h</b><span>tiempo medio de respuesta</span></div>
-      <div class="figure"><b>+15</b><span>años en la Costa del Sol</span></div>
+  ${promoBlock()}
+
+  <section class="m-claim"><div class="wrap">
+    <h1>Solo 10 villas por gestor. Tu casa, cuidada como <em>la nuestra</em>.</h1>
+    <div class="hero-ctas"><a class="btn btn-primary" href="https://wa.me/34665601092" target="_blank" rel="noopener">Hablar con tu gestor ${ico('arrow')}</a></div>
+  </div></section>
+
+  <section class="band" style="padding-top:0" id="servicios-home"><div class="wrap">
+    <div class="m-tiles">
+      <a class="m-tile" href="#servicios" data-jumpto="svc-gestion"><img src="${PH.dia}" alt="Villa cuidada con piscina" loading="lazy"><b>Cuidar ${ico('arrow')}</b></a>
+      <a class="m-tile" href="#servicios" data-jumpto="svc-reformas"><img src="${PH.solar}" alt="Placas solares en una cubierta" loading="lazy"><b>Mejorar ${ico('arrow')}</b></a>
+      <a class="m-tile" href="#servicios" data-jumpto="svc-concierge"><img src="${PH.chillout}" alt="Zona chill-out preparada al atardecer" loading="lazy"><b>Disfrutar ${ico('arrow')}</b></a>
     </div>
   </div></section>
 
-  <section class="band alt"><div class="wrap velar">
-    <div><div class="eyebrow">Velarehome viene de «velar»</div><h2 style="margin-top:1rem">Velar es cuidar con atención. Así cuidamos <em>tu casa</em>.</h2>
-      <p class="lead" style="margin-top:1.2rem">Tu casa es única y merece un trato exclusivo. Por eso cada gestor lleva como máximo diez, y Francisco las conoce todas por su nombre.</p></div>
-    <div class="velar-cols">
-      <div><span class="n">Cuidar</span><p>Visitas, mantenimiento, proveedores y un informe con fotos tras cada visita. Tu casa siempre lista, estés o no.</p></div>
-      <div><span class="n">Mejorar</span><p>Ampliaciones, reformas y mejoras: aerotermia, placas solares, cocinas, terrazas. Las dirigimos de principio a fin con presupuesto cerrado.</p></div>
+  <section class="band" style="padding-top:0" id="metodo"><div class="wrap">
+    <div class="m-mosaic">
+      <figure><img src="${PH.aerea}" alt="Vista aérea de Villa Sienna" loading="lazy"></figure>
+      <figure><img src="${PH.azotea}" alt="Piscina de la azotea con vistas al mar" loading="lazy"></figure>
+      <figure><img src="${PH.entrada}" alt="Entrada de Villa Sienna" loading="lazy"></figure>
     </div>
+    <div class="m-cap"><span>Villa Sienna · Benahavís</span><span>Una de las villas que cuidamos</span></div>
   </div></section>
 
-  <section class="band" id="servicios-home"><div class="wrap">
-    <div class="sec-head"><h2>Tres servicios, <em>un</em> interlocutor.</h2><p class="lead">Una sola persona conoce tu casa, tus proveedores y tus manías. Sin centralitas ni cambios de interlocutor: siempre sabes a quién llamar.</p></div>
-    <div class="services">
-      <div class="service">${ico('key')}<h3>Gestión de villas</h3><p>Visitas de control, proveedores, pagos y preparación antes de cada llegada.</p><a class="link" href="#servicios">Ver qué incluye</a></div>
-      <div class="service">${ico('tool')}<h3>Reformas y ampliaciones</h3><p>Ampliamos, reformamos y mejoramos tu casa. Una sola persona dirige la obra, con presupuesto cerrado.</p><a class="link" href="#servicios">Ver qué incluye</a></div>
-      <div class="service">${ico('home')}<h3>Concierge</h3><p>Chef, chófer, limpieza, eventos y reservas mientras estás en la casa.</p><a class="link" href="#servicios">Ver qué incluye</a></div>
-    </div>
-  </div></section>
-
-  <section class="band alt" id="metodo"><div class="wrap">
-    <div class="sec-head"><h2>Cómo <em>trabajamos</em></h2><p class="lead">Del primer café en tu casa al informe de cada semana, siempre con la misma cara.</p></div>
-    <div class="steps">
-      <div class="step"><span class="n">01</span><h3>Un café en tu casa</h3><p>Francisco recorre la villa contigo: instalaciones, jardín, piscina y todo lo que te quita el sueño.</p></div>
-      <div class="step"><span class="n">02</span><h3>Un plan hecho para ti</h3><p>Decidimos juntos cada cuánto pasamos, con qué proveedores y cuánto cuesta al año. Sin letra pequeña.</p></div>
-      <div class="step"><span class="n">03</span><h3>Siempre sabes cómo está</h3><p>Tras cada visita te llega un informe con fotos. Y si quieres hablar, llamas a Francisco, no a una centralita.</p></div>
-    </div>
-  </div></section>
-
-  <section class="band"><div class="wrap panel-promo">
-    <div>
-      <div class="eyebrow">Área privada de propietarios</div>
-      <h2 style="margin-top:1rem">Tu villa, <em>en un panel</em>.</h2>
-      <ul class="checks">
-        <li>${ico('folder')}<span>Garantías, planos y facturas siempre a mano, ordenados por carpetas.</span></li>
-        <li>${ico('crane')}<span>Obras con porcentaje de avance, fecha prevista y diario con fotos.</span></li>
-        <li>${ico('euro')}<span>Presupuestos aprobados en un clic, con registro de fecha.</span></li>
-      </ul>
-      <a class="link" href="#acceso">Ver el área de clientes</a>
-    </div>
-    <div class="mock" aria-label="Vista previa del área de clientes">
-      <div class="mock-bar"><i></i><i></i><i></i><span style="margin-left:.6rem">Área privada · Villa Albero</span></div>
-      <div class="mock-body">
-        <div class="mock-side"><b>Resumen</b><span>Documentos</span><span>Obras</span><span>Presupuestos</span><span>Proyectos</span><span>Mensajes</span></div>
-        <div class="mock-main">
-          <div class="mock-card"><small>Documentos</small><b>20 archivos</b><small>5 carpetas</small></div>
-          <div class="mock-card"><small>Presupuestos</small><b>2 por revisar</b><span><span class="chip pend">Pendiente</span></span></div>
-          <div class="mock-card wide"><small>Reforma de cocina · en curso</small><div class="bar"><i style="width:65%"></i></div><small>65 % · entrega prevista 12 dic</small></div>
-          <div class="mock-card wide"><small>Último informe de visita · 14 nov</small><b>Piscina, jardín y alarma correctos</b></div>
-        </div>
-      </div>
-    </div>
-  </div></section>
-
-  <section class="band alt"><div class="wrap founder">
-    <div class="portrait"><span>FG</span><small>Foto de Francisco en obra (pendiente)</small></div>
-    <div>
-      <div class="eyebrow">El fundador</div>
-      <blockquote style="margin-top:1.4rem">«Decidí no pasar de diez villas por gestor. Con más casas, dejas de conocerlas. Con diez, sé qué grifo gotea antes de que lo notes.»</blockquote>
-      <div class="sig"><b>Francisco Gatell</b><span>Fundador y project manager</span></div>
-      <div class="hero-ctas" style="margin-top:2rem"><a class="btn" href="https://wa.me/34665601092" target="_blank" rel="noopener">${ico('chat')}Escribir a Francisco</a><a class="link" href="#sobre">Conocer a Francisco</a></div>
-    </div>
-  </div></section>
-
-  <section class="band"><div class="wrap">
-    <div class="sec-head"><h2>Casas que <em>cuidamos</em></h2><p class="lead">Fotos publicadas con permiso del propietario. Sin dirección exacta.</p></div>
-    <div class="case">
-      <figure class="case-main">${photo('aerea','Vista aérea de Villa Sienna en El Madroñal, Benahavís','4/3')}</figure>
-      <div class="case-side">
-        <figure>${photo('azotea','Piscina de la azotea de Villa Sienna con vistas al mar','3/2')}</figure>
-        <figure>${photo('dia','Fachada de Villa Sienna con la piscina principal','3/2')}</figure>
-      </div>
-    </div>
-    <div class="case-meta"><div><h3>Villa Sienna</h3><span>El Madroñal, Benahavís</span></div><div><b>Gestión integral</b><span>Visitas, piscinas, jardín, instalaciones y proveedores</span></div><div><b>Una villa contemporánea</b><span>Dos piscinas, azotea con vistas al mar y sala técnica propia</span></div></div>
-  </div></section>
-
-  <section class="band" style="padding-top:0"><div class="wrap">
-    <div class="sec-head"><h2>Trabajo <em>real</em>, en obra.</h2><p class="lead">Instalaciones y reformas que hemos dirigido en villas que gestionamos. Fotos del equipo, sin retoques de estudio.</p></div>
-    ${workGallery()}
-  </div></section>
-
-  <section class="band alt"><div class="wrap">
-    <div class="sec-head"><h2>Lo que dicen los <em>propietarios</em></h2><p class="lead">Reseñas verificadas en Google.</p></div>
-    <div class="quotes">
-      <figure class="quote"><span class="stars">★★★★★</span><p>«Vivimos en Estocolmo nueve meses al año. Cada viernes recibimos el informe con fotos y no hemos tenido una sola sorpresa en cinco años.»</p><footer><b>Anna Lindqvist</b>Villa Albero, Benahavís</footer></figure>
-      <figure class="quote"><span class="stars">★★★★★</span><p>«Francisco dirigió la reforma de los baños y la terminó en plazo. Lo mejor es que siempre hablas con la misma persona.»</p><footer><b>James Harrington</b>Villa Las Brisas, Nueva Andalucía</footer></figure>
-      <figure class="quote"><span class="stars">★★★★★</span><p>«Tener todas las garantías y facturas de la casa en un mismo sitio nos ha ahorrado horas de buscar papeles.»</p><footer><b>Javier Ortega</b>Casa del Pinar, San Pedro</footer></figure>
-    </div>
-  </div></section>
-
-  <section class="band"><div class="wrap">
-    <div class="sec-head"><h2>Paquetes <em>orientativos</em></h2><p class="lead">Lo que incluye cada nivel, a la vista. El precio final depende de la casa.</p></div>
-    ${PLANS}
-  </div></section>
-
-  <section class="band alt"><div class="wrap cta-band">
-    <h2>¿Tomamos un café y me cuentas cómo es <em>tu casa</em>?</h2>
-    <div class="hero-ctas"><a class="btn btn-primary" href="#contacto">Quedar con Francisco ${ico('arrow')}</a><span style="color:var(--muted);font-size:.9rem">Quedan 2 plazas en su cartera</span></div>
+  <section class="m-quote band alt"><div class="wrap">
+    <blockquote>«Con diez casas, sé qué grifo gotea antes de que lo notes.»</blockquote>
+    <div class="sig">Francisco Gatell · Fundador</div>
+    <div class="hero-ctas"><a class="btn" href="https://wa.me/34665601092" target="_blank" rel="noopener">${ico('chat')}Escribir a Francisco</a><a class="link" href="#acceso">Área de propietarios</a></div>
   </div></section>`;
 }
-
 function servicesView(){
   const D = (n,t,em,txt,inc,freq,rep,id) => `
     <div class="detail" id="${id}"><div><div class="eyebrow">${n}</div><h2 style="margin-top:1rem">${t} <em>${em}</em></h2><p>${txt}</p></div>
@@ -1119,7 +1032,7 @@ function inviteModal(propId){
 
 function eBanner(){
   const list = ads(), imgs = Object.keys(PH);
-  return `<div class="welcome"><div><h3>Anuncios de la portada</h3><p>Una imagen grande por servicio, como un cartel. Sube una foto de buena calidad en horizontal y, si quieres, dos o tres palabras encima. Al pulsar, lleva al servicio que elijas.</p></div><a class="btn btn-sm" href="#bienvenida">Ver la portada</a></div>
+  return `<div class="welcome"><div><h3>Anuncios de la portada</h3><p>Es la imagen grande que abre la web. Sube una foto de buena calidad en horizontal y, si quieres, dos o tres palabras encima. Al pulsar, lleva a donde elijas.</p></div><a class="btn btn-sm" href="#inicio">Ver la portada</a></div>
   <form id="bannerForm" class="card" style="gap:1rem">
     ${list.length?'':'<p class="muted">No hay anuncios. Añade uno con el botón de abajo.</p>'}
     ${list.map((a,i)=>`<div class="card ad-row" data-ad="${i}">
@@ -1129,8 +1042,9 @@ function eBanner(){
           <select data-adpick="${i}" aria-label="O elegir de la galería"><option value="">o elegir de la galería…</option>${imgs.map(k=>`<option value="${k}" ${k===a.img?'selected':''}>${k}</option>`).join('')}</select>
           <label class="check"><input type="checkbox" data-adon="${i}" ${a.on?'checked':''}> Visible</label>
           <button class="btn btn-sm" type="button" data-addel="${i}">Quitar</button></div>
-        <div class="grid2"><div class="field"><label for="adt${i}">Palabras (opcional)</label><input id="adt${i}" data-adt="${i}" value="${esc(a.t||'')}" maxlength="28" placeholder="Cine en casa"></div>
+        <div class="grid2"><div class="field"><label for="adt${i}">Palabras (opcional)</label><input id="adt${i}" data-adt="${i}" value="${esc(a.t||'')}" maxlength="28" placeholder="El cine, en tu casa"></div>
         <div class="field"><label for="adg${i}">Lleva a</label><select id="adg${i}" data-adgo="${i}">${PROMO_GO.map(([v,l])=>`<option value="${v}" ${v===a.go?'selected':''}>${l}</option>`).join('')}</select></div></div>
+        <div class="field"><label for="ads${i}">Frase corta (opcional)</label><input id="ads${i}" data-ads="${i}" value="${esc(a.s||'')}" maxlength="110" placeholder="Una línea, como mucho"></div>
       </div></div>`).join('')}
     <div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn btn-primary" type="submit">Guardar anuncios</button><button class="btn" type="button" id="adAdd">${ico('plus')}Añadir anuncio</button><button class="btn" type="button" id="bannerReset">Volver a los de ejemplo</button></div>
   </form>`;
@@ -1470,14 +1384,14 @@ function bind(h){
   const bf = $('#bannerForm');
   if (bf) {
     let draft = ads();
-    const read = () => { draft = draft.map((a,i)=>({...a, on:bf.querySelector(`[data-adon="${i}"]`).checked, t:bf.querySelector(`[data-adt="${i}"]`).value.trim(), go:bf.querySelector(`[data-adgo="${i}"]`).value})); };
-    const save = (msg) => { try{ localStorage.setItem('lps-ads', JSON.stringify(draft)); toast(msg); return true; }catch(err){ toast('No cabe tanta imagen en este navegador. Prueba con una foto más ligera.'); return false; } };
+    const read = () => { draft = draft.map((a,i)=>({...a, on:bf.querySelector(`[data-adon="${i}"]`).checked, t:bf.querySelector(`[data-adt="${i}"]`).value.trim(), s:bf.querySelector(`[data-ads="${i}"]`).value.trim(), go:bf.querySelector(`[data-adgo="${i}"]`).value})); };
+    const save = (msg) => { try{ localStorage.setItem(ADS_KEY, JSON.stringify(draft)); toast(msg); return true; }catch(err){ toast('No cabe tanta imagen en este navegador. Prueba con una foto más ligera.'); return false; } };
     bf.addEventListener('submit',e=>{ e.preventDefault(); read(); if(save('Anuncios guardados')) route(); });
-    $('#adAdd').addEventListener('click',()=>{ read(); draft.push({on:true, img:'atardecer', t:'', go:'svc-reformas'}); try{ localStorage.setItem('lps-ads', JSON.stringify(draft)); }catch(e){} route(); });
-    bf.querySelectorAll('[data-addel]').forEach(b=>b.addEventListener('click',()=>{ read(); draft.splice(+b.dataset.addel,1); try{ localStorage.setItem('lps-ads', JSON.stringify(draft)); }catch(e){} route(); }));
+    $('#adAdd').addEventListener('click',()=>{ read(); draft.push({on:true, img:'atardecer', t:'', s:'', go:'whatsapp'}); try{ localStorage.setItem(ADS_KEY, JSON.stringify(draft)); }catch(e){} route(); });
+    bf.querySelectorAll('[data-addel]').forEach(b=>b.addEventListener('click',()=>{ read(); draft.splice(+b.dataset.addel,1); try{ localStorage.setItem(ADS_KEY, JSON.stringify(draft)); }catch(e){} route(); }));
     bf.querySelectorAll('[data-adpick]').forEach(sel=>sel.addEventListener('change',()=>{ if(!sel.value) return; const i=+sel.dataset.adpick; draft[i].img=sel.value; sel.closest('.ad-row').querySelector('img').src=PH[sel.value]; }));
     bf.querySelectorAll('[data-adfile]').forEach(inp=>inp.addEventListener('change',async()=>{ const f=inp.files[0]; if(!f) return; const i=+inp.dataset.adfile; try{ const url=await shrinkImage(f); draft[i].img=url; inp.closest('.ad-row').querySelector('img').src=url; bf.querySelector(`[data-adpick="${i}"]`).value=''; toast('Imagen lista. Pulsa Guardar anuncios.'); }catch(e){ toast('No se pudo leer la imagen'); } }));
-    $('#bannerReset').addEventListener('click',()=>{ try{ localStorage.removeItem('lps-ads'); localStorage.removeItem('lps-promos'); }catch(e){} route(); toast('Anuncios de ejemplo restaurados'); });
+    $('#bannerReset').addEventListener('click',()=>{ try{ localStorage.removeItem(ADS_KEY); localStorage.removeItem('lps-ads'); localStorage.removeItem('lps-promos'); }catch(e){} route(); toast('Anuncios de ejemplo restaurados'); });
   }
   const comp = $('#composer');
   if (comp) comp.addEventListener('submit',e=>{ e.preventDefault(); const v=$('#msgInput').value.trim(); if(!v) return;
