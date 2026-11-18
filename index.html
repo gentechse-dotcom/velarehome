@@ -316,7 +316,17 @@ blockquote{margin:0;font:300 clamp(1.2rem,2vw,1.55rem)/1.45 var(--sans)}
 @media (max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}}
 
 /* Páginas internas */
-.page-head{padding-block:clamp(3.5rem,8vw,6rem) 3rem;border-bottom:1px solid var(--line)}
+.page-head{padding-block:clamp(1.6rem,3.5vw,2.8rem) clamp(2rem,4vw,3rem);border-bottom:1px solid var(--line)}
+.page-head .wrap:has(.page-img){display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:clamp(2rem,5vw,5rem);align-items:center}
+.page-head .wrap:has(.page-img){grid-template-rows:1fr auto auto auto 1fr}
+.page-head .wrap:has(.page-img) > *{grid-column:1}
+.page-head .wrap:has(.page-img) > :nth-child(1){grid-row:2}
+.page-head .wrap:has(.page-img) > :nth-child(2){grid-row:3}
+.page-head .wrap:has(.page-img) > :nth-child(3){grid-row:4}
+.page-head .wrap:has(.page-img) > .page-img{grid-column:2;grid-row:1 / 6;margin:0;align-self:center}
+.page-head .page-img .ph{border-radius:6px;overflow:hidden}
+.page-head .page-img.tall{max-width:440px;justify-self:end;width:100%}
+@media (max-width:820px){.page-head .wrap:has(.page-img){display:block}.page-head .page-img{margin-top:2rem}.page-head .page-img.tall{max-width:none}}
 .page-head h1{font-size:clamp(1.9rem,3.4vw,2.9rem);max-width:22ch;margin-block:1rem 1.2rem}
 .detail{display:grid;grid-template-columns:4fr 8fr;gap:3rem;padding-block:3.5rem;border-bottom:1px solid var(--line)}
 .detail > *{min-width:0}
@@ -852,7 +862,7 @@ function servicesView(){
   <section class="page-head"><div class="wrap"><div class="eyebrow">Servicios</div>
     <h1>Todo lo que necesita una villa, con <em>una</em> sola persona al frente.</h1>
     <p class="lead">Cada gestor lleva como máximo 10 villas. Así podemos visitar más, responder antes y conocer cada casa al detalle.</p>
-    <div class="page-img">${photo('chillout','Zona chill-out iluminada de Villa Sienna al atardecer','21/9')}<div class="caption"><span>Villa Sienna · zona chill-out preparada para la llegada de los propietarios</span></div></div></div></section>
+    <div class="page-img">${photo('chillout','Zona chill-out iluminada de Villa Sienna al atardecer','4/3')}<div class="caption"><span>Villa Sienna · zona chill-out preparada para la llegada de los propietarios</span></div></div></div></section>
   <div class="wrap">
     ${D('01','Gestión de','villas','Para propietarios que pasan parte del año fuera y quieren encontrar la casa lista al llegar.',
       ['Visitas de control: alarma, humedades, plagas, suministros','Coordinación de piscina, jardín y limpieza','Pago de proveedores, IBI, comunidad y seguros','Preparación antes de cada llegada','Custodia de llaves'],
@@ -876,9 +886,9 @@ function aboutView(){
   <section class="page-head"><div class="wrap"><div class="eyebrow">Sobre Paco</div>
     <h1>Conozco cada casa que <em>gestiono</em>.</h1>
     <p class="lead">Soy Paco Gatell, project manager y fundador de Velarehome. Llevo más de quince años gestionando y reformando villas en la Costa del Sol.</p>
-    <div class="page-img">${photo('entrada','Acceso de Villa Sienna con muro de piedra natural','21/9')}<div class="caption"><span>Villa Sienna · El Madroñal, Benahavís</span></div></div></div></section>
+    <div class="page-img tall"><div class="ph" style="aspect-ratio:4/5"><img class="photo" src="paco.jpg" alt="Paco Gatell, fundador de Velarehome" decoding="async"></div></div></div></section>
   <section class="band"><div class="wrap founder">
-    <div class="portrait"><img src="paco.jpg" alt="Paco Gatell, fundador de Velarehome"></div>
+    <div class="portrait"><img src="${PH.entrada}" alt="Acceso de Villa Sienna con muro de piedra natural" loading="lazy"></div>
     <div>
       <p class="lead" style="color:var(--fg)">Empecé dirigiendo obras en Marbella y vi que los propietarios no tenían un problema de proveedores, sino de interlocutor. Nadie conocía su casa entera. Por eso fundé una empresa pequeña a propósito: cada gestor lleva como máximo diez villas, y yo sigo visitándolas.</p>
       <ol class="timeline">
@@ -898,12 +908,6 @@ function aboutView(){
     </div>
   </div></section>
   <section class="band"><div class="wrap">
-    <div class="sec-head"><h2>Quién cuida <em>tu casa</em></h2><p class="lead">Cada villa tiene un gestor con nombre y apellidos. Hoy, ese gestor es Paco.</p></div>
-    <div class="team" style="grid-template-columns:minmax(0,280px)">
-      <div class="member"><div class="portrait"><img src="paco.jpg" alt="Paco Gatell"></div><b>Paco Gatell</b><span class="r">Fundador · project manager</span></div>
-    </div>
-  </div></section>
-  <section class="band alt"><div class="wrap">
     <div class="sec-head"><h2>Zonas que <em>cubrimos</em></h2><p class="lead">Menos de 30 minutos desde nuestra oficina en Marbella.</p></div>
     <div class="zones">
       <div class="zone"><b>Marbella</b><span>Sierra Blanca, Golden Mile, Los Monteros</span></div>
