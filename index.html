@@ -157,17 +157,33 @@ img.photo{display:block;width:100%;height:100%;max-width:100%;object-fit:cover}
 .hello b{display:block;font-weight:500;font-size:.92rem}
 .hello small{display:block;color:var(--muted);font-size:.8rem}
 .hello:hover b{text-decoration:underline}
-.vh-promo{width:100%;max-width:1180px;margin-top:2.8rem;display:grid;grid-template-columns:repeat(var(--n,3),1fr);gap:.8rem}
-.vh-slide{position:relative;display:block;aspect-ratio:3/2;border-radius:8px;overflow:hidden;text-decoration:none;color:#FAF8F4;text-align:left;isolation:isolate;box-shadow:0 10px 30px -18px rgba(46,38,32,.6)}
-.vh-slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1);z-index:-2}
-.vh-slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,13,0) 35%,rgba(20,16,13,.8) 100%);z-index:-1}
-.vh-slide:hover img{transform:scale(1.04)}
-.vh-slide .in{position:absolute;left:0;right:0;bottom:0;padding:1.2rem 1.2rem 1.3rem}
-.vh-slide small{display:block;font:500 .66rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;opacity:.85;margin-bottom:.55rem}
-.vh-slide b{display:block;font:500 clamp(1.05rem,1.7vw,1.3rem)/1.25 var(--sans)}
-.vh-slide .go{display:inline-flex;align-items:center;gap:.4rem;margin-top:.9rem;padding:.45rem .85rem;border-radius:99px;background:var(--accent);color:var(--on-accent);font:500 .75rem/1 var(--sans)}
-.vh-slide:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-@media (max-width:820px){.vh-promo{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.7rem;padding-bottom:.4rem;scrollbar-width:none}.vh-promo::-webkit-scrollbar{display:none}.vh-slide{flex:0 0 78%;scroll-snap-align:center;aspect-ratio:4/5}}
+.landing{overflow-x:clip}
+.vh-ads{position:relative;width:100vw;margin:3rem calc(50% - 50vw) 0;aspect-ratio:21/9;max-height:82vh;min-height:360px;overflow:hidden;background:#2E2620}
+.vh-ads-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
+.vh-ads-track::-webkit-scrollbar{display:none}
+.vh-ad{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start;display:block;color:#FAF8F4;text-decoration:none;isolation:isolate}
+.vh-ad img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 6s ease-out}
+.vh-ad:hover img{transform:scale(1.03)}
+.vh-ad.has-words::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,14,11,.55) 0%,rgba(18,14,11,0) 55%),linear-gradient(0deg,rgba(18,14,11,.35) 0%,rgba(18,14,11,0) 40%);z-index:-1}
+.vh-ad .in{position:absolute;left:clamp(1.25rem,6vw,6rem);bottom:clamp(1.6rem,7vh,4.5rem);right:1.25rem;text-align:left}
+.vh-ad b{display:block;font:500 clamp(2rem,5.4vw,4.6rem)/1.02 var(--sans);letter-spacing:-.02em;max-width:12ch;text-wrap:balance}
+.vh-ad .go{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.1rem;font:500 .8rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.vh-ad .go .ico{width:16px;height:16px}
+.vh-ad:not(.has-words) .in{left:auto;right:1.25rem;bottom:1.25rem}
+.vh-ad:not(.has-words) .go{background:rgba(18,14,11,.5);padding:.55rem .8rem;border-radius:99px;margin:0}
+.vh-ad:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.vh-dots{position:absolute;right:clamp(1.25rem,6vw,6rem);bottom:clamp(1.6rem,7vh,4.5rem);display:flex;gap:.5rem;z-index:2}
+.vh-ad:not(.has-words) ~ .vh-dots{bottom:4.2rem}
+.vh-dots button{width:28px;height:3px;padding:0;border:0;border-radius:2px;background:rgba(250,248,244,.45);cursor:pointer;transition:background .2s,width .2s}
+.vh-dots button[aria-current="true"]{background:var(--accent);width:44px}
+.vh-dots button::before{content:"";display:block;margin:-12px 0;height:27px}
+@media (max-width:720px){.vh-ads{aspect-ratio:4/5;max-height:none;min-height:0}.vh-ad .in{left:1.25rem;bottom:3.4rem}.vh-dots{left:1.25rem;right:auto;bottom:1.5rem}}
+.card.ad-row{display:grid;grid-template-columns:220px 1fr;gap:1.2rem;align-items:start;background:var(--bg)}
+.card.ad-row .ph{width:100%;aspect-ratio:16/9;border-radius:6px;overflow:hidden}
+.ad-row .ph img{width:100%;height:100%;object-fit:cover}
+.ad-row .acts{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.ad-row .acts select{height:42px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:0 .7rem;font:400 .85rem var(--sans);color:inherit}
+@media (max-width:720px){.card.ad-row{grid-template-columns:1fr}}
 .velar{display:grid;grid-template-columns:6fr 5fr;gap:clamp(2rem,5vw,5rem);align-items:end}
 .velar > *{min-width:0}
 .velar-cols{display:grid;gap:0;border-top:1px solid var(--fg)}
@@ -674,6 +690,7 @@ function route(){
   else html = publicShell('inicio');
   root.innerHTML = html;
   bind(h);
+  bindAds();
   window.scrollTo(0,0);
   if (state.jump) { const id=state.jump; state.jump=null; setTimeout(()=>document.getElementById(id)?.scrollIntoView(), 60); }
   document.title = titleFor(h);
@@ -686,19 +703,37 @@ function titleFor(h){
 window.addEventListener('hashchange', route);
 
 /* ================= Banner de Francisco (editable desde admin) ================= */
-const DEFAULT_PROMOS = [
-  {on:true, img:'aerotermia', k:'Nuevo servicio', t:'Adiós al gas con aerotermia', go:'svc-reformas'},
-  {on:true, img:'solar', k:'Nuevo servicio', t:'Tu propia energía solar', go:'svc-reformas'},
-  {on:true, img:'chillout', k:'Servicio premium', t:'Tu casa lista el día que llegas', go:'svc-concierge'},
+const DEFAULT_ADS = [
+  {on:true, img:'aerotermia', t:'Adiós al gas', go:'svc-reformas'},
+  {on:true, img:'solar', t:'Energía solar', go:'svc-reformas'},
+  {on:true, img:'chillout', t:'Tu casa, lista', go:'svc-concierge'},
 ];
 const PROMO_GO = [['svc-reformas','Reformas y mejoras'],['svc-gestion','Cuidado de la vivienda'],['svc-concierge','Servicio premium'],['svc-planes','Paquetes'],['contacto','Contacto']];
-function promos(){ try{ const l=JSON.parse(localStorage.getItem('lps-promos')); if(l && l.length) return l.map((p,i)=>({...DEFAULT_PROMOS[i%3], ...p})); }catch(e){} return DEFAULT_PROMOS; }
+function ads(){ try{ const l=JSON.parse(localStorage.getItem('lps-ads')); if(Array.isArray(l)) return l; }catch(e){} return DEFAULT_ADS.map(a=>({...a})); }
+const adSrc = img => PH[img] || img;
 function promoBlock(){
-  const list = promos().filter(p=>p.on); if(!list.length) return '';
-  return `<section class="vh-promo" aria-label="Nuevos servicios" style="--n:${list.length}">${list.map(p=>{
-    const href = p.go==='contacto' ? '#contacto' : '#servicios';
-    return `<a class="vh-slide" href="${href}" ${p.go!=='contacto'?`data-jumpto="${esc(p.go||'svc-reformas')}"`:''}><img src="${PH[p.img]}" alt="" loading="lazy" decoding="async"><div class="in">${p.k?`<small>${esc(p.k)}</small>`:''}<b>${esc(p.t)}</b><span class="go">Descubrir ${ico('arrow')}</span></div></a>`;
-  }).join('')}</section>`;
+  const list = ads().filter(a=>a.on && a.img); if(!list.length) return '';
+  return `<section class="vh-ads" id="vhAds" aria-label="Nuevos servicios" aria-roledescription="carrusel">
+    <div class="vh-ads-track">${list.map((a,i)=>{
+      const href = a.go==='contacto' ? '#contacto' : '#servicios';
+      const w = (a.t||'').trim();
+      return `<a class="vh-ad ${w?'has-words':''}" href="${href}" ${a.go!=='contacto'?`data-jumpto="${esc(a.go||'svc-reformas')}"`:''} aria-label="${esc(w||'Nuevo servicio')} (${i+1} de ${list.length})"><img src="${adSrc(a.img)}" alt="" ${i?'loading="lazy"':''} decoding="async"><div class="in">${w?`<b>${esc(w)}</b>`:''}<span class="go">Descubrir ${ico('arrow')}</span></div></a>`;
+    }).join('')}</div>
+    ${list.length>1?`<div class="vh-dots">${list.map((_,i)=>`<button type="button" aria-label="Anuncio ${i+1}" ${i?'':'aria-current="true"'}></button>`).join('')}</div>`:''}
+  </section>`;
+}
+function bindAds(){
+  clearInterval(state.adTimer);
+  const box = $('#vhAds'); if(!box) return;
+  const track = box.querySelector('.vh-ads-track'), dots=[...box.querySelectorAll('.vh-dots button')], n=track.children.length;
+  if(n<2) return;
+  const cur = () => Math.round(track.scrollLeft / track.clientWidth);
+  const go = i => track.scrollTo({left:((i+n)%n)*track.clientWidth});
+  track.addEventListener('scroll',()=>{ const c=cur(); dots.forEach((d,i)=>d.setAttribute('aria-current', i===c?'true':'false')); },{passive:true});
+  dots.forEach((d,i)=>d.addEventListener('click',()=>go(i)));
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let paused=false; box.addEventListener('mouseenter',()=>paused=true); box.addEventListener('mouseleave',()=>paused=false); box.addEventListener('focusin',()=>paused=true); box.addEventListener('focusout',()=>paused=false);
+  state.adTimer = setInterval(()=>{ if(!paused && document.contains(track)) go(cur()+1); }, 6000);
 }
 
 /* ================= Landing de entrada ================= */
@@ -1083,20 +1118,24 @@ function inviteModal(propId){
 }
 
 function eBanner(){
-  const list = promos(), imgs = Object.keys(PH);
-  return `<div class="welcome"><div><h3>Banner de nuevos servicios</h3><p>Aparece en la portada de Velarehome. Cada imagen lleva a la sección del servicio. Usa títulos cortos: la imagen hace el trabajo.</p></div><a class="btn btn-sm" href="#bienvenida">Ver la portada</a></div>
-  <form id="bannerForm" class="card" style="gap:1.4rem">
-    <div class="grid3">${list.map((p,i)=>`<div class="card" style="background:var(--bg)">
-      <div class="card-h"><span class="eyebrow">Imagen ${i+1}</span><label class="check" for="b${i}on"><input id="b${i}on" type="checkbox" ${p.on?'checked':''}> Visible</label></div>
-      ${photo(p.img, p.t, '4/5')}
-      <div class="field"><label for="b${i}img">Imagen</label><select id="b${i}img">${imgs.map(k=>`<option value="${k}" ${k===p.img?'selected':''}>${k}</option>`).join('')}</select></div>
-      <div class="field"><label for="b${i}k">Etiqueta pequeña</label><input id="b${i}k" value="${esc(p.k||'')}" placeholder="Nuevo servicio"></div>
-      <div class="field"><label for="b${i}t">Título</label><input id="b${i}t" value="${esc(p.t)}" maxlength="40"></div>
-      <div class="field"><label for="b${i}go">Lleva a</label><select id="b${i}go">${PROMO_GO.map(([v,l])=>`<option value="${v}" ${v===p.go?'selected':''}>${l}</option>`).join('')}</select></div>
-    </div>`).join('')}</div>
-    <div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn btn-primary" type="submit">Guardar banner</button><button class="btn" type="button" id="bannerReset">Volver al banner de ejemplo</button></div>
+  const list = ads(), imgs = Object.keys(PH);
+  return `<div class="welcome"><div><h3>Anuncios de la portada</h3><p>Una imagen grande por servicio, como un cartel. Sube una foto de buena calidad en horizontal y, si quieres, dos o tres palabras encima. Al pulsar, lleva al servicio que elijas.</p></div><a class="btn btn-sm" href="#bienvenida">Ver la portada</a></div>
+  <form id="bannerForm" class="card" style="gap:1rem">
+    ${list.length?'':'<p class="muted">No hay anuncios. Añade uno con el botón de abajo.</p>'}
+    ${list.map((a,i)=>`<div class="card ad-row" data-ad="${i}">
+      <div class="ph"><img src="${adSrc(a.img)}" alt=""></div>
+      <div style="display:grid;gap:.8rem">
+        <div class="acts"><label class="btn btn-sm" style="cursor:pointer">${ico('plus')}Subir imagen<input type="file" accept="image/*" data-adfile="${i}" hidden></label>
+          <select data-adpick="${i}" aria-label="O elegir de la galería"><option value="">o elegir de la galería…</option>${imgs.map(k=>`<option value="${k}" ${k===a.img?'selected':''}>${k}</option>`).join('')}</select>
+          <label class="check"><input type="checkbox" data-adon="${i}" ${a.on?'checked':''}> Visible</label>
+          <button class="btn btn-sm" type="button" data-addel="${i}">Quitar</button></div>
+        <div class="grid2"><div class="field"><label for="adt${i}">Palabras (opcional)</label><input id="adt${i}" data-adt="${i}" value="${esc(a.t||'')}" maxlength="28" placeholder="Cine en casa"></div>
+        <div class="field"><label for="adg${i}">Lleva a</label><select id="adg${i}" data-adgo="${i}">${PROMO_GO.map(([v,l])=>`<option value="${v}" ${v===a.go?'selected':''}>${l}</option>`).join('')}</select></div></div>
+      </div></div>`).join('')}
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn btn-primary" type="submit">Guardar anuncios</button><button class="btn" type="button" id="adAdd">${ico('plus')}Añadir anuncio</button><button class="btn" type="button" id="bannerReset">Volver a los de ejemplo</button></div>
   </form>`;
 }
+function shrinkImage(file, max=2400){ return new Promise((ok,ko)=>{ const r=new FileReader(); r.onerror=ko; r.onload=()=>{ const im=new Image(); im.onerror=ko; im.onload=()=>{ const k=Math.min(1, max/Math.max(im.width,im.height)); const c=document.createElement('canvas'); c.width=Math.round(im.width*k); c.height=Math.round(im.height*k); c.getContext('2d').drawImage(im,0,0,c.width,c.height); ok(c.toDataURL('image/jpeg',.86)); }; im.src=r.result; }; r.readAsDataURL(file); }); }
 
 /* ---------- Cuentas reales: estados vacíos ---------- */
 const emptyBox = (i, t, txt, acts='') => `<div class="emptybox">${ico(i)}<h3>${t}</h3><p>${txt}</p>${acts?`<div class="acts">${acts}</div>`:''}</div>`;
@@ -1430,12 +1469,15 @@ function bind(h){
   document.querySelectorAll('[data-addclient]').forEach(b=>b.addEventListener('click',()=>inviteModal(b.dataset.addclient)));
   const bf = $('#bannerForm');
   if (bf) {
-    bf.addEventListener('submit',e=>{ e.preventDefault();
-      const list = promos().map((p,i)=>({on:$('#b'+i+'on').checked, img:$('#b'+i+'img').value, k:$('#b'+i+'k').value.trim(), t:$('#b'+i+'t').value.trim()||p.t, go:$('#b'+i+'go').value}));
-      try{ localStorage.setItem('lps-promos', JSON.stringify(list)); localStorage.removeItem('lps-promo-head'); }catch(err){}
-      route(); toast('Banner guardado. Así lo verán tus clientes al entrar (en este navegador hasta tener backend)'); });
-    $('#bannerReset').addEventListener('click',()=>{ try{ localStorage.removeItem('lps-promos'); localStorage.removeItem('lps-promo-head'); }catch(e){} route(); toast('Banner restaurado'); });
-    bf.querySelectorAll('select[id$="img"]').forEach(sel=>sel.addEventListener('change',()=>{ const img=sel.closest('.card').querySelector('img.photo'); if(img) img.src=PH[sel.value]; }));
+    let draft = ads();
+    const read = () => { draft = draft.map((a,i)=>({...a, on:bf.querySelector(`[data-adon="${i}"]`).checked, t:bf.querySelector(`[data-adt="${i}"]`).value.trim(), go:bf.querySelector(`[data-adgo="${i}"]`).value})); };
+    const save = (msg) => { try{ localStorage.setItem('lps-ads', JSON.stringify(draft)); toast(msg); return true; }catch(err){ toast('No cabe tanta imagen en este navegador. Prueba con una foto más ligera.'); return false; } };
+    bf.addEventListener('submit',e=>{ e.preventDefault(); read(); if(save('Anuncios guardados')) route(); });
+    $('#adAdd').addEventListener('click',()=>{ read(); draft.push({on:true, img:'atardecer', t:'', go:'svc-reformas'}); try{ localStorage.setItem('lps-ads', JSON.stringify(draft)); }catch(e){} route(); });
+    bf.querySelectorAll('[data-addel]').forEach(b=>b.addEventListener('click',()=>{ read(); draft.splice(+b.dataset.addel,1); try{ localStorage.setItem('lps-ads', JSON.stringify(draft)); }catch(e){} route(); }));
+    bf.querySelectorAll('[data-adpick]').forEach(sel=>sel.addEventListener('change',()=>{ if(!sel.value) return; const i=+sel.dataset.adpick; draft[i].img=sel.value; sel.closest('.ad-row').querySelector('img').src=PH[sel.value]; }));
+    bf.querySelectorAll('[data-adfile]').forEach(inp=>inp.addEventListener('change',async()=>{ const f=inp.files[0]; if(!f) return; const i=+inp.dataset.adfile; try{ const url=await shrinkImage(f); draft[i].img=url; inp.closest('.ad-row').querySelector('img').src=url; bf.querySelector(`[data-adpick="${i}"]`).value=''; toast('Imagen lista. Pulsa Guardar anuncios.'); }catch(e){ toast('No se pudo leer la imagen'); } }));
+    $('#bannerReset').addEventListener('click',()=>{ try{ localStorage.removeItem('lps-ads'); localStorage.removeItem('lps-promos'); }catch(e){} route(); toast('Anuncios de ejemplo restaurados'); });
   }
   const comp = $('#composer');
   if (comp) comp.addEventListener('submit',e=>{ e.preventDefault(); const v=$('#msgInput').value.trim(); if(!v) return;
