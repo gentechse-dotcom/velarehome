@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Velarehome: gestión, mantenimiento, reformas y ampliaciones de villas en Marbella, Nueva Andalucía, Benahavís y San Pedro. Máximo 10 villas por gestor. Te atiende Francisco Gatell.">
+<meta name="description" content="Velarehome: gestión, mantenimiento, reformas y ampliaciones de villas en Marbella, Nueva Andalucía, Benahavís y San Pedro. Máximo 10 villas por gestor. Te atiende Paco Gatell.">
 <meta property="og:title" content="Velarehome · Project Management & Home Care">
 <meta property="og:description" content="Velamos por tu casa como si fuera la nuestra. Máximo 10 villas por gestor.">
 <meta property="og:image" content="https://velarehome.com/sienna-atardecer.jpg">
@@ -194,6 +194,11 @@ img.photo{display:block;width:100%;height:100%;max-width:100%;object-fit:cover}
 .m-mosaic figure:first-child{grid-row:span 2}
 .m-mosaic img{width:100%;height:100%;object-fit:cover}
 .m-cap{display:flex;justify-content:space-between;gap:1rem;margin-top:.9rem;font-size:.82rem;color:var(--muted)}
+.av img,.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;border-radius:inherit;display:block}
+.av{overflow:hidden}
+.portrait img{position:absolute;inset:0}
+.m-quote .face{width:76px;height:76px;border-radius:50%;overflow:hidden;margin:0 auto 1.6rem}
+.m-quote .face img{width:100%;height:100%;object-fit:cover}
 .m-quote{text-align:center;padding-block:clamp(4rem,9vw,7rem)}
 .m-quote blockquote{font:300 clamp(1.3rem,2.4vw,2rem)/1.4 var(--sans);max-width:30ch;margin:0 auto}
 .m-quote .sig{margin-top:1.4rem;font-size:.85rem;color:var(--muted)}
@@ -676,14 +681,14 @@ const PROPS = [
   ['Villa Retama','Los Monteros','5 dorm. · 600 m²','Mrs. Whitfield','Por definir','Alta en curso'],
 ];
 let MESSAGES = [
-  {me:false, who:'Francisco Gatell', at:'14 nov, 18:20', t:'Buenas tardes. Ya están colocadas las encimeras de la cocina. Os he subido fotos al diario de obra.'},
+  {me:false, who:'Paco Gatell', at:'14 nov, 18:20', t:'Buenas tardes. Ya están colocadas las encimeras de la cocina. Os he subido fotos al diario de obra.'},
   {me:true, who:'Anna Lindqvist', at:'14 nov, 19:05', t:'¡Qué bien quedan! ¿Seguimos en fecha para el 12 de diciembre?'},
-  {me:false, who:'Francisco Gatell', at:'15 nov, 09:12', t:'Sí, seguimos en plazo. Queda pendiente vuestra respuesta al presupuesto de climatización de la piscina para pedir la bomba a tiempo.'},
+  {me:false, who:'Paco Gatell', at:'15 nov, 09:12', t:'Sí, seguimos en plazo. Queda pendiente vuestra respuesta al presupuesto de climatización de la piscina para pedir la bomba a tiempo.'},
 ];
 
 /* Cuentas del prototipo: solo hashes SHA-256 de email:contraseña. No es seguridad real: falta backend. */
 const ACCOUNTS = [
-  {role:'admin', h:'dac6a2a7b250687ed0af6dce1aee39b856eb000a9d566912684c766d12b9503c', name:'Francisco', full:'Francisco Gatell', sub:'Administrador'},
+  {role:'admin', h:'dac6a2a7b250687ed0af6dce1aee39b856eb000a9d566912684c766d12b9503c', name:'Paco', full:'Paco Gatell', sub:'Administrador'},
   {role:'cliente', h:'43b472df8f786b46c5fd7e8522a83e72e49d52f4a3e719c3fb905b8221e89636', name:'Jose', full:'Jose Plaza', sub:'Villa Albero, Benahavís'},
 ];
 async function sha256(t){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
@@ -717,23 +722,23 @@ function route(){
   document.title = titleFor(h);
 }
 function titleFor(h){
-  const m = {inicio:'Velarehome · Project Management & Home Care', servicios:'Servicios · Velarehome', sobre:'Francisco Gatell · Velarehome', contacto:'Contacto · Velarehome', acceso:'Acceso clientes · Velarehome'};
+  const m = {inicio:'Velarehome · Project Management & Home Care', servicios:'Servicios · Velarehome', sobre:'Paco Gatell · Velarehome', contacto:'Contacto · Velarehome', acceso:'Acceso clientes · Velarehome'};
   return m[h] || 'Área privada · Velarehome';
 }
 window.addEventListener('hashchange', route);
 
-/* ================= Banner de Francisco (editable desde admin) ================= */
+/* ================= Banner de Paco (editable desde admin) ================= */
 const DEFAULT_ADS = [
   {on:true, img:'cine', t:'Cine en casa', s:'', go:'whatsapp'},
   {on:true, img:'aerotermia', t:'Adiós al gas', s:'', go:'svc-reformas'},
   {on:true, img:'solar', t:'Energía solar', s:'', go:'svc-reformas'},
 ];
-const PROMO_GO = [['whatsapp','WhatsApp con Francisco'],['svc-reformas','Reformas y mejoras'],['svc-gestion','Cuidado de la vivienda'],['svc-concierge','Servicio premium'],['svc-planes','Paquetes'],['contacto','Contacto']];
+const PROMO_GO = [['whatsapp','WhatsApp con Paco'],['svc-reformas','Reformas y mejoras'],['svc-gestion','Cuidado de la vivienda'],['svc-concierge','Servicio premium'],['svc-planes','Paquetes'],['contacto','Contacto']];
 const ADS_KEY = 'lps-ads-v2';
 function ads(){ try{ const l=JSON.parse(localStorage.getItem(ADS_KEY)); if(Array.isArray(l)) return l; }catch(e){} return DEFAULT_ADS.map(a=>({...a})); }
 const adSrc = img => PH[img] || img;
 function adHref(a){ const w=(a.t||'').trim();
-  if (a.go==='whatsapp') return `href="https://wa.me/34665601092?text=${encodeURIComponent('Hola Francisco, me interesa: '+(w||'vuestros nuevos servicios'))}" target="_blank" rel="noopener"`;
+  if (a.go==='whatsapp') return `href="https://wa.me/34665601092?text=${encodeURIComponent('Hola Paco, me interesa: '+(w||'vuestros nuevos servicios'))}" target="_blank" rel="noopener"`;
   if (a.go==='contacto') return 'href="#contacto"';
   return `href="#servicios" data-jumpto="${esc(a.go||'svc-reformas')}"`; }
 function promoBlock(){
@@ -741,7 +746,7 @@ function promoBlock(){
   return `<section class="vh-ads" id="vhAds" aria-label="Novedades" aria-roledescription="carrusel">
     <div class="vh-ads-track">${list.map((a,i)=>{
       const w=(a.t||'').trim(), s=(a.s||'').trim();
-      return `<a class="vh-ad ${w||s?'has-words':''}" ${adHref(a)} aria-label="${esc(w||'Novedad')} (${i+1} de ${list.length})"><img src="${adSrc(a.img)}" alt="" ${i?'loading="lazy"':'fetchpriority="high"'} decoding="async"><div class="in">${w?`<b>${esc(w)}</b>`:''}${s?`<p>${esc(s)}</p>`:''}<span class="go">${a.go==='whatsapp'?'Pregúntale a Francisco':'Ver más'} ${ico('arrow')}</span></div></a>`;
+      return `<a class="vh-ad ${w||s?'has-words':''}" ${adHref(a)} aria-label="${esc(w||'Novedad')} (${i+1} de ${list.length})"><img src="${adSrc(a.img)}" alt="" ${i?'loading="lazy"':'fetchpriority="high"'} decoding="async"><div class="in">${w?`<b>${esc(w)}</b>`:''}${s?`<p>${esc(s)}</p>`:''}<span class="go">${a.go==='whatsapp'?'Pregúntale a Paco':'Ver más'} ${ico('arrow')}</span></div></a>`;
     }).join('')}</div>
     ${list.length>1?`<div class="vh-dots">${list.map((_,i)=>`<button type="button" aria-label="Novedad ${i+1}" ${i?'':'aria-current="true"'}></button>`).join('')}</div>`:''}
   </section>`;
@@ -762,22 +767,22 @@ function bindAds(){
 
 /* ================= Público ================= */
 function header(cur){
-  const L = [['servicios','Servicios'],['sobre','Sobre Francisco'],['contacto','Contacto']];
+  const L = [['servicios','Servicios'],['sobre','Sobre Paco'],['contacto','Contacto']];
   return `<header class="site-header"><div class="wrap">
     <a class="logo" href="#inicio">Velarehome<small>Project Management &amp; Home Care</small></a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">${ico('menu')}</button>
     <nav class="nav" id="nav" aria-label="Principal">
       ${L.map(([k,t])=>`<a href="#${k.split('#')[0]}" ${k.includes('#metodo')?'data-jump="metodo"':''} class="${cur===k?'on':''}">${t}</a>`).join('')}
       <a class="access" href="#acceso">${ico('lock')}Acceso clientes</a>
-      <a class="btn btn-dark btn-sm" href="#contacto">Hablar con tu gestor</a>
+      <a class="btn btn-dark btn-sm" href="#contacto">Hablar con Paco</a>
     </nav></div></header>`;
 }
 function footer(){
   return `<footer class="site-footer"><div class="wrap">
     <div class="foot-grid">
-      <div><a class="logo" href="#inicio">Velarehome</a><p style="color:var(--muted);margin-top:1rem;max-width:34ch">Gestión de villas, reformas y concierge. Como máximo 10 villas por gestor, para conocerlas todas.</p><a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener" style="margin-top:1.2rem"><span class="av">FG</span><span><b>Francisco Gatell</b><small>+34 665 601 092 · WhatsApp</small></span></a></div>
+      <div><a class="logo" href="#inicio">Velarehome</a><p style="color:var(--muted);margin-top:1rem;max-width:34ch">Gestión de villas, reformas y concierge. Como máximo 10 villas por gestor, para conocerlas todas.</p><a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener" style="margin-top:1.2rem"><span class="av"><img src="paco-avatar.jpg" alt=""></span><span><b>Paco Gatell</b><small>+34 665 601 092 · WhatsApp</small></span></a></div>
       <div><h4>Servicios</h4><ul><li><a href="#servicios">Gestión de villas</a></li><li><a href="#servicios">Reformas y ampliaciones</a></li><li><a href="#servicios">Concierge</a></li></ul></div>
-      <div><h4>Empresa</h4><ul><li><a href="#sobre">Sobre Francisco</a></li><li><a href="#contacto">Contacto</a></li><li><a href="#acceso">Acceso clientes</a></li></ul></div>
+      <div><h4>Empresa</h4><ul><li><a href="#sobre">Sobre Paco</a></li><li><a href="#contacto">Contacto</a></li><li><a href="#acceso">Acceso clientes</a></li></ul></div>
       <div><h4>Contacto</h4><ul><li><a href="https://wa.me/34665601092" target="_blank" rel="noopener">+34 665 601 092 · WhatsApp</a></li><li>info@luxury-property-services.com</li><li>Lunes a viernes, 9:00–19:00</li><li>Urgencias de clientes 24/7</li></ul></div>
     </div>
     <div class="legal"><span>© <span class="num">${new Date().getFullYear()}</span> Luxury Property Services Costa del Sol S.L. · CIF B-XXXXXXXX · Marbella, Málaga · Velarehome es su marca comercial</span>
@@ -811,7 +816,7 @@ function homeView(){
 
   <section class="m-claim"><div class="wrap">
     <h1>Solo 10 villas por gestor. Tu casa, cuidada como <em>la nuestra</em>.</h1>
-    <div class="hero-ctas"><a class="btn btn-primary" href="https://wa.me/34665601092" target="_blank" rel="noopener">Hablar con tu gestor ${ico('arrow')}</a></div>
+    <div class="hero-ctas"><a class="btn btn-primary" href="https://wa.me/34665601092" target="_blank" rel="noopener">Hablar con Paco ${ico('arrow')}</a></div>
   </div></section>
 
   <section class="band" style="padding-top:0" id="servicios-home"><div class="wrap">
@@ -832,9 +837,10 @@ function homeView(){
   </div></section>
 
   <section class="m-quote band alt"><div class="wrap">
+    <div class="face"><img src="paco-avatar.jpg" alt="Paco Gatell" loading="lazy"></div>
     <blockquote>«Con diez casas, sé qué grifo gotea antes de que lo notes.»</blockquote>
-    <div class="sig">Francisco Gatell · Fundador</div>
-    <div class="hero-ctas"><a class="btn" href="https://wa.me/34665601092" target="_blank" rel="noopener">${ico('chat')}Escribir a Francisco</a><a class="link" href="#acceso">Área de propietarios</a></div>
+    <div class="sig">Paco Gatell · Fundador</div>
+    <div class="hero-ctas"><a class="btn" href="https://wa.me/34665601092" target="_blank" rel="noopener">${ico('chat')}Escribir a Paco</a><a class="link" href="#acceso">Área de propietarios</a></div>
   </div></section>`;
 }
 function servicesView(){
@@ -861,18 +867,18 @@ function servicesView(){
       ['Bajo petición, 7 días a la semana'],
       ['Confirmación por WhatsApp en menos de 2 h'],'svc-concierge')}
   </div>
-  <section class="band"><div class="wrap"><div class="sec-head"><h2>Obras <em>recientes</em></h2><p class="lead">Aerotermia, fotovoltaica, fontanería y fachadas. Dirigidas por Francisco de principio a fin.</p></div>${workGallery()}</div></section>
+  <section class="band"><div class="wrap"><div class="sec-head"><h2>Obras <em>recientes</em></h2><p class="lead">Aerotermia, fotovoltaica, fontanería y fachadas. Dirigidas por Paco de principio a fin.</p></div>${workGallery()}</div></section>
   <section class="band alt" id="svc-planes"><div class="wrap"><div class="sec-head"><h2>Paquetes <em>orientativos</em></h2><p class="lead">Combina los servicios según tu casa y tu forma de usarla.</p></div>${PLANS}</div></section>`;
 }
 
 function aboutView(){
   return `
-  <section class="page-head"><div class="wrap"><div class="eyebrow">Sobre Francisco</div>
+  <section class="page-head"><div class="wrap"><div class="eyebrow">Sobre Paco</div>
     <h1>Conozco cada casa que <em>gestiono</em>.</h1>
-    <p class="lead">Soy Francisco Gatell, project manager y fundador de Velarehome. Llevo más de quince años gestionando y reformando villas en la Costa del Sol.</p>
+    <p class="lead">Soy Paco Gatell, project manager y fundador de Velarehome. Llevo más de quince años gestionando y reformando villas en la Costa del Sol.</p>
     <div class="page-img">${photo('entrada','Acceso de Villa Sienna con muro de piedra natural','21/9')}<div class="caption"><span>Villa Sienna · El Madroñal, Benahavís</span></div></div></div></section>
   <section class="band"><div class="wrap founder">
-    <div class="portrait"><span>FG</span><small>Foto de Francisco (pendiente)</small></div>
+    <div class="portrait"><img src="paco.jpg" alt="Paco Gatell, fundador de Velarehome"></div>
     <div>
       <p class="lead" style="color:var(--fg)">Empecé dirigiendo obras en Marbella y vi que los propietarios no tenían un problema de proveedores, sino de interlocutor. Nadie conocía su casa entera. Por eso fundé una empresa pequeña a propósito: cada gestor lleva como máximo diez villas, y yo sigo visitándolas.</p>
       <ol class="timeline">
@@ -892,9 +898,9 @@ function aboutView(){
     </div>
   </div></section>
   <section class="band"><div class="wrap">
-    <div class="sec-head"><h2>Quién cuida <em>tu casa</em></h2><p class="lead">Cada villa tiene un gestor con nombre y apellidos. Hoy, ese gestor es Francisco.</p></div>
+    <div class="sec-head"><h2>Quién cuida <em>tu casa</em></h2><p class="lead">Cada villa tiene un gestor con nombre y apellidos. Hoy, ese gestor es Paco.</p></div>
     <div class="team" style="grid-template-columns:minmax(0,280px)">
-      <div class="member"><div class="portrait"><span>FG</span></div><b>Francisco Gatell</b><span class="r">Fundador · project manager</span></div>
+      <div class="member"><div class="portrait"><img src="paco.jpg" alt="Paco Gatell"></div><b>Paco Gatell</b><span class="r">Fundador · project manager</span></div>
     </div>
   </div></section>
   <section class="band alt"><div class="wrap">
@@ -912,7 +918,7 @@ function contactView(){
   return `
   <section class="page-head"><div class="wrap"><div class="eyebrow">Contacto</div>
     <h1>Cuéntame cómo es tu <em>casa</em>.</h1>
-    <p class="lead">Soy Francisco. Leo cada mensaje yo mismo y te respondo en menos de 2 horas laborables. Si lo prefieres, escríbeme por WhatsApp.</p></div></section>
+    <p class="lead">Soy Paco. Leo cada mensaje yo mismo y te respondo en menos de 2 horas laborables. Si lo prefieres, escríbeme por WhatsApp.</p></div></section>
   <div class="wrap contact">
     <form class="grid" id="contactForm" novalidate>
       <div class="field"><label for="c-name">Nombre</label><input id="c-name" required autocomplete="name"></div>
@@ -925,7 +931,7 @@ function contactView(){
       <div class="full"><button class="btn btn-primary" type="submit">Enviar consulta ${ico('arrow')}</button></div>
     </form>
     <aside class="contact-side">
-      <a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener"><span class="av">FG</span><span><b>Francisco Gatell</b><small>Fundador · te respondo yo</small></span></a>
+      <a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener"><span class="av"><img src="paco-avatar.jpg" alt=""></span><span><b>Paco Gatell</b><small>Fundador · te respondo yo</small></span></a>
       <div class="item"><span>WhatsApp y teléfono</span><b>+34 665 601 092</b><a class="link" href="https://wa.me/34665601092" target="_blank" rel="noopener" style="align-self:flex-start;margin-top:.3rem">Escribir por WhatsApp</a></div>
       <div class="item"><span>Email</span><b>info@luxury-property-services.com</b></div>
       <div class="item"><span>Horario</span><b>Lunes a viernes, 9:00–19:00</b><small style="color:var(--muted)">Urgencias de clientes 24/7</small></div>
@@ -966,9 +972,9 @@ function appShell(role, h){
     ? {cliente:eResumen,'cliente-propiedad':eProp,'cliente-documentos':()=>eDocs(false),'cliente-obras':()=>eWorks(false),'cliente-presupuestos':()=>eBudgets(false),'cliente-proyectos':()=>eProjects(false),'cliente-mensajes':eMsgs,'cliente-guia':()=>guideView('cliente')}
     : {admin:ePanel,'admin-clientes':eClients,'admin-propiedades':eProps,'admin-documentos':()=>eDocs(true),'admin-obras':()=>eWorks(true),'admin-presupuestos':()=>eBudgets(true),'admin-proyectos':()=>eProjects(true),'admin-banner':eBanner,'admin-guia':()=>guideView('admin')};
   const who = role==='cliente'
-    ? `<div class="who"><div class="av">FG</div><div><b>Francisco Gatell</b> · tu gestor<small><a href="https://wa.me/34665601092" target="_blank" rel="noopener" style="color:var(--clay)">WhatsApp +34 665 601 092</a> · responde en menos de 2 h</small></div></div>`
-    : `<div class="who"><div class="av">FG</div><div><b>Francisco Gatell</b><small>Administrador</small></div></div>`;
-  const me = session() || {name: role==='cliente'?'cliente':'Francisco', full:''};
+    ? `<div class="who"><div class="av"><img src="paco-avatar.jpg" alt=""></div><div><b>Paco Gatell</b> · tu gestor<small><a href="https://wa.me/34665601092" target="_blank" rel="noopener" style="color:var(--clay)">WhatsApp +34 665 601 092</a> · responde en menos de 2 h</small></div></div>`
+    : `<div class="who"><div class="av"><img src="paco-avatar.jpg" alt=""></div><div><b>Paco Gatell</b><small>Administrador</small></div></div>`;
+  const me = session() || {name: role==='cliente'?'cliente':'Paco', full:''};
   const greet = (role==='cliente' ? 'Hola, ' : 'Buenos días, ') + me.name;
   return `<div class="app">
     <aside class="side"><a class="logo" href="#inicio">Velarehome<small>${role==='cliente'?'Área de propietarios':'Administración'}</small></a>
@@ -1058,7 +1064,7 @@ const mbtn = (k, t, i='plus', primary=false) => `<button class="btn btn-sm ${pri
 
 function eResumen(){
   return `
-  <div class="welcome"><div><h3>Bienvenido, ${esc(session()?.name||'')}. Soy Francisco.</h3><p>Aquí iré dejando las visitas, los documentos, las obras y los presupuestos de tu casa. Para cualquier cosa, escríbeme en Mensajes o por WhatsApp. Mientras tanto, tienes un ejemplo completo en la guía.</p></div><a class="btn btn-sm" href="#cliente-guia">${ico('info')}Ver guía y ejemplos</a></div>
+  <div class="welcome"><div><h3>Bienvenido, ${esc(session()?.name||'')}. Soy Paco.</h3><p>Aquí iré dejando las visitas, los documentos, las obras y los presupuestos de tu casa. Para cualquier cosa, escríbeme en Mensajes o por WhatsApp. Mientras tanto, tienes un ejemplo completo en la guía.</p></div><a class="btn btn-sm" href="#cliente-guia">${ico('info')}Ver guía y ejemplos</a></div>
   <div class="grid3">
     <div class="card"><div class="card-h"><span class="eyebrow">Próximas visitas</span>${ico('cal')}</div><p class="empty">Tu gestor programará la primera visita y aparecerá aquí.</p></div>
     <div class="card"><div class="card-h"><span class="eyebrow">Obras</span>${ico('crane')}</div><p class="empty">No hay obras en curso.</p></div>
@@ -1079,8 +1085,8 @@ function eWorks(admin){ return emptyBox('crane','No hay obras', admin?'Publica a
 function eBudgets(admin){ return emptyBox('euro','No hay presupuestos', admin?'Envía presupuestos por partidas; el cliente los aprueba o rechaza desde su área y queda registrado.':'Cuando tu gestor te envíe un presupuesto, podrás ver sus partidas y aprobarlo o rechazarlo con un clic.', (admin?mbtn('budget','Nuevo presupuesto','plus',true):'')+guideLink(admin?'admin':'cliente')); }
 function eProjects(admin){ return emptyBox('layers','No hay proyectos', admin?'Crea proyectos por propiedad para planificar mejoras con el cliente.':'Las mejoras planificadas para tu villa aparecerán aquí con su estado.', (admin?mbtn('project','Nuevo proyecto'):'')+guideLink(admin?'admin':'cliente')); }
 function eMsgs(){
-  return `${state.myMsgs.length?`<div class="msgs">${state.myMsgs.map(m=>`<div class="msg me"><small>${session()?.full||'Tú'} · ${m.at}</small>${m.t}</div>`).join('')}</div>`:emptyBox('chat','Aún no hay mensajes','Escríbeme cuando lo necesites, para lo que sea. Te respondo yo mismo en menos de 2 horas laborables. — Francisco')}
-  <form class="composer" id="composer"><input id="msgInput" placeholder="Escribe a Francisco" aria-label="Mensaje"><button class="btn" type="submit">Enviar</button></form>`;
+  return `${state.myMsgs.length?`<div class="msgs">${state.myMsgs.map(m=>`<div class="msg me"><small>${session()?.full||'Tú'} · ${m.at}</small>${m.t}</div>`).join('')}</div>`:emptyBox('chat','Aún no hay mensajes','Escríbeme cuando lo necesites, para lo que sea. Te respondo yo mismo en menos de 2 horas laborables. — Paco')}
+  <form class="composer" id="composer"><input id="msgInput" placeholder="Escribe a Paco" aria-label="Mensaje"><button class="btn" type="submit">Enviar</button></form>`;
 }
 function ePanel(){
   return `
@@ -1184,7 +1190,7 @@ function cProp(){
   return `<div class="prop">
     <div>${villa(0,{alt:'Villa Albero'})}</div>
     <div class="card"><div class="card-h"><h3>Villa Albero</h3>${chip('Activo')}</div>
-      <dl class="kv"><dt>Zona</dt><dd>Benahavís</dd><dt>Superficie</dt><dd>780 m² construidos · parcela 2.400 m²</dd><dt>Dormitorios</dt><dd>6</dd><dt>Plan</dt><dd>Integral · 2 visitas por semana</dd><dt>Gestor</dt><dd>Francisco Gatell</dd><dt>Cliente desde</dt><dd>Marzo 2019</dd></dl></div>
+      <dl class="kv"><dt>Zona</dt><dd>Benahavís</dd><dt>Superficie</dt><dd>780 m² construidos · parcela 2.400 m²</dd><dt>Dormitorios</dt><dd>6</dd><dt>Plan</dt><dd>Integral · 2 visitas por semana</dd><dt>Gestor</dt><dd>Paco Gatell</dd><dt>Cliente desde</dt><dd>Marzo 2019</dd></dl></div>
   </div>
   <div class="card"><div class="card-h"><span class="eyebrow">Proveedores de la casa</span></div>
     <div class="tablewrap" style="border:0"><table><thead><tr><th>Servicio</th><th>Empresa</th><th>Frecuencia</th><th>Contacto</th></tr></thead><tbody>
@@ -1258,7 +1264,7 @@ function projectsView(admin){
 
 function cMsgs(){
   return `<div class="msgs" id="msgs">${MESSAGES.map(m=>`<div class="msg ${m.me?'me':''}"><small>${m.me?(session()?.full||m.who):m.who} · ${m.at}</small>${m.t}</div>`).join('')}</div>
-  <form class="composer" id="composer"><input id="msgInput" placeholder="Escribe a Francisco" aria-label="Mensaje"><button class="btn" type="submit">Enviar</button></form>`;
+  <form class="composer" id="composer"><input id="msgInput" placeholder="Escribe a Paco" aria-label="Mensaje"><button class="btn" type="submit">Enviar</button></form>`;
 }
 
 function aPanel(){
@@ -1343,7 +1349,7 @@ function bind(h){
     e.preventDefault();
     if(!$('#c-name').value.trim() || !$('#c-email').value.includes('@')){ toast('Escribe tu nombre y un email válido'); return; }
     if(!$('#c-ok').checked){ toast('Acepta la política de privacidad para enviar'); return; }
-    cf.reset(); toast('Mensaje enviado. Francisco te responde en menos de 2 h (prototipo)');
+    cf.reset(); toast('Mensaje enviado. Paco te responde en menos de 2 h (prototipo)');
   });
   document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{ state.loginTab=b.dataset.tab; store.set('lps-tab',state.loginTab); route(); }));
   const lf = $('#loginForm');
@@ -1372,7 +1378,7 @@ function bind(h){
     const id = b.dataset.approve || b.dataset.reject, ok = !!b.dataset.approve;
     const bu = BUDGETS.find(x=>x.id===id); bu.status = ok?'Aprobado':'Rechazado'; bu.decided = today(); state.budget=id;
     if(ok){ const p = PROJECTS.find(x=>x.t===bu.title); if(p) p.s='En curso'; }
-    route(); toast(ok?`Presupuesto ${id} aprobado. Francisco recibe el aviso.`:`Presupuesto ${id} rechazado. Francisco te contactará.`);
+    route(); toast(ok?`Presupuesto ${id} aprobado. Paco recibe el aviso.`:`Presupuesto ${id} rechazado. Paco te contactará.`);
   }));
   document.querySelectorAll('[data-guide]').forEach(b=>b.addEventListener('click',()=>{ const role=h.startsWith('admin')?'admin':'cliente'; state.guide[role]=b.dataset.guide; state.folder=null; state.q=''; route(); }));
   document.querySelectorAll('.example a[href^="#cliente"], .example a[href^="#admin"]').forEach(a=>a.addEventListener('click',e=>{
