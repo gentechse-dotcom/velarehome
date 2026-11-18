@@ -157,26 +157,27 @@ img.photo{display:block;width:100%;height:100%;max-width:100%;object-fit:cover}
 .hello b{display:block;font-weight:500;font-size:.92rem}
 .hello small{display:block;color:var(--muted);font-size:.8rem}
 .hello:hover b{text-decoration:underline}
-.vh-ads{position:relative;width:100%;height:clamp(440px,calc(100svh - 78px),920px);overflow:hidden;background:#1E1915}
+.vh-ads{position:relative;width:100%;height:clamp(300px,52vh,560px);overflow:hidden;background:#1E1915}
 .vh-ads-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
 .vh-ads-track::-webkit-scrollbar{display:none}
 .vh-ad{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:start;display:block;color:#FAF8F4;text-decoration:none;isolation:isolate}
 .vh-ad img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 8s ease-out}
 .vh-ad:hover img{transform:scale(1.025)}
-.vh-ad.has-words::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,14,11,.6) 0%,rgba(18,14,11,0) 60%),linear-gradient(0deg,rgba(18,14,11,.45) 0%,rgba(18,14,11,0) 45%);z-index:-1}
-.vh-ad .in{position:absolute;left:max(var(--gutter),calc((100% - 1240px)/2));bottom:clamp(2rem,9vh,5.5rem);right:var(--gutter);text-align:left}
-.vh-ad b{display:block;font:500 clamp(2.4rem,6vw,5.4rem)/1 var(--sans);letter-spacing:-.025em;max-width:11ch;text-wrap:balance}
-.vh-ad p{font:300 clamp(.95rem,1.3vw,1.15rem)/1.5 var(--sans);max-width:38ch;margin-top:1rem;opacity:.92}
-.vh-ad .go{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.4rem;font:500 .78rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
-.vh-ad .go .ico{width:16px;height:16px}
+.vh-ad.has-words::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(18,14,11,.5) 0%,rgba(18,14,11,0) 38%);z-index:-1}
+.vh-ad .in{position:absolute;left:max(var(--gutter),calc((100% - 1240px)/2));bottom:clamp(1.2rem,4vh,2.2rem);right:var(--gutter);text-align:left;display:flex;align-items:baseline;gap:.9rem;flex-wrap:wrap}
+.vh-ad b{display:block;font:500 clamp(1rem,1.5vw,1.25rem)/1.2 var(--sans);letter-spacing:-.005em}
+.vh-ad p{display:none}
+.vh-ad .go{display:inline-flex;align-items:center;gap:.35rem;font:400 .78rem/1 var(--sans);color:rgba(250,248,244,.85)}
+.vh-ad:hover .go{color:var(--accent)}
+.vh-ad .go .ico{width:13px;height:13px}
 .vh-ad:not(.has-words) .in{left:auto;right:var(--gutter)}
 .vh-ad:not(.has-words) .go{background:rgba(18,14,11,.5);padding:.6rem .9rem;border-radius:99px;margin:0}
 .vh-ad:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
-.vh-dots{position:absolute;right:max(var(--gutter),calc((100% - 1240px)/2));bottom:clamp(2rem,9vh,5.5rem);display:flex;gap:.5rem;z-index:2}
-.vh-dots button{width:28px;height:3px;padding:0;border:0;border-radius:2px;background:rgba(250,248,244,.45);cursor:pointer;transition:background .2s,width .2s}
-.vh-dots button[aria-current="true"]{background:var(--accent);width:44px}
+.vh-dots{position:absolute;right:max(var(--gutter),calc((100% - 1240px)/2));bottom:clamp(1.45rem,4.2vh,2.45rem);display:flex;gap:.5rem;z-index:2}
+.vh-dots button{width:20px;height:3px;padding:0;border:0;border-radius:2px;background:rgba(250,248,244,.45);cursor:pointer;transition:background .2s,width .2s}
+.vh-dots button[aria-current="true"]{background:var(--accent);width:32px}
 .vh-dots button::before{content:"";display:block;margin:-12px 0;height:27px}
-@media (max-width:720px){.vh-ads{height:min(82svh,720px)}.vh-ad .in{bottom:4rem}.vh-dots{left:var(--gutter);right:auto;bottom:1.8rem}}
+@media (max-width:720px){.vh-ads{height:min(58svh,460px)}.vh-ad .in{bottom:2.6rem}.vh-dots{left:var(--gutter);right:auto;bottom:1.3rem}}
 .m-claim{padding-block:clamp(4rem,10vw,8rem);text-align:center}
 .m-claim h1{font:400 clamp(2rem,4.4vw,3.8rem)/1.1 var(--sans);letter-spacing:-.02em;max-width:18ch;margin-inline:auto}
 .m-claim h1 em{font-style:normal;color:var(--clay)}
@@ -723,7 +724,7 @@ window.addEventListener('hashchange', route);
 
 /* ================= Banner de Francisco (editable desde admin) ================= */
 const DEFAULT_ADS = [
-  {on:true, img:'cine', t:'El cine, en tu casa', s:'Francisco trabaja con especialistas en salas de cine privadas para llevar el cine a tu villa.', go:'whatsapp'},
+  {on:true, img:'cine', t:'Cine en casa', s:'', go:'whatsapp'},
   {on:true, img:'aerotermia', t:'Adiós al gas', s:'', go:'svc-reformas'},
   {on:true, img:'solar', t:'Energía solar', s:'', go:'svc-reformas'},
 ];
@@ -740,7 +741,7 @@ function promoBlock(){
   return `<section class="vh-ads" id="vhAds" aria-label="Novedades" aria-roledescription="carrusel">
     <div class="vh-ads-track">${list.map((a,i)=>{
       const w=(a.t||'').trim(), s=(a.s||'').trim();
-      return `<a class="vh-ad ${w||s?'has-words':''}" ${adHref(a)} aria-label="${esc(w||'Novedad')} (${i+1} de ${list.length})"><img src="${adSrc(a.img)}" alt="" ${i?'loading="lazy"':'fetchpriority="high"'} decoding="async"><div class="in">${w?`<b>${esc(w)}</b>`:''}${s?`<p>${esc(s)}</p>`:''}<span class="go">${a.go==='whatsapp'?'Pregúntale a Francisco':'Descubrir'} ${ico('arrow')}</span></div></a>`;
+      return `<a class="vh-ad ${w||s?'has-words':''}" ${adHref(a)} aria-label="${esc(w||'Novedad')} (${i+1} de ${list.length})"><img src="${adSrc(a.img)}" alt="" ${i?'loading="lazy"':'fetchpriority="high"'} decoding="async"><div class="in">${w?`<b>${esc(w)}</b>`:''}${s?`<p>${esc(s)}</p>`:''}<span class="go">${a.go==='whatsapp'?'Pregúntale a Francisco':'Ver más'} ${ico('arrow')}</span></div></a>`;
     }).join('')}</div>
     ${list.length>1?`<div class="vh-dots">${list.map((_,i)=>`<button type="button" aria-label="Novedad ${i+1}" ${i?'':'aria-current="true"'}></button>`).join('')}</div>`:''}
   </section>`;
@@ -1042,9 +1043,8 @@ function eBanner(){
           <select data-adpick="${i}" aria-label="O elegir de la galería"><option value="">o elegir de la galería…</option>${imgs.map(k=>`<option value="${k}" ${k===a.img?'selected':''}>${k}</option>`).join('')}</select>
           <label class="check"><input type="checkbox" data-adon="${i}" ${a.on?'checked':''}> Visible</label>
           <button class="btn btn-sm" type="button" data-addel="${i}">Quitar</button></div>
-        <div class="grid2"><div class="field"><label for="adt${i}">Palabras (opcional)</label><input id="adt${i}" data-adt="${i}" value="${esc(a.t||'')}" maxlength="28" placeholder="El cine, en tu casa"></div>
+        <div class="grid2"><div class="field"><label for="adt${i}">Palabras (opcional)</label><input id="adt${i}" data-adt="${i}" value="${esc(a.t||'')}" maxlength="28" placeholder="Cine en casa"></div>
         <div class="field"><label for="adg${i}">Lleva a</label><select id="adg${i}" data-adgo="${i}">${PROMO_GO.map(([v,l])=>`<option value="${v}" ${v===a.go?'selected':''}>${l}</option>`).join('')}</select></div></div>
-        <div class="field"><label for="ads${i}">Frase corta (opcional)</label><input id="ads${i}" data-ads="${i}" value="${esc(a.s||'')}" maxlength="110" placeholder="Una línea, como mucho"></div>
       </div></div>`).join('')}
     <div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn btn-primary" type="submit">Guardar anuncios</button><button class="btn" type="button" id="adAdd">${ico('plus')}Añadir anuncio</button><button class="btn" type="button" id="bannerReset">Volver a los de ejemplo</button></div>
   </form>`;
@@ -1384,7 +1384,7 @@ function bind(h){
   const bf = $('#bannerForm');
   if (bf) {
     let draft = ads();
-    const read = () => { draft = draft.map((a,i)=>({...a, on:bf.querySelector(`[data-adon="${i}"]`).checked, t:bf.querySelector(`[data-adt="${i}"]`).value.trim(), s:bf.querySelector(`[data-ads="${i}"]`).value.trim(), go:bf.querySelector(`[data-adgo="${i}"]`).value})); };
+    const read = () => { draft = draft.map((a,i)=>({...a, on:bf.querySelector(`[data-adon="${i}"]`).checked, t:bf.querySelector(`[data-adt="${i}"]`).value.trim(), s:'', go:bf.querySelector(`[data-adgo="${i}"]`).value})); };
     const save = (msg) => { try{ localStorage.setItem(ADS_KEY, JSON.stringify(draft)); toast(msg); return true; }catch(err){ toast('No cabe tanta imagen en este navegador. Prueba con una foto más ligera.'); return false; } };
     bf.addEventListener('submit',e=>{ e.preventDefault(); read(); if(save('Anuncios guardados')) route(); });
     $('#adAdd').addEventListener('click',()=>{ read(); draft.push({on:true, img:'atardecer', t:'', s:'', go:'whatsapp'}); try{ localStorage.setItem(ADS_KEY, JSON.stringify(draft)); }catch(e){} route(); });
