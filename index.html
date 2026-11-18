@@ -797,7 +797,7 @@ function footer(){
       <div><a class="logo" href="#inicio">Velarehome</a><p style="color:var(--muted);margin-top:1rem;max-width:34ch">Gestión de villas, reformas y concierge. Como máximo 10 villas por gestor, para conocerlas todas.</p><a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener" style="margin-top:1.2rem"><span class="av"><img src="paco-avatar.jpg" alt=""></span><span><b>Paco Gatell</b><small>+34 665 601 092 · WhatsApp</small></span></a></div>
       <div><h4>Servicios</h4><ul><li><a href="#servicios">Gestión de villas</a></li><li><a href="#servicios">Reformas y ampliaciones</a></li><li><a href="#servicios">Concierge</a></li></ul></div>
       <div><h4>Empresa</h4><ul><li><a href="#sobre">Sobre Paco</a></li><li><a href="#contacto">Contacto</a></li><li><a href="#acceso">Acceso clientes</a></li></ul></div>
-      <div><h4>Contacto</h4><ul><li><a href="https://wa.me/34665601092" target="_blank" rel="noopener">+34 665 601 092 · WhatsApp</a></li><li>info@luxury-property-services.com</li><li>Lunes a viernes, 9:00–19:00</li><li>Urgencias de clientes 24/7</li></ul></div>
+      <div><h4>Contacto</h4><ul><li><a href="https://wa.me/34665601092" target="_blank" rel="noopener">+34 665 601 092 · WhatsApp</a></li><li><a href="mailto:paco@velarehome.com">paco@velarehome.com</a></li><li>Lunes a viernes, 9:00–19:00</li><li>Urgencias de clientes 24/7</li></ul></div>
     </div>
     <div class="legal"><span>© <span class="num">${new Date().getFullYear()}</span> Luxury Property Services Costa del Sol S.L. · CIF B-XXXXXXXX · Marbella, Málaga · Velarehome es su marca comercial</span>
     <nav aria-label="Legal"><a href="#inicio">Privacidad</a><a href="#inicio">Aviso legal</a><a href="#inicio">Cookies</a></nav></div>
@@ -941,7 +941,7 @@ function contactView(){
     <aside class="contact-side">
       <a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener"><span class="av"><img src="paco-avatar.jpg" alt=""></span><span><b>Paco Gatell</b><small>Fundador · te respondo yo</small></span></a>
       <div class="item"><span>WhatsApp y teléfono</span><b>+34 665 601 092</b><a class="link" href="https://wa.me/34665601092" target="_blank" rel="noopener" style="align-self:flex-start;margin-top:.3rem">Escribir por WhatsApp</a></div>
-      <div class="item"><span>Email</span><b>info@luxury-property-services.com</b></div>
+      <div class="item"><span>Email</span><b><a href="mailto:paco@velarehome.com">paco@velarehome.com</a></b></div>
       <div class="item"><span>Horario</span><b>Lunes a viernes, 9:00–19:00</b><small style="color:var(--muted)">Urgencias de clientes 24/7</small></div>
       <div class="item"><span>Oficina</span><b>Marbella, Málaga</b><small style="color:var(--muted)">Visitas con cita previa</small></div>
     </aside>
@@ -1363,7 +1363,9 @@ function bind(h){
   const lf = $('#loginForm');
   if (lf) lf.addEventListener('submit', async e=>{ e.preventDefault();
     const email = $('#l-email').value.trim().toLowerCase(), pass = $('#l-pass').value;
-    let hash = ''; try { hash = await sha256(email + ':' + pass); } catch(err) {}
+    // El admin entra ahora con paco@velarehome.com y su contraseña de siempre (el hash guardado usa el email antiguo).
+    const LOGIN_ALIAS = {'paco@velarehome.com':'info@luxury-property-services.com'};
+    let hash = ''; if (!Object.values(LOGIN_ALIAS).includes(email)) { try { hash = await sha256((LOGIN_ALIAS[email]||email) + ':' + pass); } catch(err) {} }
     const acc = ACCOUNTS.find(a=>a.h===hash && a.role===state.loginTab);
     if (!acc) { $('#loginErr').hidden = false; $('#l-pass').value=''; $('#l-pass').focus(); return; }
     setSession({role:acc.role, name:acc.name, full:acc.full}, $('#l-keep').checked);
