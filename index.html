@@ -1,0 +1,1456 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Velarehome: gestión, mantenimiento, reformas y ampliaciones de villas en Marbella, Nueva Andalucía, Benahavís y San Pedro. Máximo 10 villas por gestor. Te atiende Francisco Gatell.">
+<meta property="og:title" content="Velarehome · Project Management & Home Care">
+<meta property="og:description" content="Velamos por tu casa como si fuera la nuestra. Máximo 10 villas por gestor.">
+<meta property="og:image" content="https://velarehome.com/sienna-atardecer.jpg">
+<meta property="og:url" content="https://velarehome.com/">
+<link rel="canonical" href="https://velarehome.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 20 16 8l9 8' fill='none' stroke='%238C7556' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M24 22c-2-4-2-9 0-13 2 4 2 9 0 13z' fill='%238C7556'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Velarehome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap">
+<style>
+/* Layout: editorial, aireado. Columna de 1120px, cabecera mínima, bloques alternos arena/lino, área privada con sidebar fina. */
+:root{
+  --bg:#FAF8F4;          /* blanco roto */
+  --surface:#F2EDE4;     /* arena suave */
+  --fg:#2A2420;          /* tierra oscura */
+  --clay:#A0674B;        /* arcilla */
+  --muted:#6E6B5B;       /* olivo gris (AA sobre arena) */
+  --line:#E5DED2;
+  --accent:#D4FF3A;      /* lima flúor: solo CTA, cifra 10, pendiente */
+  --on-accent:#2A2420;
+  --alert:#FF5A1F;       /* naranja neón: solo alertas privadas */
+  --alert-bg:#FFE6DB;
+  --card:#FFFFFF;
+  /* ilustraciones */
+  --sky:#E6DCCB; --hill:#CFC3A9; --hill2:#BDB094; --ground:#DDD2BE;
+  --wall:#FBF8F2; --wall-shade:#E7DECF; --glass:#3B332D; --pool:#9DB8B2; --tree:#7D7A68; --sun:#E3B9A0;
+  --serif:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --sans:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --radius:3px;
+  --wrap:100%;
+  --gutter:clamp(16px,5vw,112px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1E1A17; --surface:#28221E; --fg:#EFE8DC; --clay:#D29A7C; --muted:#ADA793; --line:#3E3630; --card:#25201C;
+  --alert-bg:#3A1F14;
+  --sky:#2C2622; --hill:#3A332C; --hill2:#443C33; --ground:#332C26; --wall:#D9CFBF; --wall-shade:#BDB2A1; --glass:#2A2420; --pool:#5E7C77; --tree:#6F6C5C; --sun:#8A5A44;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1E1A17; --surface:#28221E; --fg:#EFE8DC; --clay:#D29A7C; --muted:#ADA793; --line:#3E3630; --card:#25201C;
+  --alert-bg:#3A1F14;
+  --sky:#2C2622; --hill:#3A332C; --hill2:#443C33; --ground:#332C26; --wall:#D9CFBF; --wall-shade:#BDB2A1; --glass:#2A2420; --pool:#5E7C77; --tree:#6F6C5C; --sun:#8A5A44;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:inherit}
+h1,h2,h3{font-family:var(--sans);font-weight:400;line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.02em}
+h1{font-size:clamp(2rem,3.6vw,3.1rem)}
+h2{font-size:clamp(1.6rem,2.6vw,2.3rem)}
+h3{font-size:1.15rem;font-weight:500;letter-spacing:-.01em}
+em{font-style:normal;color:var(--clay)}
+p{margin:0}
+:focus-visible{outline:2px solid var(--clay);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
+.eyebrow{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{font-size:1.02rem;color:var(--muted);max-width:56ch}
+.num{font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font:500 .92rem/1 var(--sans);padding:.95rem 1.4rem;border-radius:var(--radius);border:1px solid var(--fg);background:transparent;color:var(--fg);text-decoration:none;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:var(--fg);color:var(--bg)}
+.btn-primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn-primary:hover{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn-dark{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn-dark:hover{background:transparent;color:var(--fg)}
+.btn-sm{padding:.6rem .95rem;font-size:.84rem}
+.link{color:var(--clay);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;font-weight:500;font-size:.95rem}
+.link:hover{color:var(--fg)}
+.ico{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ---------- Cabecera pública ---------- */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px}
+.logo{font-family:"Cormorant Garamond",Garamond,"Times New Roman",serif;font-weight:500;font-size:1.65rem;line-height:1;text-decoration:none;letter-spacing:0;white-space:nowrap}
+.logo small{display:block;font-family:var(--sans);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.nav{display:flex;align-items:center;gap:1.8rem}
+.nav a{text-decoration:none;font-size:.9rem}
+.nav a.on{border-bottom:1px solid var(--fg)}
+.nav .access{background:var(--accent);color:var(--on-accent);display:inline-flex;gap:.4rem;align-items:center;padding:.45rem .8rem;border-radius:var(--radius);font-weight:500}
+.nav .access:hover{background:var(--fg);color:var(--accent)}
+.burger{display:none;background:none;border:0;color:var(--fg);padding:.5rem;cursor:pointer}
+@media (max-width:920px){
+  .nav{position:fixed;inset:72px 0 auto 0;top:calc(72px + env(safe-area-inset-top,0px));flex-direction:column;align-items:flex-start;gap:1.2rem;background:var(--bg);border-bottom:1px solid var(--line);padding:1.5rem max(16px,env(safe-area-inset-right,0px)) 2rem max(16px,env(safe-area-inset-left,0px));display:none}
+  .nav.open{display:flex}
+  .nav a{font-size:1.1rem}
+  .burger{display:block}
+}
+
+/* ---------- Secciones ---------- */
+section.band{padding-block:clamp(4rem,9vw,7.5rem)}
+section.alt{background:var(--surface)}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:end;margin-bottom:3.5rem}
+.sec-head > *{min-width:0}
+@media (max-width:760px){.sec-head{grid-template-columns:1fr}}
+
+.hero{padding-block:clamp(2rem,4vw,3.5rem) 0}
+.hero-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,4vw,4rem);align-items:center}
+.hero-grid > *{min-width:0}
+.hero-text{display:flex;flex-direction:column;gap:1.4rem}
+.hero h1{max-width:16ch;font-size:clamp(2rem,3.2vw,3.6rem)}
+.hero-ctas{display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap;margin-top:.4rem}
+.hero-img{position:relative}
+.hero-img .ph{aspect-ratio:auto !important;height:clamp(340px,68vh,820px)}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-img .ph{height:auto;aspect-ratio:4/3 !important}}
+.illus{display:block;width:100%;height:auto;max-width:100%;border-radius:var(--radius)}
+.ph{max-width:100%;overflow:hidden;border-radius:var(--radius);background:var(--surface)}
+img.photo{display:block;width:100%;height:100%;max-width:100%;object-fit:cover}
+.works{display:grid;grid-template-columns:5fr 4fr 4fr;grid-template-rows:auto auto;gap:1.2rem}
+.works figure{margin:0;display:flex;flex-direction:column;gap:.6rem;min-width:0}
+.works figure .ph{flex:1}
+.works figcaption{font-size:.85rem;color:var(--muted)}
+.works figcaption b{display:block;color:var(--fg);font-weight:500}
+.works .tall{grid-row:span 2}
+.works .wide{grid-column:span 2}
+@media (max-width:820px){.works{grid-template-columns:1fr 1fr}.works .tall{grid-row:auto;grid-column:span 2}.works .wide{grid-column:span 2}}
+@media (max-width:520px){.works{grid-template-columns:1fr}.works .tall,.works .wide{grid-column:auto}}
+.case{display:grid;grid-template-columns:7fr 4fr;gap:1.2rem}
+.case > *{min-width:0}
+.case figure{margin:0}
+.case-main .ph{height:100%}
+.case-side{display:grid;gap:1.2rem}
+.case-meta{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--fg);margin-top:1.6rem}
+.case-meta > div{padding:1.2rem 1.5rem 0 0;display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.case-meta > div + div{padding-left:1.5rem;border-left:1px solid var(--line)}
+.case-meta span{color:var(--muted);font-size:.9rem}
+.case-meta b{font-weight:500}
+@media (max-width:820px){.case{grid-template-columns:1fr}.case-side{grid-template-columns:1fr 1fr}.case-meta{grid-template-columns:1fr}.case-meta > div + div{padding-left:0;border-left:0}}
+.page-img{margin-top:2.5rem}
+.detail,#svc-planes{scroll-margin-top:90px}
+.landing{position:relative;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;color:#2E2620;background:#EBD9C4 url('velare-fondo.jpg') center 30%/cover no-repeat;padding-block:clamp(3rem,9vh,6rem) 3rem;padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
+.landing::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 48% 42% at 50% 36%,rgba(250,240,228,.6),rgba(250,240,228,0) 100%),linear-gradient(180deg,rgba(250,240,228,.3) 0%,rgba(250,240,228,0) 70%);pointer-events:none}
+.landing > *{position:relative}
+.vh-logo{width:min(560px,86vw);height:auto;display:block}
+.vh-word{font-family:"Cormorant Garamond",Garamond,"Times New Roman",serif;font-weight:500;font-size:clamp(3.4rem,9vw,6.2rem);line-height:.95;letter-spacing:-.01em;margin:-.15em 0 0;color:#3A3029}
+.vh-sub{font:400 clamp(.78rem,1.6vw,1.15rem)/1.6 var(--sans);letter-spacing:.28em;text-transform:uppercase;color:#4A3E35;margin-top:1rem}
+.vh-rule{width:110px;height:1px;background:#6B5A4C;margin:1.6rem auto 2rem}
+.vh-tag{font:300 italic clamp(.95rem,1.6vw,1.15rem)/1.5 var(--sans);color:#4A3E35;margin-top:1.2rem}
+.vh-icons{display:grid;grid-template-columns:repeat(4,auto);justify-content:center}
+.vh-icons a{display:flex;flex-direction:column;align-items:center;gap:.8rem;text-decoration:none;padding:.4rem clamp(1rem,2.4vw,2.2rem);color:#3A3029;font:500 .78rem/1.35 var(--sans);letter-spacing:.12em;text-transform:uppercase;border-radius:var(--radius);transition:background .2s}
+.vh-icons a + a{border-left:1px solid rgba(74,62,53,.35)}
+.vh-icons a:hover{background:rgba(255,250,242,.55)}
+.vh-icons .ico{width:34px;height:34px;stroke-width:1.2}
+.vh-ctas{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-top:2.4rem}
+.vh-ctas .btn{border-color:#2E2620;color:#2E2620;background:rgba(255,250,242,.55)}
+.vh-ctas .btn:hover{background:#2E2620;color:#FAF8F4}
+.vh-ctas .btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.vh-foot{margin-top:auto;padding-top:2rem;font-size:.75rem;letter-spacing:.08em;color:rgba(46,38,32,.75)}
+@media (max-width:720px){.vh-icons{grid-template-columns:1fr 1fr;row-gap:1rem}.vh-icons a + a{border-left:0}.vh-icons a:nth-child(even){border-left:1px solid rgba(74,62,53,.35)}.landing{background-position:62% 30%}}
+.hello{display:inline-flex;align-items:center;gap:.8rem;text-decoration:none;color:inherit;margin-top:.6rem;align-self:flex-start}
+.hello .av{width:44px;height:44px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font:500 .85rem var(--sans);color:var(--clay);flex:none}
+.hello b{display:block;font-weight:500;font-size:.92rem}
+.hello small{display:block;color:var(--muted);font-size:.8rem}
+.hello:hover b{text-decoration:underline}
+.vh-promo{width:100%;max-width:1180px;margin-top:2.6rem;background:rgba(255,251,245,.84);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.6);border-radius:8px;padding:1.2rem;text-align:left;display:flex;flex-direction:column;gap:1rem}
+.vh-promo-head{display:flex;align-items:center;gap:.8rem}
+.vh-promo-head .av{width:40px;height:40px;border-radius:50%;background:#EFE6D8;display:flex;align-items:center;justify-content:center;font:500 .8rem var(--sans);color:#8C5A40;flex:none}
+.vh-promo-head b{display:block;font-weight:500;font-size:.95rem}
+.vh-promo-head small{display:block;color:#6B5E52;font-size:.8rem}
+.vh-promo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.vh-card{display:grid;grid-template-columns:120px 1fr;gap:.9rem;align-items:center;text-decoration:none;color:#2E2620;background:rgba(255,255,255,.7);border-radius:6px;padding:.6rem;min-width:0;transition:background .2s}
+.vh-card:hover{background:#fff}
+.vh-card > *{min-width:0}
+.vh-card .ph{aspect-ratio:4/3}
+.vh-card b{display:block;font-weight:500;font-size:.9rem;line-height:1.3}
+.vh-card p{font-size:.8rem;color:#5E5249;line-height:1.45;margin-top:.25rem}
+.vh-card span.go{display:inline-block;margin-top:.35rem;font-size:.78rem;font-weight:500;color:#8C5A40}
+@media (max-width:980px){.vh-promo-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.vh-card{grid-template-columns:84px 1fr}}
+.velar{display:grid;grid-template-columns:6fr 5fr;gap:clamp(2rem,5vw,5rem);align-items:end}
+.velar > *{min-width:0}
+.velar-cols{display:grid;gap:0;border-top:1px solid var(--fg)}
+.velar-cols > div{padding-block:1.2rem;border-bottom:1px solid var(--line);display:grid;grid-template-columns:120px 1fr;gap:1rem}
+.velar-cols .n{font:500 1.05rem var(--sans);color:var(--clay)}
+.velar-cols p{color:var(--muted);font-size:.93rem}
+@media (max-width:820px){.velar{grid-template-columns:1fr}.velar-cols > div{grid-template-columns:1fr;gap:.3rem}}
+.caption{font-size:.78rem;color:var(--muted);margin-top:.7rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+.figures{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(2rem,4vw,3rem)}
+.figure{padding:1.5rem 1.5rem 1.5rem 0;display:flex;flex-direction:column;gap:.5rem;min-width:0}
+.figure + .figure{padding-left:1.5rem;border-left:1px solid var(--line)}
+.figure b{font:300 2.3rem/1 var(--sans);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.figure span{color:var(--muted);font-size:.9rem}
+.figure b .ten{background:var(--accent);color:var(--on-accent);font-size:inherit;padding:0 .18em;border-radius:2px}
+@media (max-width:760px){.figures{grid-template-columns:1fr 1fr}.figure:nth-child(3){padding-left:0;border-left:0}.figure:nth-child(n+3){border-top:1px solid var(--line)}}
+
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--fg)}
+.service{padding:2rem 2rem 0 0;display:flex;flex-direction:column;gap:1rem;min-width:0}
+.service + .service{padding-left:2rem;border-left:1px solid var(--line)}
+.service p{color:var(--muted)}
+.service .ico{width:28px;height:28px;color:var(--clay)}
+@media (max-width:820px){.services{grid-template-columns:1fr}.service + .service{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:2rem}}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem}
+.step{display:flex;flex-direction:column;gap:.8rem;min-width:0}
+.step .n{font:300 2.2rem/1 var(--sans);color:var(--clay)}
+.step p{color:var(--muted)}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+
+.panel-promo{display:grid;grid-template-columns:5fr 7fr;gap:4rem;align-items:center}
+.panel-promo > *{min-width:0}
+.checks{list-style:none;padding:0;margin:2rem 0 2.2rem;display:grid;gap:1rem}
+.checks li{display:flex;gap:.8rem;align-items:flex-start}
+.checks .ico{color:var(--clay);margin-top:3px}
+.mock{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.mock-bar{display:flex;align-items:center;gap:.5rem;padding:.7rem 1rem;border-bottom:1px solid var(--line);font-size:.75rem;color:var(--muted)}
+.mock-bar i{width:8px;height:8px;border-radius:50%;background:var(--line);display:inline-block}
+.mock-body{display:grid;grid-template-columns:120px 1fr;min-height:320px}
+.mock-side{border-right:1px solid var(--line);padding:1rem;display:flex;flex-direction:column;gap:.65rem;font-size:.75rem;color:var(--muted)}
+.mock-side b{color:var(--fg);font-weight:500}
+.mock-main{padding:1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.8rem;align-content:start}
+.mock-card{border:1px solid var(--line);border-radius:var(--radius);padding:.9rem;font-size:.78rem;display:flex;flex-direction:column;gap:.5rem;background:var(--bg)}
+.mock-card.wide{grid-column:span 2}
+.mock-card small{color:var(--muted)}
+@media (max-width:900px){.panel-promo{grid-template-columns:1fr;gap:2.5rem}}
+@media (max-width:480px){.mock-body{grid-template-columns:1fr}.mock-side{display:none}.mock-main{grid-template-columns:1fr}.mock-card.wide{grid-column:auto}}
+
+.founder{display:grid;grid-template-columns:4fr 8fr;gap:4rem;align-items:center}
+.founder .portrait{aspect-ratio:1/1;max-width:340px}
+.founder > *{min-width:0}
+.portrait{aspect-ratio:4/5;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.portrait span{font:300 4.5rem/1 var(--sans);color:var(--clay);letter-spacing:-.04em}
+.portrait small{position:absolute;bottom:1rem;left:1rem;right:1rem;font-size:.72rem;color:var(--muted)}
+blockquote{margin:0;font:300 clamp(1.2rem,2vw,1.55rem)/1.45 var(--sans)}
+.sig{margin-top:1.6rem;display:flex;flex-direction:column;gap:.2rem}
+.sig b{font-weight:500}
+.sig span{color:var(--muted);font-size:.9rem}
+@media (max-width:820px){.founder{grid-template-columns:1fr;gap:2rem}.portrait{max-width:360px}}
+
+.portfolio{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.villa{display:flex;flex-direction:column;gap:.8rem;min-width:0}
+.villa-meta{display:flex;justify-content:space-between;gap:1rem;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:.8rem}
+.villa h3{font-size:1.15rem}
+@media (max-width:820px){.portfolio{grid-template-columns:1fr}}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:4rem}
+.ba figure{margin:0;min-width:0}
+.ba figcaption{font-size:.8rem;color:var(--muted);margin-top:.6rem}
+@media (max-width:620px){.ba{grid-template-columns:1fr}}
+
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem}
+.quote{display:flex;flex-direction:column;gap:1.2rem;min-width:0}
+.quote p{font:300 1.02rem/1.6 var(--sans)}
+.quote footer{font-size:.85rem;color:var(--muted)}
+.quote footer b{color:var(--fg);font-weight:500;display:block}
+.stars{color:var(--clay);letter-spacing:.15em;font-size:.8rem}
+@media (max-width:820px){.quotes{grid-template-columns:1fr}}
+
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:stretch}
+.plan{border:1px solid var(--line);border-radius:var(--radius);padding:2rem;display:flex;flex-direction:column;gap:1.2rem;min-width:0;background:var(--bg)}
+.plan.vip{border:1px solid var(--fg);position:relative}
+.plan .tag{position:absolute;top:-.7rem;left:2rem;background:var(--bg);padding:0 .6rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+.plan .price{font:300 2.4rem/1 var(--sans);letter-spacing:-.02em}
+.plan .price small{font-size:.85rem;color:var(--muted);letter-spacing:0}
+.plan ul{list-style:none;padding:0;margin:0;display:grid;gap:.7rem;font-size:.93rem;flex:1}
+.plan li{display:flex;gap:.6rem;align-items:flex-start}
+.plan li .ico{width:16px;height:16px;margin-top:4px;color:var(--clay)}
+.plan .visits{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem}
+.note{font-size:.82rem;color:var(--muted);margin-top:1.5rem}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+
+.cta-band{display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+.cta-band h2{max-width:18ch}
+
+.site-footer{border-top:1px solid var(--line);padding-block:4rem 2.5rem;font-size:.88rem}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem}
+.foot-grid > *{min-width:0}
+.foot-grid h4{font:500 .72rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 1rem}
+.foot-grid ul{list-style:none;padding:0;margin:0;display:grid;gap:.5rem}
+.foot-grid a{text-decoration:none}
+.foot-grid a:hover{text-decoration:underline}
+.legal{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--muted);font-size:.8rem}
+.legal nav{display:flex;gap:1.2rem;flex-wrap:wrap}
+@media (max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}}
+
+/* Páginas internas */
+.page-head{padding-block:clamp(3.5rem,8vw,6rem) 3rem;border-bottom:1px solid var(--line)}
+.page-head h1{font-size:clamp(1.9rem,3.4vw,2.9rem);max-width:22ch;margin-block:1rem 1.2rem}
+.detail{display:grid;grid-template-columns:4fr 8fr;gap:3rem;padding-block:3.5rem;border-bottom:1px solid var(--line)}
+.detail > *{min-width:0}
+.detail .lists{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.detail h4{margin:0 0 .8rem;font:500 .72rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.detail ul{margin:0;padding-left:1.1rem;display:grid;gap:.45rem}
+.detail p{color:var(--muted);margin-top:1rem;max-width:46ch}
+@media (max-width:820px){.detail{grid-template-columns:1fr}.detail .lists{grid-template-columns:1fr}}
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.member{display:flex;flex-direction:column;gap:.7rem;min-width:0}
+.member .portrait span{font-size:3rem}
+.member b{font-weight:500}
+.member span.r{color:var(--muted);font-size:.88rem}
+@media (max-width:820px){.team{grid-template-columns:1fr 1fr}}
+.zones{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--fg)}
+.zone{padding:1.5rem 1rem 0 0;min-width:0}
+.zone + .zone{padding-left:1rem;border-left:1px solid var(--line)}
+.zone b{font:500 1.1rem/1.2 var(--sans);display:block;margin-bottom:.4rem}
+.zone span{color:var(--muted);font-size:.88rem}
+@media (max-width:760px){.zones{grid-template-columns:1fr 1fr}.zone:nth-child(3){padding-left:0;border-left:0}.zone{padding-bottom:1.5rem}}
+.values{display:grid;gap:0;border-top:1px solid var(--line)}
+.values div{display:grid;grid-template-columns:200px 1fr;gap:2rem;padding-block:1.4rem;border-bottom:1px solid var(--line)}
+.values b{font:500 1.1rem/1.2 var(--sans)}
+.values span{color:var(--muted)}
+@media (max-width:620px){.values div{grid-template-columns:1fr;gap:.3rem}}
+.timeline{list-style:none;padding:0;margin:2rem 0 0;display:grid;gap:1.2rem}
+.timeline li{display:grid;grid-template-columns:70px 1fr;gap:1rem}
+.timeline b{font-variant-numeric:tabular-nums;font-weight:500;color:var(--clay)}
+
+/* Formularios */
+.contact{display:grid;grid-template-columns:7fr 5fr;gap:4rem;padding-block:3.5rem 5rem}
+.contact > *{min-width:0}
+form.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+form.grid .full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:.45rem;min-width:0}
+.field label{font-size:.78rem;letter-spacing:.06em;color:var(--muted);font-weight:500}
+.field input,.field select,.field textarea{font:400 1rem/1.4 var(--sans);color:var(--fg);background:transparent;border:0;border-bottom:1px solid var(--line);padding:.6rem 0;border-radius:0;width:100%}
+.field textarea{resize:vertical;min-height:110px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-bottom-color:var(--fg)}
+.field select option{background:var(--bg);color:var(--fg)}
+.check{display:flex;gap:.7rem;align-items:flex-start;font-size:.85rem;color:var(--muted)}
+.check input{margin-top:.25rem;accent-color:var(--clay)}
+.contact-side{display:flex;flex-direction:column;gap:2rem}
+.contact-side .item{border-top:1px solid var(--line);padding-top:1.1rem;display:flex;flex-direction:column;gap:.3rem}
+.contact-side .item span{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.contact-side .item b{font-weight:400;font-size:1.1rem;user-select:all}
+@media (max-width:820px){.contact{grid-template-columns:1fr}form.grid{grid-template-columns:1fr}}
+
+/* ---------- Login ---------- */
+.login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.login > *{min-width:0}
+.login-art{background:var(--surface);display:flex;flex-direction:column;justify-content:space-between;padding:2.5rem;gap:2rem}
+.login-art .illus{border-radius:var(--radius)}
+.login-form{display:flex;flex-direction:column;justify-content:center;padding-block:3rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.login-box{width:100%;max-width:400px;margin:0 auto;display:flex;flex-direction:column;gap:1.6rem}
+.tabs{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:var(--radius);padding:3px}
+.tabs button{font:500 .88rem/1 var(--sans);padding:.75rem;border:0;background:transparent;color:var(--muted);cursor:pointer;border-radius:2px}
+.tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg)}
+.login-box form{display:grid;gap:1.3rem}
+.login-box .row{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;gap:1rem;flex-wrap:wrap}
+.invite{font-size:.83rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1.2rem;display:flex;gap:.6rem}
+.invite .ico{width:16px;height:16px;margin-top:3px}
+.back{font-size:.85rem;color:var(--muted);text-decoration:none;display:inline-flex;gap:.4rem;align-items:center}
+@media (max-width:820px){.login{grid-template-columns:1fr}.login-art{display:none}}
+
+/* ---------- Área privada ---------- */
+.app{display:grid;grid-template-columns:clamp(220px,15vw,280px) 1fr;min-height:100vh}
+.app > *{min-width:0}
+.side{border-right:1px solid var(--line);padding:1.6rem 1.2rem;display:flex;flex-direction:column;gap:2rem;position:sticky;top:env(safe-area-inset-top,0px);height:100vh;background:var(--bg)}
+.side .logo{font-size:1.5rem}
+.side nav{display:flex;flex-direction:column;gap:.15rem}
+.side nav a{display:flex;gap:.75rem;align-items:center;padding:.6rem .7rem;border-radius:var(--radius);text-decoration:none;font-size:.9rem;color:var(--muted)}
+.side nav a:hover{color:var(--fg);background:var(--surface)}
+.side nav a.on{color:var(--fg);background:var(--surface);font-weight:500}
+.side nav a .ico{width:18px;height:18px}
+.side .out{margin-top:auto;display:flex;flex-direction:column;gap:.8rem;font-size:.85rem}
+.side .out button{background:none;border:0;color:var(--muted);font:inherit;padding:0;cursor:pointer;display:flex;gap:.6rem;align-items:center}
+.side .out button:hover{color:var(--fg)}
+.main{padding:2rem clamp(1rem,3vw,2.8rem) 4rem;padding-left:max(clamp(1rem,3vw,2.8rem),env(safe-area-inset-left,0px));padding-right:max(clamp(1rem,3vw,2.8rem),env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:2rem}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding-bottom:1.5rem;border-bottom:1px solid var(--line)}
+.topbar h1{font-size:clamp(1.6rem,2.6vw,2.1rem)}
+.who{display:flex;align-items:center;gap:.8rem;font-size:.85rem}
+.who .av{width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font:500 .85rem/1 var(--sans);color:var(--clay);flex:none}
+.who small{display:block;color:var(--muted);font-size:.75rem}
+.demo{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--line);padding:.3rem .6rem;border-radius:2px}
+.mobile-nav{display:none}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .side{display:none}
+  .mobile-nav{display:flex;gap:.4rem;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:none;margin-bottom:-1rem}
+  .mobile-nav a{flex:none;font-size:.82rem;text-decoration:none;padding:.45rem .8rem;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+  .mobile-nav a.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.grid2 > *,.grid3 > *,.grid4 > *{min-width:0}
+@media (max-width:1100px){.grid4{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem;display:flex;flex-direction:column;gap:.9rem}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:.8rem}
+.card-h h3{font-size:1.1rem}
+.card-h .eyebrow{font-size:.68rem}
+.kpi b{font:300 2.6rem/1 var(--sans);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.kpi b small{font-size:1.1rem;color:var(--muted);letter-spacing:0}
+.kpi span{color:var(--muted);font-size:.85rem}
+.bar{height:6px;background:var(--surface);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--fg);border-radius:3px}
+.cap{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.cap i{height:10px;border-radius:2px;background:var(--surface);border:1px solid var(--line)}
+.cap i.f{background:var(--fg);border-color:var(--fg)}
+.chip{display:inline-flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:500;padding:.25rem .55rem;border-radius:2px;border:1px solid var(--line);white-space:nowrap;color:var(--muted)}
+.chip.pend{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.chip.ok{color:var(--fg);border-color:var(--fg)}
+.chip.no{text-decoration:line-through}
+.chip.prog{color:var(--clay);border-color:var(--clay)}
+.chip.alert{background:var(--alert);border-color:var(--alert);color:#1E1A17}
+.alertbox{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;justify-content:space-between;background:var(--alert-bg);border:1px solid var(--alert);border-left-width:4px;border-radius:var(--radius);padding:1rem 1.2rem;font-size:.92rem}
+.alertbox .ico{color:var(--alert)}
+.alertbox > div{display:flex;gap:.8rem;align-items:center;min-width:0}
+.list{display:flex;flex-direction:column}
+.list .it{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.85rem 0;border-top:1px solid var(--line);font-size:.9rem}
+.list .it:first-child{border-top:0}
+.list .it > div{min-width:0}
+.list .it small{display:block;color:var(--muted);font-size:.78rem}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:620px}
+th{font:500 .7rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:1rem;border-bottom:1px solid var(--line)}
+td{padding:.95rem 1rem;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+tr.click{cursor:pointer}
+tr.click:hover td{background:var(--surface)}
+.toolbar{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.toolbar .actions{display:flex;gap:.6rem;flex-wrap:wrap}
+.search{display:flex;align-items:center;gap:.5rem;border:1px solid var(--line);border-radius:var(--radius);padding:.55rem .8rem;background:var(--card);min-width:0;flex:1 1 220px;max-width:360px}
+.search input{border:0;background:transparent;font:400 .9rem var(--sans);color:var(--fg);width:100%;outline:none}
+.search .ico{width:16px;height:16px;color:var(--muted)}
+.folders{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+.folder{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.2rem;display:flex;flex-direction:column;gap:1.4rem;cursor:pointer;text-align:left;font:inherit;color:inherit;min-width:0}
+.folder:hover,.folder[aria-pressed="true"]{border-color:var(--fg)}
+.folder .ico{width:26px;height:26px;color:var(--clay)}
+.folder b{font-weight:500;font-size:.92rem;display:block}
+.folder small{color:var(--muted);font-size:.78rem}
+@media (max-width:1100px){.folders{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.folders{grid-template-columns:1fr 1fr}}
+.file{display:flex;align-items:center;gap:.8rem;min-width:0}
+.file .ico{color:var(--muted)}
+.file span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.iconbtn{background:none;border:1px solid var(--line);border-radius:var(--radius);color:var(--fg);padding:.4rem .55rem;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;font:500 .78rem var(--sans)}
+.iconbtn:hover{border-color:var(--fg)}
+.iconbtn .ico{width:15px;height:15px}
+.diary{display:flex;flex-direction:column;gap:0;border-left:1px solid var(--line);margin-left:6px}
+.entry{position:relative;padding:0 0 1.8rem 1.6rem;display:grid;grid-template-columns:1fr 180px;gap:1rem}
+.entry > *{min-width:0}
+.entry::before{content:"";position:absolute;left:-5px;top:.45rem;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--fg)}
+.entry time{font-size:.75rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.entry p{font-size:.92rem;margin-top:.3rem}
+@media (max-width:600px){.entry{grid-template-columns:1fr}}
+.phases{display:flex;gap:0;font-size:.75rem}
+.phases span{flex:1;padding:.5rem .6rem;border:1px solid var(--line);color:var(--muted);text-align:center;margin-left:-1px}
+.phases span.done{color:var(--fg)}
+.phases span.now{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.lines td{padding:.7rem 1rem}
+.total td{font-weight:600}
+.msgs{display:flex;flex-direction:column;gap:1rem;max-width:680px}
+.msg{max-width:85%;padding:.9rem 1.1rem;border-radius:var(--radius);font-size:.92rem;border:1px solid var(--line);background:var(--card)}
+.msg.me{align-self:flex-end;background:var(--surface)}
+.msg small{display:block;color:var(--muted);font-size:.72rem;margin-bottom:.3rem}
+.composer{display:flex;gap:.6rem;max-width:680px}
+.composer input{flex:1;min-width:0;font:400 .95rem var(--sans);padding:.8rem 1rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);color:var(--fg)}
+.prop{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem}
+.prop > *{min-width:0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:.6rem 1.5rem;font-size:.9rem}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+@media (max-width:820px){.prop{grid-template-columns:1fr}}
+.empty{color:var(--muted);font-size:.9rem;padding:1rem 0}
+.emptybox{border:1px dashed var(--line);border-radius:var(--radius);padding:clamp(2rem,5vw,3.5rem) 1.5rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.8rem;background:var(--card)}
+.emptybox .ico{width:30px;height:30px;color:var(--clay)}
+.emptybox p{color:var(--muted);max-width:46ch;font-size:.92rem}
+.emptybox .acts{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:.4rem}
+.welcome{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;background:var(--surface);border-radius:var(--radius);padding:1.4rem 1.6rem}
+.welcome > div{min-width:0;max-width:62ch}
+.welcome p{color:var(--muted);font-size:.92rem;margin-top:.3rem}
+.guide-chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.guide-chips button{font:500 .82rem var(--sans);padding:.5rem .9rem;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--muted);cursor:pointer}
+.guide-chips button[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.guide-intro{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.guide-intro > *{min-width:0}
+.guide-intro ul{margin:.6rem 0 0;padding-left:1.1rem;display:grid;gap:.35rem;font-size:.92rem}
+@media (max-width:760px){.guide-intro{grid-template-columns:1fr}}
+.example{border:1px solid var(--line);border-radius:6px;padding:clamp(1rem,2.5vw,1.8rem);display:flex;flex-direction:column;gap:1.5rem;background:var(--bg);position:relative}
+.example-tag{align-self:flex-start;margin-bottom:-.4rem}
+
+/* Modal y toast */
+.modal{position:fixed;inset:0;z-index:80;background:rgba(30,26,23,.45);display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-box{background:var(--bg);border:1px solid var(--line);border-radius:6px;width:100%;max-width:480px;max-height:90vh;overflow:auto;padding:2rem;display:flex;flex-direction:column;gap:1.5rem}
+.modal-box form{display:grid;gap:1.2rem}
+.modal-box .acts{display:flex;justify-content:flex-end;gap:.6rem}
+.toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:90;background:var(--fg);color:var(--bg);padding:.85rem 1.2rem;border-radius:var(--radius);font-size:.9rem;display:flex;gap:.6rem;align-items:center;max-width:calc(100% - 32px)}
+.toast .ico{color:var(--accent)}
+@media (prefers-reduced-motion:no-preference){
+  .view{animation:fade .35s ease}
+  @keyframes fade{from{opacity:.4}to{opacity:1}}
+}
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-6h6v6"/></symbol>
+    <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M14 3v5h5"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5M5 20h14"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7"/><rect x="13.5" y="3.5" width="7" height="7"/><rect x="3.5" y="13.5" width="7" height="7"/><rect x="13.5" y="13.5" width="7" height="7"/></symbol>
+    <symbol id="i-crane" viewBox="0 0 24 24"><path d="M6 21V4l14 3M6 4 3 7h3M16 6v5m-2 0h4v3h-4zM3 21h8"/></symbol>
+    <symbol id="i-euro" viewBox="0 0 24 24"><path d="M18 6.5A7 7 0 1 0 18 17.5M4 10h10M4 14h10"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14a6.5 6.5 0 0 1 3 6"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24"><path d="M15 4h4.5v16H15M10 8l-4 4 4 4M6 12h10"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="1"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5m5-5-5 5 5 5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4.5M12 17.2v.3"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+    <symbol id="i-helmet" viewBox="0 0 24 24"><path d="M2.5 17.5h19"/><path d="M5 17.5V15a7 7 0 0 1 14 0v2.5"/><path d="M10 8.4V12M14 8.4V12"/><path d="M10 8.4a7.2 7.2 0 0 1 4 0"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/><circle cx="12" cy="12" r="6.2"/></symbol>
+    <symbol id="i-cloche" viewBox="0 0 24 24"><path d="M3 18h18M4.5 18a7.5 7.5 0 0 1 15 0M12 10.5V8.5M10.5 8h3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V5M7.5 9.5 12 5l4.5 4.5M5 20h14"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="1"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l1.5 4.5-2.3 1.4a11 11 0 0 0 5.9 5.9l1.4-2.3L20 15v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/></symbol>
+  </defs>
+</svg>
+
+<div id="root"></div>
+
+<script>
+/* ================= Utilidades ================= */
+const $ = (s, el=document) => el.querySelector(s);
+const ico = (n, cls='') => `<svg class="ico ${cls}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const eur = n => n.toLocaleString('es-ES',{minimumFractionDigits:0}) + ' €';
+const store = {
+  get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } },
+  set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} }
+};
+
+/* Ilustración de villa en SVG (placeholder de foto real), con colores del tema */
+const VILLAS = [
+  {b:[[150,250,380,170],[530,180,330,240],[860,290,210,130]], pool:[230,440,560,34], t:[[95,330,55],[1110,315,70]]},
+  {b:[[220,220,470,200],[690,280,320,140]], pool:[300,440,480,34], t:[[120,320,70],[1080,330,55]]},
+  {b:[[120,290,260,130],[380,200,420,220],[800,250,300,170]], pool:[420,440,520,34], t:[[70,340,50],[1140,320,45]]},
+  {b:[[300,230,600,190]], pool:[340,440,520,34], t:[[180,320,75],[1010,320,80]]},
+];
+function villa(i=0, opt={}){
+  const v = VILLAS[i % VILLAS.length], works = !!opt.works, ratio = opt.ratio || '1200 520';
+  let s = `<svg class="illus" viewBox="0 0 ${ratio}" role="img" aria-label="${opt.alt||'Ilustración de villa mediterránea'}" preserveAspectRatio="xMidYMid slice">`;
+  s += `<rect width="1200" height="520" fill="var(--sky)"/>`;
+  s += `<circle cx="${980 - i*160}" cy="120" r="46" fill="var(--sun)"/>`;
+  s += `<path d="M0 330 C 200 250 380 290 560 260 S 900 230 1200 290 V520 H0Z" fill="var(--hill)"/>`;
+  s += `<path d="M0 380 C 260 330 520 360 760 340 S 1050 330 1200 360 V520 H0Z" fill="var(--hill2)"/>`;
+  s += `<rect y="420" width="1200" height="100" fill="var(--ground)"/>`;
+  v.t.forEach(([x,y,r])=>{ s += `<rect x="${x-3}" y="${y}" width="6" height="${420-y}" fill="var(--tree)"/><circle cx="${x}" cy="${y}" r="${r}" fill="var(--tree)"/>`; });
+  v.b.forEach(([x,y,w,h],k)=>{
+    s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${k%2?'var(--wall-shade)':'var(--wall)'}"/>`;
+    s += `<rect x="${x-14}" y="${y-8}" width="${w+28}" height="10" fill="var(--wall)"/>`;
+    const n = Math.max(1, Math.floor(w/150));
+    for(let j=0;j<n;j++){
+      const gw = Math.min(110, w/n - 34), gx = x + 22 + j*(w/n), gy = y + h*0.35;
+      s += `<rect x="${gx}" y="${gy}" width="${gw}" height="${h*0.62 - 8}" fill="var(--glass)" opacity=".82"/>`;
+    }
+    if(works){ for(let sx=x-10; sx<=x+w+10; sx+=60){ s += `<line x1="${sx}" y1="${y-30}" x2="${sx}" y2="${y+h}" stroke="var(--clay)" stroke-width="3"/>`; }
+      for(let sy=y; sy<=y+h; sy+=55){ s += `<line x1="${x-10}" y1="${sy}" x2="${x+w+10}" y2="${sy}" stroke="var(--clay)" stroke-width="3"/>`; } }
+  });
+  const [px,py,pw,ph] = v.pool;
+  s += `<rect x="${px}" y="${py}" width="${pw}" height="${ph}" fill="${works?'var(--hill2)':'var(--pool)'}"/>`;
+  if(!works) s += `<line x1="${px+30}" y1="${py+12}" x2="${px+pw*0.45}" y2="${py+12}" stroke="var(--wall)" stroke-width="2" opacity=".6"/>`;
+  return s + `</svg>`;
+}
+
+const PH = {fachada:'fachada.jpg', solar:'solar.jpg', aerotermia:'aerotermia.jpg', sala:'sala.jpg', aerea:'sienna-aerea.jpg', atardecer:'sienna-atardecer.jpg', terraza:'sienna-terraza.jpg', azotea:'sienna-azotea.jpg', dia:'sienna-fachada.jpg', chillout:'sienna-chillout.jpg', entrada:'sienna-entrada.jpg'};
+const photo = (k, alt, ratio='4/3') => `<div class="ph" style="aspect-ratio:${ratio}"><img class="photo" src="${PH[k]}" alt="${alt}" loading="lazy" decoding="async"></div>`;
+function workGallery(){
+  return `<div class="works">
+    <figure class="tall">${photo('fachada','Fachada de villa con andamio durante la rehabilitación','auto')}<figcaption><b>Rehabilitación de fachada</b>Pintura y sellado con la casa protegida por dentro · obra en curso</figcaption></figure>
+    <figure class="wide">${photo('solar','Placas solares fotovoltaicas instaladas en la cubierta de una villa','16/8')}<figcaption><b>Fotovoltaica en cubierta</b>Paneles full black integrados en la azotea</figcaption></figure>
+    <figure>${photo('aerotermia','Bomba de calor y acumulador de agua caliente en azotea','1/1')}<figcaption><b>Aerotermia y agua caliente</b>Bomba de calor con acumulador de ACS</figcaption></figure>
+    <figure>${photo('sala','Sala técnica de fontanería con tuberías etiquetadas','1/1')}<figcaption><b>Sala técnica</b>Grupo de presión y circuitos etiquetados</figcaption></figure>
+  </div>`;
+}
+
+/* ================= Datos de ejemplo ================= */
+const FOLDERS = ['Garantías','Planos e instalaciones','Facturas','Contratos','Manuales'];
+const DOCS = {
+  'Villa Albero': {
+    'Garantías':[['Garantía aerotermia Johnson.pdf','30/05/2026','1,2 MB'],['Garantía paneles fotovoltaicos.pdf','15/04/2026','2,0 MB'],['Garantía cubierta piscina.pdf','04/06/2024','860 KB'],['Garantía carpintería Cortizo.pdf','18/09/2023','2,4 MB'],['Garantía sistema domótico KNX.pdf','02/02/2026','1,1 MB']],
+    'Planos e instalaciones':[['Plano planta baja rev.3.pdf','10/01/2026','4,8 MB'],['Plano planta alta rev.3.pdf','10/01/2026','4,5 MB'],['Esquema eléctrico cuadro general.pdf','22/11/2024','1,9 MB'],['Instalación riego por zonas.pdf','15/05/2025','2,2 MB'],['Esquema sala técnica y grupo de presión.pdf','20/02/2026','1,6 MB'],['Plano cocina nueva (obra 2026).pdf','28/09/2026','3,1 MB']],
+    'Facturas':[['F-2026-212 Mantenimiento piscina octubre.pdf','01/11/2026','210 KB'],['F-2026-198 Jardinería octubre.pdf','31/10/2026','195 KB'],['F-2026-187 Gestión integral octubre.pdf','31/10/2026','180 KB'],['F-2026-170 Reforma cocina hito 1.pdf','15/10/2026','240 KB'],['F-2026-151 Gestión integral septiembre.pdf','30/09/2026','180 KB'],['F-2026-133 Revisión alarma.pdf','12/09/2026','160 KB']],
+    'Contratos':[['Contrato gestión integral 2026.pdf','08/01/2026','620 KB'],['Contrato obra cocina — Construcciones Sierra.pdf','22/09/2026','1,4 MB']],
+    'Manuales':[['Manual climatización.pdf','12/03/2025','5,6 MB'],['Manual alarma Verisure.pdf','20/07/2023','3,3 MB'],['Manual domótica KNX.pdf','02/02/2026','7,1 MB']]
+  }
+};
+const BUDGETS = [
+  {id:'P-2026-044', title:'Iluminación exterior del jardín', prop:'Villa Albero', client:'Familia Lindqvist', date:'12/11/2026', status:'Pendiente',
+   lines:[['Luminarias LED bajo consumo (18 uds.)',3240],['Cableado y zanjas',1480],['Programador astronómico',420],['Mano de obra',1180]]},
+  {id:'P-2026-041', title:'Climatización de la piscina', prop:'Villa Albero', client:'Familia Lindqvist', date:'05/11/2026', status:'Pendiente',
+   lines:[['Bomba de calor 28 kW',9800],['Instalación hidráulica',3950],['Cuadro eléctrico y protecciones',1900],['Mano de obra y puesta en marcha',2800]]},
+  {id:'P-2026-038', title:'Reforma integral de cocina', prop:'Villa Albero', client:'Familia Lindqvist', date:'18/09/2026', status:'Aprobado',
+   lines:[['Demolición y retirada',3200],['Fontanería y electricidad',7400],['Mobiliario a medida',21300],['Encimeras de piedra natural',6800],['Electrodomésticos (instalación)',4200]]},
+  {id:'P-2026-029', title:'Impermeabilización de terraza norte', prop:'Villa Albero', client:'Familia Lindqvist', date:'02/07/2026', status:'Rechazado',
+   lines:[['Lámina impermeable',4300],['Solado nuevo',3870],['Mano de obra',1700]]},
+  {id:'P-2026-043', title:'Paisajismo zona de acceso', prop:'Villa Las Brisas', client:'Mr. & Mrs. Harrington', date:'10/11/2026', status:'Pendiente',
+   lines:[['Diseño y plantación',7600],['Riego por goteo',2100]]},
+  {id:'P-2026-040', title:'Sustitución de toldos', prop:'Casa del Pinar', client:'Familia Ortega', date:'30/10/2026', status:'Pendiente',
+   lines:[['Toldos motorizados (4 uds.)',5900],['Instalación',900]]},
+];
+const WORKS = [
+  {id:'O-12', title:'Reforma integral de cocina', prop:'Villa Albero', client:'Familia Lindqvist', phase:'En curso', pct:65, due:'12/12/2026', lead:'Construcciones Sierra',
+   diary:[['14 nov 2026','Encimeras de piedra colocadas. Mañana conexión de fregadero y placa.',2],['07 nov 2026','Mobiliario a medida montado al 80 %. Revisado con el carpintero.',1],['29 oct 2026','Fontanería y electricidad terminadas. Pruebas de presión correctas.',0],['16 oct 2026','Demolición completada y escombros retirados. Inicio de instalaciones.',3]]},
+  {id:'O-14', title:'Climatización de la piscina', prop:'Villa Albero', client:'Familia Lindqvist', phase:'Presupuesto', pct:0, due:'Febrero 2027', lead:'Pendiente de aprobación', diary:[]},
+  {id:'O-09', title:'Rehabilitación de fachada', prop:'Villa Albero', client:'Familia Lindqvist', phase:'En curso', pct:80, due:'28/11/2026', lead:'Pinturas Costa',
+   diary:[['13 nov 2026','Andamio en la fachada del jardín. Muebles de terraza protegidos dentro del salón. Segunda mano de pintura el lunes.','fachada'],['04 nov 2026','Sellado de juntas y fisuras terminado en la fachada sur.',3]]},
+  {id:'O-07', title:'Aerotermia y agua caliente', prop:'Villa Albero', client:'Familia Lindqvist', phase:'Terminado', pct:100, due:'Entregada 30/05/2026', lead:'Clima Sur',
+   diary:[['30 may 2026','Bomba de calor y acumulador de ACS en marcha. Consumo de gas eliminado.','aerotermia']]},
+  {id:'O-13', title:'Renovación de baños de invitados', prop:'Villa Las Brisas', client:'Mr. & Mrs. Harrington', phase:'En curso', pct:40, due:'20/01/2027', lead:'Reformas Guadaíza', diary:[['12 nov 2026','Alicatado del primer baño terminado.',1]]},
+  {id:'O-11', title:'Cerramiento de porche', prop:'Casa del Pinar', client:'Familia Ortega', phase:'En curso', pct:85, due:'30/11/2026', lead:'Aluminios San Pedro', diary:[['13 nov 2026','Vidrios instalados. Falta sellado y limpieza.',2]]},
+];
+const PROJECTS = [
+  {t:'Reforma integral de cocina', p:'Villa Albero', s:'En curso', d:'Cocina abierta al salón con isla de piedra natural.', pct:65},
+  {t:'Climatización de la piscina', p:'Villa Albero', s:'Presupuesto', d:'Bomba de calor para usar la piscina de marzo a noviembre.', pct:0},
+  {t:'Paisajismo de bajo consumo', p:'Villa Albero', s:'Idea', d:'Sustituir césped por especies autóctonas y riego por goteo.', pct:0},
+  {t:'Rehabilitación de fachada', p:'Villa Albero', s:'En curso', d:'Sellado y pintura mineral transpirable, color blanco roto.', pct:80, img:'fachada'},
+  {t:'Fotovoltaica en cubierta', p:'Villa Albero', s:'Terminado', d:'Paneles full black en la azotea para autoconsumo.', pct:100, img:'solar'},
+  {t:'Aerotermia y agua caliente', p:'Villa Albero', s:'Terminado', d:'Bomba de calor y acumulador de ACS. Sin gas.', pct:100, img:'aerotermia'},
+];
+const CLIENTS = [
+  ['Familia Lindqvist','Erik y Anna Lindqvist','Villa Albero','Benahavís','Integral','Activo'],
+  ['Mr. & Mrs. Harrington','James y Claire Harrington','Villa Las Brisas','Nueva Andalucía','VIP','Activo'],
+  ['Familia Ortega','Javier Ortega','Casa del Pinar','San Pedro','Integral','Activo'],
+  ['Mr. Van der Berg','Pieter van der Berg','Villa Olivar','La Zagaleta','VIP','Activo'],
+  ['Familia Moreau','Claire y Luc Moreau','Villa Azahar','Sierra Blanca','Esencial','Activo'],
+  ['Sr. Al-Rashid','Omar Al-Rashid','Villa Mirador','El Madroñal','VIP','Activo'],
+  ['Familia Schneider','Katrin Schneider','Casa Algarrobo','Guadalmina','Integral','Activo'],
+  ['Mrs. Whitfield','Helen Whitfield','Villa Retama','Los Monteros','Esencial','Invitación enviada'],
+];
+const PROPS = [
+  ['Villa Albero','Benahavís','6 dorm. · 780 m²','Familia Lindqvist','Martes y viernes','1 obra en curso'],
+  ['Villa Las Brisas','Nueva Andalucía','5 dorm. · 620 m²','Mr. & Mrs. Harrington','Lunes y jueves','1 obra en curso'],
+  ['Casa del Pinar','San Pedro','4 dorm. · 410 m²','Familia Ortega','Miércoles','1 obra en curso'],
+  ['Villa Olivar','La Zagaleta','8 dorm. · 1.250 m²','Mr. Van der Berg','Lunes, miércoles y viernes','Sin obras'],
+  ['Villa Azahar','Sierra Blanca','5 dorm. · 540 m²','Familia Moreau','Quincenal','Sin obras'],
+  ['Villa Mirador','El Madroñal','7 dorm. · 900 m²','Sr. Al-Rashid','Martes y jueves','1 incidencia abierta'],
+  ['Casa Algarrobo','Guadalmina','4 dorm. · 380 m²','Familia Schneider','Semanal','Sin obras'],
+  ['Villa Retama','Los Monteros','5 dorm. · 600 m²','Mrs. Whitfield','Por definir','Alta en curso'],
+];
+let MESSAGES = [
+  {me:false, who:'Francisco Gatell', at:'14 nov, 18:20', t:'Buenas tardes. Ya están colocadas las encimeras de la cocina. Os he subido fotos al diario de obra.'},
+  {me:true, who:'Anna Lindqvist', at:'14 nov, 19:05', t:'¡Qué bien quedan! ¿Seguimos en fecha para el 12 de diciembre?'},
+  {me:false, who:'Francisco Gatell', at:'15 nov, 09:12', t:'Sí, seguimos en plazo. Queda pendiente vuestra respuesta al presupuesto de climatización de la piscina para pedir la bomba a tiempo.'},
+];
+
+/* Cuentas del prototipo: solo hashes SHA-256 de email:contraseña. No es seguridad real: falta backend. */
+const ACCOUNTS = [
+  {role:'admin', h:'dac6a2a7b250687ed0af6dce1aee39b856eb000a9d566912684c766d12b9503c', name:'Francisco', full:'Francisco Gatell', sub:'Administrador'},
+  {role:'cliente', h:'43b472df8f786b46c5fd7e8522a83e72e49d52f4a3e719c3fb905b8221e89636', name:'Jose', full:'Jose Plaza', sub:'Villa Albero, Benahavís'},
+];
+async function sha256(t){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+function session(){ try{ return JSON.parse(sessionStorage.getItem('lps-session')||localStorage.getItem('lps-session')||'null'); }catch(e){ return state.session||null; } }
+function setSession(v, keep){ state.session=v; try{ sessionStorage.removeItem('lps-session'); localStorage.removeItem('lps-session'); if(v) (keep?localStorage:sessionStorage).setItem('lps-session', JSON.stringify(v)); }catch(e){} }
+
+/* ================= Router ================= */
+const PUBLIC = ['inicio','servicios','sobre','contacto'];
+const CLIENT_NAV = [['cliente','Resumen','grid'],['cliente-propiedad','Mi propiedad','home'],['cliente-documentos','Documentos','folder'],['cliente-obras','Estado de obras','crane'],['cliente-presupuestos','Presupuestos','euro'],['cliente-proyectos','Proyectos','layers'],['cliente-mensajes','Mensajes','chat'],['cliente-guia','Guía y ejemplos','info']];
+const ADMIN_NAV = [['admin','Panel','grid'],['admin-propiedades','Propiedades','home'],['admin-clientes','Clientes','users'],['admin-documentos','Documentos','folder'],['admin-obras','Obras','crane'],['admin-presupuestos','Presupuestos','euro'],['admin-proyectos','Proyectos','layers'],['admin-banner','Banner de entrada','cloche'],['admin-guia','Guía y ejemplos','info']];
+const state = { guide:{cliente:'resumen', admin:'panel'}, myMsgs:[], folder:null, q:'', budget:null, loginTab: store.get('lps-tab') || 'cliente', menu:false };
+
+function route(){
+  const h = (location.hash || '#bienvenida').slice(1) || 'bienvenida';
+  const root = $('#root');
+  let html;
+  if (h === 'bienvenida') html = landingView();
+  else if (PUBLIC.includes(h)) html = publicShell(h);
+  else if (h === 'acceso') html = loginView();
+  else if (h.startsWith('cliente') || h.startsWith('admin')) {
+    const role = h.startsWith('admin') ? 'admin' : 'cliente', ss = session();
+    if (!ss || ss.role !== role) { state.loginTab = role; if (location.hash !== '#acceso') { location.hash = 'acceso'; return; } html = loginView(); }
+    else html = appShell(role, h);
+  }
+  else html = publicShell('inicio');
+  root.innerHTML = html;
+  bind(h);
+  window.scrollTo(0,0);
+  if (state.jump) { const id=state.jump; state.jump=null; setTimeout(()=>document.getElementById(id)?.scrollIntoView(), 60); }
+  document.title = titleFor(h);
+}
+function titleFor(h){
+  if (h==='bienvenida') return 'Velarehome · Project Management & Home Care';
+  const m = {inicio:'Velarehome', servicios:'Servicios · Velarehome', sobre:'Francisco Gatell · Velarehome', contacto:'Contacto · Velarehome', acceso:'Acceso clientes · Velarehome'};
+  return m[h] || 'Área privada · Velarehome';
+}
+window.addEventListener('hashchange', route);
+
+/* ================= Banner de Francisco (editable desde admin) ================= */
+const DEFAULT_PROMOS = [
+  {on:true, img:'aerotermia', t:'Adiós al gas con aerotermia', d:'Agua caliente y clima con bomba de calor. Te preparo un estudio de tu casa sin compromiso.'},
+  {on:true, img:'solar', t:'Tu propia energía en la cubierta', d:'Placas full black integradas en la azotea. Pregúntame cuánto podrías ahorrar.'},
+  {on:true, img:'chillout', t:'Tu casa lista el día que llegas', d:'Terraza, piscina y nevera preparadas antes de que aterrices. Solo avísame.'},
+];
+function promos(){ try{ return JSON.parse(localStorage.getItem('lps-promos')) || DEFAULT_PROMOS; }catch(e){ return DEFAULT_PROMOS; } }
+const PROMO_HEAD = () => { try{ return JSON.parse(localStorage.getItem('lps-promo-head')) || {t:'Novedades de Francisco', s:'Ideas para tu casa este invierno'}; }catch(e){ return {t:'Novedades de Francisco', s:'Ideas para tu casa este invierno'}; } };
+function promoBlock(){
+  const list = promos().filter(p=>p.on); if(!list.length) return '';
+  const h = PROMO_HEAD();
+  return `<section class="vh-promo" aria-label="${esc(h.t)}">
+    <div class="vh-promo-head"><span class="av">FG</span><div><b>${esc(h.t)}</b><small>${esc(h.s)}</small></div></div>
+    <div class="vh-promo-grid">${list.map(p=>`<a class="vh-card" href="https://wa.me/34665601092?text=${encodeURIComponent('Hola Francisco, me interesa: '+p.t)}" target="_blank" rel="noopener">${photo(p.img, p.t, '4/3')}<div><b>${esc(p.t)}</b><p>${esc(p.d)}</p><span class="go">Pregúntale a Francisco →</span></div></a>`).join('')}</div>
+  </section>`;
+}
+
+/* ================= Landing de entrada ================= */
+function landingView(){
+  const items = [['helmet','Gestión<br>de proyectos','svc-reformas'],['home','Cuidado<br>de viviendas','svc-gestion'],['gear','Mantenimiento<br>integral','svc-planes'],['cloche','Servicio<br>premium','svc-concierge']];
+  return `<main class="landing view">
+    <svg class="vh-logo" viewBox="0 0 560 150" aria-hidden="true" fill="none" stroke="#8C7556" stroke-linecap="round">
+      <path d="M150 104 L300 26 L405 82" stroke-width="2.4"/>
+      <path d="M352 112 C 420 92, 470 96, 545 128" stroke-width="2.2"/>
+      <path d="M418 108 C 404 80, 404 52, 412 30 C 420 52, 424 80, 418 108Z" fill="#8C7556" stroke="none"/>
+      <path d="M444 112 C 428 78, 430 42, 440 14 C 450 42, 456 78, 444 112Z" fill="#8C7556" stroke="none"/>
+    </svg>
+    <h1 class="vh-word">Velarehome</h1>
+    <p class="vh-sub">Project Management<br>&amp; Home Care</p>
+    <p class="vh-tag">Velamos por tu casa como si fuera la nuestra</p>
+    <div class="vh-rule"></div>
+    <nav class="vh-icons" aria-label="Servicios">${items.map(([i,t,id])=>`<a href="#servicios" data-jumpto="${id}">${ico(i)}<span>${t}</span></a>`).join('')}</nav>
+    <div class="vh-ctas"><a class="btn btn-primary" href="#inicio">Entrar en la web ${ico('arrow')}</a>${(()=>{ const ss=session(); return ss?`<a class="btn" href="#${ss.role}">${ico('home')}${ss.role==='admin'?'Ir a mi panel':'Ver mi casa'}</a>`:`<a class="btn" href="#acceso">${ico('lock')}Acceso clientes</a>`; })()}</div>
+    ${promoBlock()}
+    <p class="vh-foot">Marbella · Nueva Andalucía · Benahavís · San Pedro</p>
+  </main>`;
+}
+
+/* ================= Público ================= */
+function header(cur){
+  const L = [['servicios','Servicios'],['sobre','Sobre Francisco'],['inicio#metodo','Cómo trabajamos'],['contacto','Contacto']];
+  return `<header class="site-header"><div class="wrap">
+    <a class="logo" href="#inicio">Velarehome<small>Project Management &amp; Home Care</small></a>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">${ico('menu')}</button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      ${L.map(([k,t])=>`<a href="#${k.split('#')[0]}" ${k.includes('#metodo')?'data-jump="metodo"':''} class="${cur===k?'on':''}">${t}</a>`).join('')}
+      <a class="access" href="#acceso">${ico('lock')}Acceso clientes</a>
+      <a class="btn btn-dark btn-sm" href="#contacto">Hablar con tu gestor</a>
+    </nav></div></header>`;
+}
+function footer(){
+  return `<footer class="site-footer"><div class="wrap">
+    <div class="foot-grid">
+      <div><a class="logo" href="#inicio">Velarehome</a><p style="color:var(--muted);margin-top:1rem;max-width:34ch">Gestión de villas, reformas y concierge. Como máximo 10 villas por gestor, para conocerlas todas.</p><a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener" style="margin-top:1.2rem"><span class="av">FG</span><span><b>Francisco Gatell</b><small>+34 665 601 092 · WhatsApp</small></span></a></div>
+      <div><h4>Servicios</h4><ul><li><a href="#servicios">Gestión de villas</a></li><li><a href="#servicios">Reformas y ampliaciones</a></li><li><a href="#servicios">Concierge</a></li></ul></div>
+      <div><h4>Empresa</h4><ul><li><a href="#sobre">Sobre Francisco</a></li><li><a href="#contacto">Contacto</a></li><li><a href="#acceso">Acceso clientes</a></li></ul></div>
+      <div><h4>Contacto</h4><ul><li><a href="https://wa.me/34665601092" target="_blank" rel="noopener">+34 665 601 092 · WhatsApp</a></li><li>info@luxury-property-services.com</li><li>Lunes a viernes, 9:00–19:00</li><li>Urgencias de clientes 24/7</li></ul></div>
+    </div>
+    <div class="legal"><span>© <span class="num">${new Date().getFullYear()}</span> Luxury Property Services Costa del Sol S.L. · CIF B-XXXXXXXX · Marbella, Málaga · Velarehome es su marca comercial</span>
+    <nav aria-label="Legal"><a href="#inicio">Privacidad</a><a href="#inicio">Aviso legal</a><a href="#inicio">Cookies</a></nav></div>
+  </div></footer>`;
+}
+function publicShell(h){
+  const body = {inicio:homeView, servicios:servicesView, sobre:aboutView, contacto:contactView}[h]();
+  return header(h) + `<main class="view">${body}</main>` + footer();
+}
+const PLANS = `
+  <div class="plans">
+    <div class="plan"><div><div class="eyebrow">Esencial</div><h3 style="margin-top:.6rem">Casa cerrada, casa cuidada</h3></div>
+      <div class="price num">desde 390 € <small>/ mes</small></div>
+      <ul><li>${ico('check')}Visita de control semanal</li><li>${ico('check')}Revisión de alarma, humedades y suministros</li><li>${ico('check')}Informe con fotos tras cada visita</li><li>${ico('check')}Coordinación de piscina y jardín</li></ul>
+      <div class="visits">1 visita a la semana</div></div>
+    <div class="plan"><div><div class="eyebrow">Integral</div><h3 style="margin-top:.6rem">Tu casa, lista siempre</h3></div>
+      <div class="price num">desde 890 € <small>/ mes</small></div>
+      <ul><li>${ico('check')}Todo lo de Esencial</li><li>${ico('check')}Gestión de proveedores y pagos</li><li>${ico('check')}Preparación antes de cada llegada</li><li>${ico('check')}Área privada con documentos y facturas</li><li>${ico('check')}Mantenimiento preventivo anual</li></ul>
+      <div class="visits">2 visitas a la semana</div></div>
+    <div class="plan vip"><span class="tag">Más elegido</span><div><div class="eyebrow">VIP</div><h3 style="margin-top:.6rem">Un gestor, tu casa, sin límites</h3></div>
+      <div class="price num">a medida</div>
+      <ul><li>${ico('check')}Todo lo de Integral</li><li>${ico('check')}Gestor dedicado con respuesta en 2 h</li><li>${ico('check')}Dirección de reformas y proyectos</li><li>${ico('check')}Concierge: chef, chófer, eventos</li><li>${ico('check')}Llaves y atención 24/7</li></ul>
+      <div class="visits">Visitas según necesidad</div></div>
+  </div>
+  <p class="note">Precios orientativos para una villa de hasta 6 dormitorios. Presupuesto cerrado tras la primera visita.</p>`;
+
+function homeView(){
+  return `
+  <section class="hero"><div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="eyebrow">Gestión de villas · Costa del Sol</div>
+        <h1>Solo 10 villas por gestor. Tu casa, cuidada como si fuera <em>la nuestra</em>.</h1>
+        <p class="lead">Cuidamos tu casa y la hacemos crecer: mantenimiento, reformas, ampliaciones y concierge en Marbella, Nueva Andalucía, Benahavís y San Pedro.</p>
+        <div class="hero-ctas"><a class="btn btn-primary" href="#contacto">Hablar con tu gestor ${ico('arrow')}</a><a class="link" href="#servicios">Ver servicios</a></div>
+        <a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener"><span class="av">FG</span><span><b>Te atiende Francisco Gatell</b><small>Fundador. Escríbele directamente: +34 665 601 092</small></span></a>
+      </div>
+      <div class="hero-img">${photo('atardecer','Villa Sienna al atardecer: piscina iluminada frente a la fachada acristalada','3/2')}
+        <div class="caption"><span>Villa Sienna · El Madroñal, Benahavís</span><span>Una de las villas que gestionamos</span></div></div>
+    </div>
+    <div class="figures">
+      <div class="figure"><b><span class="ten">10</span></b><span>villas como máximo por gestor</span></div>
+      <div class="figure"><b>24/7</b><span>atención a propietarios</span></div>
+      <div class="figure"><b>2 h</b><span>tiempo medio de respuesta</span></div>
+      <div class="figure"><b>+15</b><span>años en la Costa del Sol</span></div>
+    </div>
+  </div></section>
+
+  <section class="band alt"><div class="wrap velar">
+    <div><div class="eyebrow">Velarehome viene de «velar»</div><h2 style="margin-top:1rem">Velar es cuidar con atención. Así cuidamos <em>tu casa</em>.</h2>
+      <p class="lead" style="margin-top:1.2rem">Tu casa es única y merece un trato exclusivo. Por eso cada gestor lleva como máximo diez, y Francisco las conoce todas por su nombre.</p></div>
+    <div class="velar-cols">
+      <div><span class="n">Cuidar</span><p>Visitas, mantenimiento, proveedores y un informe con fotos tras cada visita. Tu casa siempre lista, estés o no.</p></div>
+      <div><span class="n">Mejorar</span><p>Ampliaciones, reformas y mejoras: aerotermia, placas solares, cocinas, terrazas. Las dirigimos de principio a fin con presupuesto cerrado.</p></div>
+    </div>
+  </div></section>
+
+  <section class="band" id="servicios-home"><div class="wrap">
+    <div class="sec-head"><h2>Tres servicios, <em>un</em> interlocutor.</h2><p class="lead">Una sola persona conoce tu casa, tus proveedores y tus manías. Sin centralitas ni cambios de interlocutor: siempre sabes a quién llamar.</p></div>
+    <div class="services">
+      <div class="service">${ico('key')}<h3>Gestión de villas</h3><p>Visitas de control, proveedores, pagos y preparación antes de cada llegada.</p><a class="link" href="#servicios">Ver qué incluye</a></div>
+      <div class="service">${ico('tool')}<h3>Reformas y ampliaciones</h3><p>Ampliamos, reformamos y mejoramos tu casa. Una sola persona dirige la obra, con presupuesto cerrado.</p><a class="link" href="#servicios">Ver qué incluye</a></div>
+      <div class="service">${ico('home')}<h3>Concierge</h3><p>Chef, chófer, limpieza, eventos y reservas mientras estás en la casa.</p><a class="link" href="#servicios">Ver qué incluye</a></div>
+    </div>
+  </div></section>
+
+  <section class="band alt" id="metodo"><div class="wrap">
+    <div class="sec-head"><h2>Cómo <em>trabajamos</em></h2><p class="lead">Del primer café en tu casa al informe de cada semana, siempre con la misma cara.</p></div>
+    <div class="steps">
+      <div class="step"><span class="n">01</span><h3>Un café en tu casa</h3><p>Francisco recorre la villa contigo: instalaciones, jardín, piscina y todo lo que te quita el sueño.</p></div>
+      <div class="step"><span class="n">02</span><h3>Un plan hecho para ti</h3><p>Decidimos juntos cada cuánto pasamos, con qué proveedores y cuánto cuesta al año. Sin letra pequeña.</p></div>
+      <div class="step"><span class="n">03</span><h3>Siempre sabes cómo está</h3><p>Tras cada visita te llega un informe con fotos. Y si quieres hablar, llamas a Francisco, no a una centralita.</p></div>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap panel-promo">
+    <div>
+      <div class="eyebrow">Área privada de propietarios</div>
+      <h2 style="margin-top:1rem">Tu villa, <em>en un panel</em>.</h2>
+      <ul class="checks">
+        <li>${ico('folder')}<span>Garantías, planos y facturas siempre a mano, ordenados por carpetas.</span></li>
+        <li>${ico('crane')}<span>Obras con porcentaje de avance, fecha prevista y diario con fotos.</span></li>
+        <li>${ico('euro')}<span>Presupuestos aprobados en un clic, con registro de fecha.</span></li>
+      </ul>
+      <a class="link" href="#acceso">Ver el área de clientes</a>
+    </div>
+    <div class="mock" aria-label="Vista previa del área de clientes">
+      <div class="mock-bar"><i></i><i></i><i></i><span style="margin-left:.6rem">Área privada · Villa Albero</span></div>
+      <div class="mock-body">
+        <div class="mock-side"><b>Resumen</b><span>Documentos</span><span>Obras</span><span>Presupuestos</span><span>Proyectos</span><span>Mensajes</span></div>
+        <div class="mock-main">
+          <div class="mock-card"><small>Documentos</small><b>20 archivos</b><small>5 carpetas</small></div>
+          <div class="mock-card"><small>Presupuestos</small><b>2 por revisar</b><span><span class="chip pend">Pendiente</span></span></div>
+          <div class="mock-card wide"><small>Reforma de cocina · en curso</small><div class="bar"><i style="width:65%"></i></div><small>65 % · entrega prevista 12 dic</small></div>
+          <div class="mock-card wide"><small>Último informe de visita · 14 nov</small><b>Piscina, jardín y alarma correctos</b></div>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="band alt"><div class="wrap founder">
+    <div class="portrait"><span>FG</span><small>Foto de Francisco en obra (pendiente)</small></div>
+    <div>
+      <div class="eyebrow">El fundador</div>
+      <blockquote style="margin-top:1.4rem">«Decidí no pasar de diez villas por gestor. Con más casas, dejas de conocerlas. Con diez, sé qué grifo gotea antes de que lo notes.»</blockquote>
+      <div class="sig"><b>Francisco Gatell</b><span>Fundador y project manager</span></div>
+      <div class="hero-ctas" style="margin-top:2rem"><a class="btn" href="https://wa.me/34665601092" target="_blank" rel="noopener">${ico('chat')}Escribir a Francisco</a><a class="link" href="#sobre">Conocer a Francisco</a></div>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <div class="sec-head"><h2>Casas que <em>cuidamos</em></h2><p class="lead">Fotos publicadas con permiso del propietario. Sin dirección exacta.</p></div>
+    <div class="case">
+      <figure class="case-main">${photo('aerea','Vista aérea de Villa Sienna en El Madroñal, Benahavís','4/3')}</figure>
+      <div class="case-side">
+        <figure>${photo('azotea','Piscina de la azotea de Villa Sienna con vistas al mar','3/2')}</figure>
+        <figure>${photo('dia','Fachada de Villa Sienna con la piscina principal','3/2')}</figure>
+      </div>
+    </div>
+    <div class="case-meta"><div><h3>Villa Sienna</h3><span>El Madroñal, Benahavís</span></div><div><b>Gestión integral</b><span>Visitas, piscinas, jardín, instalaciones y proveedores</span></div><div><b>Una villa contemporánea</b><span>Dos piscinas, azotea con vistas al mar y sala técnica propia</span></div></div>
+  </div></section>
+
+  <section class="band" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><h2>Trabajo <em>real</em>, en obra.</h2><p class="lead">Instalaciones y reformas que hemos dirigido en villas que gestionamos. Fotos del equipo, sin retoques de estudio.</p></div>
+    ${workGallery()}
+  </div></section>
+
+  <section class="band alt"><div class="wrap">
+    <div class="sec-head"><h2>Lo que dicen los <em>propietarios</em></h2><p class="lead">Reseñas verificadas en Google.</p></div>
+    <div class="quotes">
+      <figure class="quote"><span class="stars">★★★★★</span><p>«Vivimos en Estocolmo nueve meses al año. Cada viernes recibimos el informe con fotos y no hemos tenido una sola sorpresa en cinco años.»</p><footer><b>Anna Lindqvist</b>Villa Albero, Benahavís</footer></figure>
+      <figure class="quote"><span class="stars">★★★★★</span><p>«Francisco dirigió la reforma de los baños y la terminó en plazo. Lo mejor es que siempre hablas con la misma persona.»</p><footer><b>James Harrington</b>Villa Las Brisas, Nueva Andalucía</footer></figure>
+      <figure class="quote"><span class="stars">★★★★★</span><p>«Tener todas las garantías y facturas de la casa en un mismo sitio nos ha ahorrado horas de buscar papeles.»</p><footer><b>Javier Ortega</b>Casa del Pinar, San Pedro</footer></figure>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <div class="sec-head"><h2>Paquetes <em>orientativos</em></h2><p class="lead">Lo que incluye cada nivel, a la vista. El precio final depende de la casa.</p></div>
+    ${PLANS}
+  </div></section>
+
+  <section class="band alt"><div class="wrap cta-band">
+    <h2>¿Tomamos un café y me cuentas cómo es <em>tu casa</em>?</h2>
+    <div class="hero-ctas"><a class="btn btn-primary" href="#contacto">Quedar con Francisco ${ico('arrow')}</a><span style="color:var(--muted);font-size:.9rem">Quedan 2 plazas en su cartera</span></div>
+  </div></section>`;
+}
+
+function servicesView(){
+  const D = (n,t,em,txt,inc,freq,rep,id) => `
+    <div class="detail" id="${id}"><div><div class="eyebrow">${n}</div><h2 style="margin-top:1rem">${t} <em>${em}</em></h2><p>${txt}</p></div>
+      <div class="lists"><div><h4>Qué incluye</h4><ul>${inc.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      <div><h4>Frecuencia</h4><ul>${freq.map(x=>`<li>${x}</li>`).join('')}</ul><h4 style="margin-top:1.8rem">Qué recibes</h4><ul>${rep.map(x=>`<li>${x}</li>`).join('')}</ul></div></div></div>`;
+  return `
+  <section class="page-head"><div class="wrap"><div class="eyebrow">Servicios</div>
+    <h1>Todo lo que necesita una villa, con <em>una</em> sola persona al frente.</h1>
+    <p class="lead">Cada gestor lleva como máximo 10 villas. Así podemos visitar más, responder antes y conocer cada casa al detalle.</p>
+    <div class="page-img">${photo('chillout','Zona chill-out iluminada de Villa Sienna al atardecer','21/9')}<div class="caption"><span>Villa Sienna · zona chill-out preparada para la llegada de los propietarios</span></div></div></div></section>
+  <div class="wrap">
+    ${D('01','Gestión de','villas','Para propietarios que pasan parte del año fuera y quieren encontrar la casa lista al llegar.',
+      ['Visitas de control: alarma, humedades, plagas, suministros','Coordinación de piscina, jardín y limpieza','Pago de proveedores, IBI, comunidad y seguros','Preparación antes de cada llegada','Custodia de llaves'],
+      ['De 1 a 3 visitas por semana','Visita extra tras tormentas o alertas'],
+      ['Informe con fotos tras cada visita','Resumen mensual de gastos'],'svc-gestion')}
+    ${D('02','Reformas, ampliaciones y','mejoras','No solo mantenemos tu casa: la mejoramos. Ampliaciones, reformas y mejoras de eficiencia, dirigidas como si la casa fuera nuestra.',
+      ['Estudio de necesidades y presupuesto por partidas','Selección y coordinación de gremios','Licencias y trámites con el ayuntamiento','Dirección y control de calidad','Entrega con documentación y garantías'],
+      ['Visita a obra mínimo 2 veces por semana','Reunión de seguimiento quincenal'],
+      ['Diario de obra con fotos en tu área privada','% de avance y fecha prevista siempre actualizados'],'svc-reformas')}
+    ${D('03','','Concierge','Para disfrutar la casa sin ocuparte de nada mientras estás en ella.',
+      ['Chef privado, chófer y personal de servicio','Reservas de restaurantes, golf y amarres','Organización de eventos en la villa','Compra antes de la llegada'],
+      ['Bajo petición, 7 días a la semana'],
+      ['Confirmación por WhatsApp en menos de 2 h'],'svc-concierge')}
+  </div>
+  <section class="band"><div class="wrap"><div class="sec-head"><h2>Obras <em>recientes</em></h2><p class="lead">Aerotermia, fotovoltaica, fontanería y fachadas. Dirigidas por Francisco de principio a fin.</p></div>${workGallery()}</div></section>
+  <section class="band alt" id="svc-planes"><div class="wrap"><div class="sec-head"><h2>Paquetes <em>orientativos</em></h2><p class="lead">Combina los servicios según tu casa y tu forma de usarla.</p></div>${PLANS}</div></section>`;
+}
+
+function aboutView(){
+  return `
+  <section class="page-head"><div class="wrap"><div class="eyebrow">Sobre Francisco</div>
+    <h1>Conozco cada casa que <em>gestiono</em>.</h1>
+    <p class="lead">Soy Francisco Gatell, project manager y fundador de Velarehome. Llevo más de quince años gestionando y reformando villas en la Costa del Sol.</p>
+    <div class="page-img">${photo('entrada','Acceso de Villa Sienna con muro de piedra natural','21/9')}<div class="caption"><span>Villa Sienna · El Madroñal, Benahavís</span></div></div></div></section>
+  <section class="band"><div class="wrap founder">
+    <div class="portrait"><span>FG</span><small>Foto de Francisco (pendiente)</small></div>
+    <div>
+      <p class="lead" style="color:var(--fg)">Empecé dirigiendo obras en Marbella y vi que los propietarios no tenían un problema de proveedores, sino de interlocutor. Nadie conocía su casa entera. Por eso fundé una empresa pequeña a propósito: cada gestor lleva como máximo diez villas, y yo sigo visitándolas.</p>
+      <ol class="timeline">
+        <li><b>2010</b><span>Empiezo como jefe de obra en villas de Nueva Andalucía.</span></li>
+        <li><b>2016</b><span>Fundo la empresa, hoy Velarehome: de «velar», cuidar.</span></li>
+        <li><b>2021</b><span>Abrimos el servicio de concierge para propietarios.</span></li>
+        <li><b>2026</b><span>Lanzamos el área privada de propietarios.</span></li>
+      </ol>
+    </div>
+  </div></section>
+  <section class="band alt"><div class="wrap">
+    <div class="sec-head"><h2>Lo que nos <em>guía</em></h2></div>
+    <div class="values">
+      <div><b>Pocas casas</b><span>Máximo 10 villas por gestor. Preferimos decir que no a perder calidad.</span></div>
+      <div><b>Todo por escrito</b><span>Presupuestos cerrados, facturas visibles y un informe tras cada visita.</span></div>
+      <div><b>Una sola persona</b><span>Tu gestor conoce tu casa, tus proveedores y tus preferencias.</span></div>
+    </div>
+  </div></section>
+  <section class="band"><div class="wrap">
+    <div class="sec-head"><h2>Quién cuida <em>tu casa</em></h2><p class="lead">Cada villa tiene un gestor con nombre y apellidos. Hoy, ese gestor es Francisco.</p></div>
+    <div class="team" style="grid-template-columns:minmax(0,280px)">
+      <div class="member"><div class="portrait"><span>FG</span></div><b>Francisco Gatell</b><span class="r">Fundador · project manager</span></div>
+    </div>
+  </div></section>
+  <section class="band alt"><div class="wrap">
+    <div class="sec-head"><h2>Zonas que <em>cubrimos</em></h2><p class="lead">Menos de 30 minutos desde nuestra oficina en Marbella.</p></div>
+    <div class="zones">
+      <div class="zone"><b>Marbella</b><span>Sierra Blanca, Golden Mile, Los Monteros</span></div>
+      <div class="zone"><b>Nueva Andalucía</b><span>Las Brisas, Aloha, La Cerquilla</span></div>
+      <div class="zone"><b>Benahavís</b><span>La Zagaleta, El Madroñal, Los Arqueros</span></div>
+      <div class="zone"><b>San Pedro</b><span>Guadalmina, Cortijo Blanco</span></div>
+    </div>
+  </div></section>`;
+}
+
+function contactView(){
+  return `
+  <section class="page-head"><div class="wrap"><div class="eyebrow">Contacto</div>
+    <h1>Cuéntame cómo es tu <em>casa</em>.</h1>
+    <p class="lead">Soy Francisco. Leo cada mensaje yo mismo y te respondo en menos de 2 horas laborables. Si lo prefieres, escríbeme por WhatsApp.</p></div></section>
+  <div class="wrap contact">
+    <form class="grid" id="contactForm" novalidate>
+      <div class="field"><label for="c-name">Nombre</label><input id="c-name" required autocomplete="name"></div>
+      <div class="field"><label for="c-email">Email</label><input id="c-email" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="c-phone">Teléfono</label><input id="c-phone" type="tel" autocomplete="tel"></div>
+      <div class="field"><label for="c-zone">Zona</label><select id="c-zone"><option>Marbella</option><option>Nueva Andalucía</option><option>Benahavís</option><option>San Pedro</option><option>Otra</option></select></div>
+      <div class="field full"><label for="c-type">Tipo de propiedad</label><select id="c-type"><option>Villa</option><option>Casa adosada</option><option>Ático</option><option>Obra nueva o reforma</option></select></div>
+      <div class="field full"><label for="c-msg">Mensaje</label><textarea id="c-msg" placeholder="Por ejemplo: villa de 5 dormitorios, pasamos aquí 3 meses al año."></textarea></div>
+      <label class="check full" for="c-ok"><input type="checkbox" id="c-ok" required> He leído la política de privacidad y acepto que me contactéis sobre mi consulta.</label>
+      <div class="full"><button class="btn btn-primary" type="submit">Enviar consulta ${ico('arrow')}</button></div>
+    </form>
+    <aside class="contact-side">
+      <a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener"><span class="av">FG</span><span><b>Francisco Gatell</b><small>Fundador · te respondo yo</small></span></a>
+      <div class="item"><span>WhatsApp y teléfono</span><b>+34 665 601 092</b><a class="link" href="https://wa.me/34665601092" target="_blank" rel="noopener" style="align-self:flex-start;margin-top:.3rem">Escribir por WhatsApp</a></div>
+      <div class="item"><span>Email</span><b>info@luxury-property-services.com</b></div>
+      <div class="item"><span>Horario</span><b>Lunes a viernes, 9:00–19:00</b><small style="color:var(--muted)">Urgencias de clientes 24/7</small></div>
+      <div class="item"><span>Oficina</span><b>Marbella, Málaga</b><small style="color:var(--muted)">Visitas con cita previa</small></div>
+    </aside>
+  </div>`;
+}
+
+/* ================= Login ================= */
+function loginView(){
+  const isAdmin = state.loginTab === 'admin';
+  return `<main class="login view">
+    <div class="login-art"><a class="logo" href="#inicio">Velarehome</a>${photo('terraza','Terraza de Villa Sienna con vistas a la sierra','4/3')}
+      <blockquote style="font-size:1.25rem">«Garantías, planos, facturas y obras de tu casa, en un solo sitio.»</blockquote></div>
+    <div class="login-form"><div class="login-box">
+      <a class="back" href="#inicio">${ico('back')}Volver a la web</a>
+      <div><div class="eyebrow">Área privada</div><h1 style="font-size:1.9rem;margin-top:.6rem">${isAdmin?'Acceso de <em>administración</em>':'Acceso de <em>propietarios</em>'}</h1></div>
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="${!isAdmin}" data-tab="cliente">Cliente</button>
+        <button role="tab" aria-selected="${isAdmin}" data-tab="admin">Administración</button>
+      </div>
+      <form id="loginForm">
+        <div class="field"><label for="l-email">Email</label><input id="l-email" type="email" autocomplete="username" required></div>
+        <div class="field"><label for="l-pass">Contraseña</label><input id="l-pass" type="password" autocomplete="current-password" required></div>
+        <div class="row"><label class="check" for="l-keep"><input id="l-keep" type="checkbox" checked> Mantener la sesión</label><a class="link" href="#acceso" id="forgot">¿Olvidaste tu contraseña?</a></div>
+        <p id="loginErr" class="note" role="alert" style="margin:0;color:var(--alert)" hidden>Email o contraseña incorrectos. Revisa los datos o pide acceso a tu gestor.</p>
+        <button class="btn btn-primary" type="submit" style="justify-content:center">Entrar ${ico('arrow')}</button>
+      </form>
+      <p class="invite">${ico('lock')}<span>${isAdmin?'Acceso con verificación en dos pasos para el equipo de gestión.':'El acceso es por invitación. Si eres propietario y no tienes cuenta, pídela a tu gestor.'}</span></p>
+    </div></div></main>`;
+}
+
+/* ================= Área privada ================= */
+function appShell(role, h){
+  const nav = role==='cliente' ? CLIENT_NAV : ADMIN_NAV;
+  const cur = nav.find(n=>n[0]===h) || nav[0];
+  const views = role==='cliente'
+    ? {cliente:eResumen,'cliente-propiedad':eProp,'cliente-documentos':()=>eDocs(false),'cliente-obras':()=>eWorks(false),'cliente-presupuestos':()=>eBudgets(false),'cliente-proyectos':()=>eProjects(false),'cliente-mensajes':eMsgs,'cliente-guia':()=>guideView('cliente')}
+    : {admin:ePanel,'admin-clientes':eClients,'admin-propiedades':eProps,'admin-documentos':()=>eDocs(true),'admin-obras':()=>eWorks(true),'admin-presupuestos':()=>eBudgets(true),'admin-proyectos':()=>eProjects(true),'admin-banner':eBanner,'admin-guia':()=>guideView('admin')};
+  const who = role==='cliente'
+    ? `<div class="who"><div class="av">FG</div><div><b>Francisco Gatell</b> · tu gestor<small><a href="https://wa.me/34665601092" target="_blank" rel="noopener" style="color:var(--clay)">WhatsApp +34 665 601 092</a> · responde en menos de 2 h</small></div></div>`
+    : `<div class="who"><div class="av">FG</div><div><b>Francisco Gatell</b><small>Administrador</small></div></div>`;
+  const me = session() || {name: role==='cliente'?'cliente':'Francisco', full:''};
+  const greet = (role==='cliente' ? 'Hola, ' : 'Buenos días, ') + me.name;
+  return `<div class="app">
+    <aside class="side"><a class="logo" href="#inicio">Velarehome<small>${role==='cliente'?'Área de propietarios':'Administración'}</small></a>
+      <nav aria-label="Área privada">${nav.map(([k,t,i])=>`<a href="#${k}" class="${k===cur[0]?'on':''}">${ico(i)}${t}</a>`).join('')}</nav>
+      <div class="out">${role==='cliente'?`<span style="color:var(--muted)">${me.full}</span>`:''}<button id="logout">${ico('out')}Salir</button></div>
+    </aside>
+    <main class="main view">
+      <nav class="mobile-nav" aria-label="Área privada">${nav.map(([k,t])=>`<a href="#${k}" class="${k===cur[0]?'on':''}">${t}</a>`).join('')}<a href="#acceso" id="logout2">Salir</a></nav>
+      <div class="topbar"><div><div class="eyebrow">${cur[0]===nav[0][0]?greet:(cur[0].endsWith('guia')?'Ejemplos de lo que puedes hacer':(role==='cliente'?'Área de propietarios':'Administración'))}</div><h1 style="margin-top:.4rem">${cur[1]}</h1></div>
+        <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">${who}</div></div>
+      ${(views[cur[0]]||views[nav[0][0]])()}
+    </main></div>`;
+}
+
+/* ---------- Datos reales del admin (en este navegador hasta tener backend) ---------- */
+const DB = (()=>{ try{ return JSON.parse(localStorage.getItem('lps-db')) || {props:[],clients:[]}; }catch(e){ return {props:[],clients:[]}; } })();
+function saveDB(){ try{ localStorage.setItem('lps-db', JSON.stringify(DB)); }catch(e){} }
+const ZONES = ['Marbella','Nueva Andalucía','Benahavís','San Pedro','Otra'];
+const esc = t => String(t).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function addProp(name, zone, rooms){ const p={id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5), name, zone, rooms}; DB.props.push(p); saveDB(); return p; }
+function formModal(title, body, ok, onSubmit, onReady){
+  const m = document.createElement('div');
+  m.className='modal'; m.setAttribute('role','dialog'); m.setAttribute('aria-modal','true'); m.setAttribute('aria-label',title);
+  m.innerHTML = `<div class="modal-box"><h3>${title}</h3><form novalidate>${body}<p class="note err" role="alert" style="margin:0;color:var(--alert)" hidden></p><div class="acts"><button type="button" class="btn" data-close>Cancelar</button><button class="btn btn-primary" type="submit">${ok}</button></div></form></div>`;
+  document.body.appendChild(m);
+  const close = ()=>m.remove(), f = m.querySelector('form');
+  m.addEventListener('click',e=>{ if(e.target===m || e.target.closest('[data-close]')) close(); });
+  f.addEventListener('submit',e=>{ e.preventDefault(); const err = onSubmit(f); if(err){ const n=f.querySelector('.err'); n.textContent=err; n.hidden=false; return; } close(); route(); });
+  document.addEventListener('keydown', function k(e){ if(e.key==='Escape'){ close(); document.removeEventListener('keydown',k);} });
+  onReady && onReady(f); const first=f.querySelector('input,select'); first && first.focus();
+}
+const propFields = (pre='') => `<div class="field"><label for="${pre}pn">Nombre de la propiedad</label><input id="${pre}pn" placeholder="Por ejemplo: Villa Sienna"></div>
+  <div class="field"><label for="${pre}pz">Zona</label><select id="${pre}pz">${ZONES.map(z=>`<option>${z}</option>`).join('')}</select></div>`;
+function newPropertyModal(){
+  if (DB.props.length>=10) { toast('Tu cartera ya tiene 10 villas, el máximo por gestor'); return; }
+  formModal('Añadir propiedad', propFields()+`<div class="field"><label for="pr">Dormitorios</label><input id="pr" type="number" min="1" max="20" placeholder="Opcional"></div>`, 'Añadir propiedad', f=>{
+    const n=f.querySelector('#pn').value.trim(); if(!n) return 'Escribe el nombre de la propiedad.';
+    addProp(n, f.querySelector('#pz').value, f.querySelector('#pr').value); toast(`Propiedad «${n}» añadida`);
+  });
+}
+function inviteModal(propId){
+  const opts = DB.props.map(p=>`<option value="${p.id}" ${p.id===propId?'selected':''}>${esc(p.name)} · ${esc(p.zone)}</option>`).join('');
+  formModal('Invitar cliente', `
+    <div class="field"><label for="cn">Nombre</label><input id="cn" placeholder="Nombre y apellidos"></div>
+    <div class="field"><label for="ce">Email</label><input id="ce" type="email" placeholder="cliente@email.com"></div>
+    <div class="field"><label for="cp">Propiedad</label><select id="cp">${opts}${DB.props.length<10?'<option value="__new">+ Crear una propiedad nueva</option>':''}</select></div>
+    <div id="newProp" style="display:grid;gap:1.2rem;border-left:2px solid var(--line);padding-left:1rem" hidden>${propFields('n')}</div>
+    <label class="check" for="cw"><input id="cw" type="checkbox" checked> Enviar email de invitación para crear su contraseña</label>`, 'Invitar cliente', f=>{
+      const n=f.querySelector('#cn').value.trim(), e=f.querySelector('#ce').value.trim().toLowerCase(); let pid=f.querySelector('#cp').value;
+      if(!n) return 'Escribe el nombre del cliente.'; if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) return 'Escribe un email válido.';
+      if(DB.clients.some(c=>c.email===e && c.prop===pid)) return 'Ese cliente ya tiene acceso a esta propiedad.';
+      let pn;
+      if(pid==='__new'){ pn=f.querySelector('#npn').value.trim(); if(!pn) return 'Escribe el nombre de la nueva propiedad.'; pid=addProp(pn, f.querySelector('#npz').value).id; }
+      else pn=DB.props.find(p=>p.id===pid)?.name;
+      DB.clients.push({name:n, email:e, prop:pid, status:'Invitación enviada'}); saveDB();
+      toast(`Invitación enviada a ${e} para ${pn} (prototipo: el email aún no se envía)`);
+    }, f=>{
+      const sel=f.querySelector('#cp'), box=f.querySelector('#newProp'), sync=()=>{ box.hidden = sel.value!=='__new'; };
+      if(!DB.props.length) sel.value='__new'; sync(); sel.addEventListener('change',sync);
+    });
+}
+
+function eBanner(){
+  const list = promos(), h = PROMO_HEAD(), imgs = Object.keys(PH);
+  return `<div class="welcome"><div><h3>Lo que ven tus clientes al entrar</h3><p>Cada cliente pasa por la portada de Velarehome antes de ver su casa. Usa este espacio para contarles servicios que les pueden interesar. Cada tarjeta abre un WhatsApp contigo.</p></div><a class="btn btn-sm" href="#bienvenida">Ver la portada</a></div>
+  <form id="bannerForm" class="card" style="gap:1.4rem">
+    <div class="grid2"><div class="field"><label for="bh-t">Título del banner</label><input id="bh-t" value="${esc(h.t)}"></div><div class="field"><label for="bh-s">Subtítulo</label><input id="bh-s" value="${esc(h.s)}"></div></div>
+    <div class="grid3">${list.map((p,i)=>`<div class="card" style="background:var(--bg)">
+      <div class="card-h"><span class="eyebrow">Tarjeta ${i+1}</span><label class="check" for="b${i}on"><input id="b${i}on" type="checkbox" ${p.on?'checked':''}> Visible</label></div>
+      ${photo(p.img, p.t, '16/9')}
+      <div class="field"><label for="b${i}img">Imagen</label><select id="b${i}img">${imgs.map(k=>`<option value="${k}" ${k===p.img?'selected':''}>${k}</option>`).join('')}</select></div>
+      <div class="field"><label for="b${i}t">Título</label><input id="b${i}t" value="${esc(p.t)}"></div>
+      <div class="field"><label for="b${i}d">Texto</label><textarea id="b${i}d" style="min-height:80px">${esc(p.d)}</textarea></div>
+    </div>`).join('')}</div>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn btn-primary" type="submit">Guardar banner</button><button class="btn" type="button" id="bannerReset">Volver a los textos de ejemplo</button></div>
+  </form>`;
+}
+
+/* ---------- Cuentas reales: estados vacíos ---------- */
+const emptyBox = (i, t, txt, acts='') => `<div class="emptybox">${ico(i)}<h3>${t}</h3><p>${txt}</p>${acts?`<div class="acts">${acts}</div>`:''}</div>`;
+const guideLink = role => `<a class="link" href="#${role}-guia">Ver ejemplos en la guía</a>`;
+const mbtn = (k, t, i='plus', primary=false) => `<button class="btn btn-sm ${primary?'btn-primary':''}" data-modal="${k}">${ico(i)}${t}</button>`;
+
+function eResumen(){
+  return `
+  <div class="welcome"><div><h3>Bienvenido, ${esc(session()?.name||'')}. Soy Francisco.</h3><p>Aquí iré dejando las visitas, los documentos, las obras y los presupuestos de tu casa. Para cualquier cosa, escríbeme en Mensajes o por WhatsApp. Mientras tanto, tienes un ejemplo completo en la guía.</p></div><a class="btn btn-sm" href="#cliente-guia">${ico('info')}Ver guía y ejemplos</a></div>
+  <div class="grid3">
+    <div class="card"><div class="card-h"><span class="eyebrow">Próximas visitas</span>${ico('cal')}</div><p class="empty">Tu gestor programará la primera visita y aparecerá aquí.</p></div>
+    <div class="card"><div class="card-h"><span class="eyebrow">Obras</span>${ico('crane')}</div><p class="empty">No hay obras en curso.</p></div>
+    <div class="card"><div class="card-h"><span class="eyebrow">Presupuestos por revisar</span><b class="num">0</b></div><p class="empty">Cuando recibas un presupuesto, podrás aprobarlo desde aquí.</p></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><div class="card-h"><span class="eyebrow">Último informe de visita</span></div><p class="empty">Tras cada visita recibirás un informe con fotos.</p></div>
+    <div class="card"><div class="card-h"><span class="eyebrow">Documentos recientes</span></div><p class="empty">Aún no hay documentos.</p></div>
+  </div>`;
+}
+function eProp(){ return emptyBox('home','Tu villa aún no está dada de alta','Tu gestor añadirá la ficha de tu propiedad con sus datos, proveedores y plan de visitas.', guideLink('cliente')); }
+function eDocs(admin){
+  return `${admin?`<div class="toolbar"><span class="note" style="margin:0">${DB.props.length?DB.props.length+' propiedades':'Añade primero una propiedad para poder subir documentos.'}</span><div class="actions">${mbtn('upload','Subir documento','upload')}${mbtn('folder','Nueva carpeta')}</div></div>`:''}
+  <div class="folders">${FOLDERS.map(f=>`<div class="folder" style="cursor:default">${ico('folder')}<div><b>${f}</b><small>0 archivos</small></div></div>`).join('')}</div>
+  ${emptyBox('file','Todavía no hay documentos', admin?'Los documentos que subas aparecerán en la carpeta de cada propiedad, y el cliente recibirá un aviso.':'Garantías, planos, facturas, contratos y manuales de tu villa aparecerán aquí, ordenados por carpetas.', guideLink(admin?'admin':'cliente'))}`;
+}
+function eWorks(admin){ return emptyBox('crane','No hay obras', admin?'Publica avances con porcentaje, fecha prevista y fotos para que el cliente siga la obra.':'Si se hace una obra en tu villa, verás aquí su avance, la fecha prevista y un diario con fotos.', (admin?mbtn('progress','Publicar avance de obra','plus',true):'')+guideLink(admin?'admin':'cliente')); }
+function eBudgets(admin){ return emptyBox('euro','No hay presupuestos', admin?'Envía presupuestos por partidas; el cliente los aprueba o rechaza desde su área y queda registrado.':'Cuando tu gestor te envíe un presupuesto, podrás ver sus partidas y aprobarlo o rechazarlo con un clic.', (admin?mbtn('budget','Nuevo presupuesto','plus',true):'')+guideLink(admin?'admin':'cliente')); }
+function eProjects(admin){ return emptyBox('layers','No hay proyectos', admin?'Crea proyectos por propiedad para planificar mejoras con el cliente.':'Las mejoras planificadas para tu villa aparecerán aquí con su estado.', (admin?mbtn('project','Nuevo proyecto'):'')+guideLink(admin?'admin':'cliente')); }
+function eMsgs(){
+  return `${state.myMsgs.length?`<div class="msgs">${state.myMsgs.map(m=>`<div class="msg me"><small>${session()?.full||'Tú'} · ${m.at}</small>${m.t}</div>`).join('')}</div>`:emptyBox('chat','Aún no hay mensajes','Escríbeme cuando lo necesites, para lo que sea. Te respondo yo mismo en menos de 2 horas laborables. — Francisco')}
+  <form class="composer" id="composer"><input id="msgInput" placeholder="Escribe a Francisco" aria-label="Mensaje"><button class="btn" type="submit">Enviar</button></form>`;
+}
+function ePanel(){
+  return `
+  ${DB.props.length?'':`<div class="welcome"><div><h3>Tu panel está vacío</h3><p>Empieza dando de alta una propiedad e invitando a su propietario. En la guía tienes un ejemplo con todo en marcha.</p></div><a class="btn btn-sm" href="#admin-guia">${ico('info')}Ver guía y ejemplos</a></div>`}
+  <div class="grid4">
+    <div class="card kpi"><span class="eyebrow">Villas gestionadas</span><b>${DB.props.length}<small> / 10</small></b><div class="cap">${Array.from({length:10},(_,i)=>`<i class="${i<DB.props.length?'f':''}"></i>`).join('')}</div><span>${10-DB.props.length} plazas libres en tu cartera</span></div>
+    <div class="card kpi"><span class="eyebrow">Obras en curso</span><b>0</b></div>
+    <div class="card kpi"><span class="eyebrow">Presupuestos sin respuesta</span><b>0</b></div>
+    <div class="card kpi"><span class="eyebrow">Incidencias abiertas</span><b>0</b></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><div class="card-h"><span class="eyebrow">Visitas de esta semana</span>${ico('cal')}</div><p class="empty">Sin visitas programadas.</p></div>
+    <div class="card"><div class="card-h"><span class="eyebrow">Acciones rápidas</span></div>
+      <div style="display:grid;gap:.6rem">
+        <button class="btn" data-rmodal="property">${ico('home')}1 · Añadir propiedad</button>
+        <button class="btn" data-rmodal="invite">${ico('users')}2 · Invitar cliente a una propiedad</button>
+        <button class="btn" data-modal="upload">${ico('upload')}Subir documento</button>
+        <button class="btn" data-modal="budget">${ico('euro')}Nuevo presupuesto</button>
+      </div></div>
+  </div>`;
+}
+function eProps(){
+  if(!DB.props.length) return emptyBox('home','Aún no hay propiedades','Empieza aquí: da de alta cada villa y después añade sus clientes, que serán los usuarios de esa propiedad. Tienes 10 plazas libres.', `<button class="btn btn-sm btn-primary" data-rmodal="property">${ico('plus')}Añadir propiedad</button>`+guideLink('admin'));
+  return `<div class="toolbar"><span class="note" style="margin:0">${DB.props.length} de 10 plazas ocupadas</span><div class="actions"><button class="btn btn-sm btn-primary" data-rmodal="property">${ico('plus')}Añadir propiedad</button></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Propiedad</th><th>Zona</th><th>Dormitorios</th><th>Clientes (usuarios)</th><th class="r"></th></tr></thead><tbody>
+  ${DB.props.map(p=>{ const cs=DB.clients.filter(c=>c.prop===p.id); return `<tr><td><b style="font-weight:500">${esc(p.name)}</b></td><td>${esc(p.zone)}</td><td class="num">${p.rooms?esc(p.rooms):'—'}</td><td>${cs.length?cs.map(c=>esc(c.name)).join(', '):'<span style="color:var(--muted)">Sin clientes</span>'}</td><td class="r"><button class="iconbtn" data-addclient="${p.id}">${ico('plus')}Añadir cliente</button></td></tr>`; }).join('')}
+  </tbody></table></div>`;
+}
+function eClients(){
+  if(!DB.clients.length) return emptyBox('users','Aún no tienes clientes', DB.props.length?'Invita a cada propietario por email y asígnale su propiedad. Solo verá esa propiedad.':'Cada cliente es un usuario de una propiedad. Puedes crear la propiedad desde el mismo formulario de invitación.', `<button class="btn btn-sm btn-primary" data-rmodal="invite">${ico('plus')}Invitar cliente</button>`+guideLink('admin'));
+  return `<div class="toolbar"><span></span><div class="actions"><button class="btn btn-sm btn-primary" data-rmodal="invite">${ico('plus')}Invitar cliente</button></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Cliente</th><th>Email</th><th>Propiedad</th><th>Estado</th></tr></thead><tbody>
+  ${DB.clients.map(c=>`<tr><td>${esc(c.name)}</td><td>${esc(c.email)}</td><td>${esc(DB.props.find(p=>p.id===c.prop)?.name||'—')}</td><td>${chip(c.status)}</td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+
+/* ---------- Guía con ejemplos ---------- */
+const GUIDE = {
+  cliente: [
+    ['resumen','Resumen',()=>cResumen(),['Ver las próximas visitas de tu gestor','Seguir la obra en curso con su porcentaje','Ver los presupuestos pendientes de respuesta','Leer el último informe de visita con fotos','Recibir avisos de facturas vencidas']],
+    ['propiedad','Mi propiedad',()=>cProp(),['Consultar la ficha de tu villa','Ver qué proveedores la atienden y con qué frecuencia','Las llaves y alarmas solo las ve tu gestor']],
+    ['documentos','Documentos',()=>docsView(false),['Abrir las carpetas: garantías, planos, facturas, contratos y manuales','Buscar cualquier archivo por su nombre','Descargar documentos cuando los necesites']],
+    ['obras','Estado de obras',()=>worksView(false),['Ver en qué fase está cada obra','Consultar el % de avance y la fecha prevista','Leer el diario de obra con fotos']],
+    ['presupuestos','Presupuestos',()=>budgetsView(false),['Ver cada presupuesto con sus partidas e IVA','Aprobarlo o rechazarlo con un clic','Descargar el PDF; la decisión queda registrada con fecha']],
+    ['proyectos','Proyectos',()=>projectsView(false),['Ver las mejoras planificadas, en curso y terminadas']],
+    ['mensajes','Mensajes',()=>cMsgs(),['Escribir a tu gestor y ver su respuesta en el mismo hilo']],
+  ],
+  admin: [
+    ['panel','Panel',()=>aPanel(),['Ver de un vistazo cuántas plazas de tu cartera de 10 están ocupadas','Obras en curso, presupuestos sin respuesta e incidencias','Visitas de la semana y actividad de los clientes']],
+    ['propiedades','Propiedades',()=>aProps(),['Primero, dar de alta cada villa con zona, tamaño y plan de visitas','Añadir clientes (usuarios) desde la propia propiedad','Ver qué propiedades tienen obras o incidencias']],
+    ['clientes','Clientes',()=>aClients(),['Invitar propietarios por email a una propiedad','Crear la propiedad desde el mismo formulario si aún no existe','Ver su plan y el estado de su cuenta']],
+    ['documentos','Documentos',()=>docsView(true),['Subir documentos a la carpeta de cada propiedad','Crear carpetas nuevas','Avisar al cliente por email al subir algo']],
+    ['obras','Obras',()=>worksView(true),['Publicar avances con %, nota y fotos','Ver todas las obras de todas las villas']],
+    ['presupuestos','Presupuestos',()=>budgetsView(true),['Enviar presupuestos por partidas','Ver cuáles están pendientes, aprobados o rechazados']],
+    ['proyectos','Proyectos',()=>projectsView(true),['Planificar mejoras por propiedad y seguir su estado']],
+  ]
+};
+function guideView(role){
+  const list = GUIDE[role], cur = list.find(g=>g[0]===state.guide[role]) || list[0];
+  return `
+  <div class="guide-intro">
+    <div class="card"><span class="eyebrow">Cómo usar esta guía</span><p style="font-size:.92rem">Elige una sección para ver un ejemplo real de cómo se ve con datos. Los ejemplos usan una villa ficticia y no afectan a tu cuenta.</p></div>
+    <div class="card"><span class="eyebrow">En «${cur[1]}» puedes</span><ul>${cur[3].map(x=>`<li>${x}</li>`).join('')}</ul></div>
+  </div>
+  <div class="guide-chips" role="group" aria-label="Secciones de la guía">${list.map(g=>`<button data-guide="${g[0]}" aria-pressed="${g[0]===cur[0]}">${g[1]}</button>`).join('')}</div>
+  <div class="example"><span class="demo example-tag">Ejemplo · ${cur[1]} con datos ficticios</span>${cur[2]()}</div>`;
+}
+
+function chip(s){
+  const m = {'Pendiente':'pend','Aprobado':'ok','Rechazado':'no','En curso':'prog','Terminado':'ok','Presupuesto':'pend','Idea':'','Activo':'ok','Invitación enviada':'pend','Vencida':'alert'};
+  return `<span class="chip ${m[s]??''}">${s}</span>`;
+}
+function bTotal(b){ return b.lines.reduce((a,l)=>a+l[1],0); }
+
+function cResumen(){
+  const pend = BUDGETS.filter(b=>b.prop==='Villa Albero' && b.status==='Pendiente');
+  const w = WORKS[0];
+  return `
+  <div class="alertbox" role="alert"><div>${ico('alert')}<span><b>Factura F-2026-212 vencida hace 5 días</b> · Mantenimiento de piscina, octubre · <span class="num">640 €</span></span></div><a class="iconbtn" href="#cliente-documentos" data-folder="Facturas">Ver factura</a></div>
+  <div class="grid3">
+    <div class="card"><div class="card-h"><span class="eyebrow">Próximas visitas</span>${ico('cal')}</div>
+      <div class="list"><div class="it"><div>Martes 18 nov<small>Control semanal y piscina</small></div><span class="num">10:00</span></div><div class="it"><div>Viernes 21 nov<small>Control y revisión de obra</small></div><span class="num">09:30</span></div><div class="it"><div>Lunes 15 dic<small>Preparación de llegada</small></div><span class="num">11:00</span></div></div></div>
+    <div class="card"><div class="card-h"><span class="eyebrow">Obra en curso</span>${chip(w.phase)}</div>
+      <h3>${w.title}</h3><div class="bar"><i style="width:${w.pct}%"></i></div>
+      <div class="list"><div class="it"><div>Avance<small>Entrega prevista ${w.due}</small></div><b class="num">${w.pct} %</b></div></div>
+      <a class="link" href="#cliente-obras">Ver diario de obra</a></div>
+    <div class="card"><div class="card-h"><span class="eyebrow">Presupuestos por revisar</span><b class="num">${pend.length}</b></div>
+      <div class="list">${pend.map(b=>`<div class="it"><div>${b.title}<small>${b.id} · ${eur(bTotal(b))}</small></div>${chip(b.status)}</div>`).join('') || '<p class="empty">No tienes presupuestos pendientes.</p>'}</div>
+      <a class="link" href="#cliente-presupuestos">Revisar presupuestos</a></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><div class="card-h"><span class="eyebrow">Último informe de visita · 14 nov 2026</span>${chip('Terminado')}</div>
+      ${photo('sala','Sala técnica revisada en la visita del 14 de noviembre','16/9')}
+      <div class="list">${[['Sala técnica','Grupo de presión y descalcificador correctos'],['Piscina','pH 7,2 · cloro correcto'],['Jardín','Riego revisado, poda de buganvillas'],['Alarma','Probada, sin incidencias'],['Humedades','Sin cambios en sótano']].map(([a,b])=>`<div class="it"><div>${a}<small>${b}</small></div>${ico('check')}</div>`).join('')}</div></div>
+    <div class="card"><div class="card-h"><span class="eyebrow">Documentos recientes</span><a class="link" href="#cliente-documentos">Ver todos</a></div>
+      <div class="list">${[['F-2026-212 Mantenimiento piscina octubre.pdf','Facturas · 01/11/2026'],['Plano cocina nueva (obra 2026).pdf','Planos e instalaciones · 28/09/2026'],['Contrato obra cocina — Construcciones Sierra.pdf','Contratos · 22/09/2026'],['Garantía sistema domótico KNX.pdf','Garantías · 02/02/2026']].map(([n,s])=>`<div class="it"><div class="file">${ico('file')}<div style="min-width:0"><span style="display:block">${n}</span><small>${s}</small></div></div><button class="iconbtn" data-dl="${n}" aria-label="Descargar ${n}">${ico('down')}</button></div>`).join('')}</div></div>
+  </div>`;
+}
+
+function cProp(){
+  return `<div class="prop">
+    <div>${villa(0,{alt:'Villa Albero'})}</div>
+    <div class="card"><div class="card-h"><h3>Villa Albero</h3>${chip('Activo')}</div>
+      <dl class="kv"><dt>Zona</dt><dd>Benahavís</dd><dt>Superficie</dt><dd>780 m² construidos · parcela 2.400 m²</dd><dt>Dormitorios</dt><dd>6</dd><dt>Plan</dt><dd>Integral · 2 visitas por semana</dd><dt>Gestor</dt><dd>Francisco Gatell</dd><dt>Cliente desde</dt><dd>Marzo 2019</dd></dl></div>
+  </div>
+  <div class="card"><div class="card-h"><span class="eyebrow">Proveedores de la casa</span></div>
+    <div class="tablewrap" style="border:0"><table><thead><tr><th>Servicio</th><th>Empresa</th><th>Frecuencia</th><th>Contacto</th></tr></thead><tbody>
+    ${[['Piscina','Aqua Costa','Semanal','Gestionado por tu gestor'],['Jardinería','Verde Benahavís','Semanal','Gestionado por tu gestor'],['Alarma','Verisure','Revisión anual','Gestionado por tu gestor'],['Limpieza','Limpiezas Marbella','Bajo petición','Gestionado por tu gestor'],['Climatización','Clima Sur','Revisión semestral','Gestionado por tu gestor']].map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}
+    </tbody></table></div>
+    <p class="note" style="margin:0">Llaves, códigos de alarma y accesos solo son visibles para el equipo de gestión.</p></div>`;
+}
+
+function docsView(admin){
+  const prop = 'Villa Albero';
+  const d = DOCS[prop];
+  const folder = state.folder;
+  const q = state.q.toLowerCase();
+  let files = [];
+  if (folder) files = d[folder].map(f=>[...f, folder]);
+  else if (q) FOLDERS.forEach(fo=>d[fo].forEach(f=>files.push([...f, fo])));
+  if (q) files = files.filter(f=>f[0].toLowerCase().includes(q));
+  return `
+  <div class="toolbar">
+    <div class="search">${ico('search')}<input id="docSearch" type="search" placeholder="Buscar en todos los documentos" value="${state.q.replace(/"/g,'&quot;')}" aria-label="Buscar documentos"></div>
+    <div class="actions">${admin?`<label class="field" style="flex-direction:row;align-items:center;gap:.6rem"><span class="eyebrow">Propiedad</span><select id="docProp" style="width:auto"><option>Villa Albero</option><option>Villa Las Brisas</option><option>Casa del Pinar</option></select></label><button class="btn btn-sm" data-modal="upload">${ico('upload')}Subir documento</button><button class="btn btn-sm" data-modal="folder">${ico('plus')}Nueva carpeta</button>`:''}</div>
+  </div>
+  <div class="folders">${FOLDERS.map(f=>`<button class="folder" data-open="${f}" aria-pressed="${folder===f}">${ico('folder')}<div><b>${f}</b><small>${d[f].length} archivos</small></div></button>`).join('')}</div>
+  ${(folder||q)?`<div class="card"><div class="card-h"><h3>${folder?folder:'Resultados de búsqueda'}</h3>${folder?`<button class="iconbtn" id="closeFolder">${ico('back')}Todas las carpetas</button>`:''}</div>
+    <div class="tablewrap" style="border:0"><table><thead><tr><th>Nombre</th>${folder?'':'<th>Carpeta</th>'}<th>Fecha</th><th class="r">Tamaño</th><th class="r"></th></tr></thead><tbody>
+    ${files.map(f=>`<tr><td><div class="file">${ico('file')}<span>${f[0]}</span>${f[0].startsWith('F-2026-212')?chip('Vencida'):''}</div></td>${folder?'':`<td>${f[3]}</td>`}<td class="num">${f[1]}</td><td class="r">${f[2]}</td><td class="r"><button class="iconbtn" data-dl="${f[0]}">${ico('down')}Descargar</button></td></tr>`).join('') || `<tr><td colspan="5" class="empty">No hay documentos que coincidan con «${state.q}».</td></tr>`}
+    </tbody></table></div></div>`:`<p class="empty">Abre una carpeta o busca por nombre de archivo.</p>`}`;
+}
+
+function worksView(admin){
+  const list = admin ? WORKS : WORKS.filter(w=>w.prop==='Villa Albero');
+  const ph = ['Presupuesto','En curso','Terminado'];
+  return `${admin?`<div class="toolbar"><span></span><div class="actions"><button class="btn btn-sm btn-primary" data-modal="progress">${ico('plus')}Publicar avance de obra</button></div></div>`:''}
+  ${list.map(w=>{
+    const idx = ph.indexOf(w.phase);
+    return `<div class="card">
+      <div class="card-h"><div><span class="eyebrow">${w.id} · ${w.prop}${admin?` · ${w.client}`:''}</span><h3 style="margin-top:.3rem">${w.title}</h3></div>${chip(w.phase)}</div>
+      <div class="phases">${ph.map((p,i)=>`<span class="${i<idx?'done':''} ${i===idx?'now':''}">${p}</span>`).join('')}</div>
+      <div class="grid3"><div class="kpi"><b>${w.pct}<small> %</small></b><br><span>Avance</span></div><div class="kpi"><span>Fecha prevista</span><br><b style="font-size:1.2rem;font-weight:500">${w.due}</b></div><div class="kpi"><span>Empresa</span><br><b style="font-size:1.2rem;font-weight:500">${w.lead}</b></div></div>
+      <div class="bar"><i style="width:${w.pct}%"></i></div>
+      ${w.diary.length?`<span class="eyebrow" style="margin-top:.6rem">Diario de obra</span><div class="diary">${w.diary.map(([d,t,v])=>`<div class="entry"><div><time>${d}</time><p>${t}</p></div>${typeof v==='string'?photo(v,'Foto de obra del '+d,'4/3'):villa(v,{works:w.phase!=='Terminado', alt:'Foto de obra del '+d})}</div>`).join('')}</div>`:`<p class="empty">La obra empezará cuando se apruebe el presupuesto.</p>`}
+    </div>`;}).join('')}`;
+}
+
+function budgetsView(admin){
+  const list = admin ? BUDGETS : BUDGETS.filter(b=>b.prop==='Villa Albero');
+  const sel = list.find(b=>b.id===state.budget) || list[0];
+  return `${admin?`<div class="toolbar"><span></span><div class="actions"><button class="btn btn-sm btn-primary" data-modal="budget">${ico('plus')}Nuevo presupuesto</button></div></div>`:''}
+  <div class="tablewrap"><table><thead><tr><th>Nº</th><th>Concepto</th>${admin?'<th>Cliente</th>':''}<th>Fecha</th><th class="r">Importe</th><th>Estado</th></tr></thead><tbody>
+  ${list.map(b=>`<tr class="click" data-budget="${b.id}" tabindex="0"><td class="num">${b.id}</td><td>${b.title}</td>${admin?`<td>${b.client}</td>`:''}<td class="num">${b.date}</td><td class="r">${eur(bTotal(b))}</td><td>${chip(b.status)}</td></tr>`).join('')}
+  </tbody></table></div>
+  <div class="card" id="budgetDetail">
+    <div class="card-h"><div><span class="eyebrow">${sel.id} · ${sel.prop} · ${sel.date}</span><h3 style="margin-top:.3rem">${sel.title}</h3></div>${chip(sel.status)}</div>
+    <div class="tablewrap" style="border:0"><table class="lines"><thead><tr><th>Partida</th><th class="r">Importe</th></tr></thead><tbody>
+      ${sel.lines.map(l=>`<tr><td>${l[0]}</td><td class="r">${eur(l[1])}</td></tr>`).join('')}
+      <tr><td style="color:var(--muted)">IVA (21 %)</td><td class="r">${eur(Math.round(bTotal(sel)*0.21))}</td></tr>
+      <tr class="total"><td>Total</td><td class="r">${eur(Math.round(bTotal(sel)*1.21))}</td></tr>
+    </tbody></table></div>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
+      ${!admin && sel.status==='Pendiente'?`<button class="btn btn-primary" data-approve="${sel.id}">${ico('check')}Aprobar</button><button class="btn" data-reject="${sel.id}">Rechazar</button>`:''}
+      <button class="btn" data-dl="${sel.id}.pdf">${ico('down')}Descargar PDF</button>
+      ${sel.status!=='Pendiente'?`<span class="note" style="margin:0">${sel.status} el ${sel.decided||sel.date}${admin?'':' · registrado en tu historial'}</span>`:''}
+    </div>
+  </div>`;
+}
+
+function projectsView(admin){
+  return `${admin?`<div class="toolbar"><span></span><div class="actions"><button class="btn btn-sm" data-modal="project">${ico('plus')}Nuevo proyecto</button></div></div>`:''}
+  <div class="grid2">${PROJECTS.map((p,i)=>`<div class="card">${p.img?photo(p.img,p.t,'16/9'):villa(i,{works:p.s==='En curso', alt:p.t})}<div class="card-h"><div><span class="eyebrow">${p.p}</span><h3 style="margin-top:.3rem">${p.t}</h3></div>${chip(p.s)}</div><p style="color:var(--muted);font-size:.92rem">${p.d}</p>${p.pct?`<div class="bar"><i style="width:${p.pct}%"></i></div>`:''}</div>`).join('')}</div>`;
+}
+
+function cMsgs(){
+  return `<div class="msgs" id="msgs">${MESSAGES.map(m=>`<div class="msg ${m.me?'me':''}"><small>${m.me?(session()?.full||m.who):m.who} · ${m.at}</small>${m.t}</div>`).join('')}</div>
+  <form class="composer" id="composer"><input id="msgInput" placeholder="Escribe a Francisco" aria-label="Mensaje"><button class="btn" type="submit">Enviar</button></form>`;
+}
+
+function aPanel(){
+  const pend = BUDGETS.filter(b=>b.status==='Pendiente').length;
+  return `
+  <div class="grid4">
+    <div class="card kpi"><span class="eyebrow">Villas gestionadas</span><b>8<small> / 10</small></b><div class="cap">${Array.from({length:10},(_,i)=>`<i class="${i<8?'f':''}"></i>`).join('')}</div><span>Quedan 2 plazas en tu cartera</span></div>
+    <div class="card kpi"><span class="eyebrow">Obras en curso</span><b>4</b><span>1 entrega este mes</span></div>
+    <div class="card kpi"><span class="eyebrow">Presupuestos sin respuesta</span><b>${pend}</b><span><span class="chip pend">Pendiente</span></span></div>
+    <div class="card kpi"><span class="eyebrow">Incidencias abiertas</span><b>1</b><span><span class="chip alert">Villa Mirador · fuga en riego</span></span></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><div class="card-h"><span class="eyebrow">Visitas de esta semana</span>${ico('cal')}</div>
+      <div class="list">${[['Lun 17','Villa Olivar · La Zagaleta','Control + piscina'],['Mar 18','Villa Albero · Benahavís','Control semanal'],['Mar 18','Villa Mirador · El Madroñal','Revisión fuga de riego'],['Mié 19','Casa del Pinar · San Pedro','Revisión de obra'],['Jue 20','Villa Las Brisas · Nueva Andalucía','Control + obra baños'],['Vie 21','Villa Albero · Benahavís','Control y revisión de obra']].map(([d,p,t])=>`<div class="it"><div>${p}<small>${t}</small></div><span class="num">${d}</span></div>`).join('')}</div></div>
+    <div class="card"><div class="card-h"><span class="eyebrow">Acciones rápidas</span></div>
+      <div style="display:grid;gap:.6rem">
+        <button class="btn" data-modal="invite">${ico('users')}Invitar cliente</button>
+        <button class="btn" data-modal="upload">${ico('upload')}Subir documento</button>
+        <button class="btn" data-modal="budget">${ico('euro')}Nuevo presupuesto</button>
+        <button class="btn btn-primary" data-modal="progress">${ico('crane')}Publicar avance de obra</button>
+      </div>
+      <span class="eyebrow" style="margin-top:1rem">Actividad reciente</span>
+      <div class="list">${[['Anna Lindqvist descargó «Plano cocina nueva»','Hace 2 h'],['James Harrington abrió el presupuesto P-2026-043','Ayer'],['Javier Ortega aprobó P-2026-035','12 nov']].map(([a,b])=>`<div class="it"><div>${a}</div><small>${b}</small></div>`).join('')}</div>
+    </div>
+  </div>`;
+}
+function aClients(){
+  return `<div class="toolbar"><div class="search">${ico('search')}<input placeholder="Buscar cliente" aria-label="Buscar cliente"></div><div class="actions"><button class="btn btn-sm btn-primary" data-modal="invite">${ico('plus')}Invitar cliente</button></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Cliente</th><th>Contacto</th><th>Propiedad</th><th>Zona</th><th>Plan</th><th>Estado</th></tr></thead><tbody>
+  ${CLIENTS.map(c=>`<tr>${c.slice(0,5).map(x=>`<td>${x}</td>`).join('')}<td>${chip(c[5])}</td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+function aProps(){
+  return `<div class="toolbar"><span class="note" style="margin:0">8 de 10 plazas ocupadas</span><div class="actions"><button class="btn btn-sm" data-modal="property">${ico('plus')}Añadir propiedad</button></div></div>
+  <div class="tablewrap"><table><thead><tr><th>Propiedad</th><th>Zona</th><th>Tamaño</th><th>Cliente</th><th>Visitas</th><th>Estado</th></tr></thead><tbody>
+  ${PROPS.map(p=>`<tr>${p.slice(0,5).map(x=>`<td>${x}</td>`).join('')}<td>${p[5].includes('incidencia')?chip('Vencida').replace('Vencida',p[5]):`<span class="chip">${p[5]}</span>`}</td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+
+/* ================= Modales y toast ================= */
+const MODALS = {
+  invite:['Invitar cliente',`<div class="field"><label for="m1">Nombre</label><input id="m1" placeholder="Nombre y apellidos"></div><div class="field"><label for="m2">Email</label><input id="m2" type="email" placeholder="cliente@email.com"></div><div class="field"><label for="m3">Propiedad</label><select id="m3">${PROPS.map(p=>`<option>${p[0]}</option>`).join('')}</select></div>`,'Enviar invitación','Invitación enviada'],
+  upload:['Subir documento',`<div class="field"><label for="m4">Propiedad</label><select id="m4">${PROPS.map(p=>`<option>${p[0]}</option>`).join('')}</select></div><div class="field"><label for="m5">Carpeta</label><select id="m5">${FOLDERS.map(f=>`<option>${f}</option>`).join('')}</select></div><div class="field"><label for="m6">Archivo (PDF o imagen)</label><input id="m6" type="file" accept=".pdf,image/*"></div><label class="check" for="m7"><input id="m7" type="checkbox" checked> Avisar al cliente por email</label>`,'Subir','Documento subido'],
+  folder:['Nueva carpeta',`<div class="field"><label for="m8">Nombre de la carpeta</label><input id="m8" placeholder="Por ejemplo: Seguros"></div>`,'Crear carpeta','Carpeta creada'],
+  budget:['Nuevo presupuesto',`<div class="field"><label for="m9">Propiedad</label><select id="m9">${PROPS.map(p=>`<option>${p[0]}</option>`).join('')}</select></div><div class="field"><label for="m10">Concepto</label><input id="m10" placeholder="Por ejemplo: Sustitución de toldos"></div><div class="field"><label for="m11">Importe sin IVA (€)</label><input id="m11" inputmode="decimal" placeholder="0"></div><div class="field"><label for="m12">PDF del presupuesto</label><input id="m12" type="file" accept=".pdf"></div>`,'Enviar al cliente','Presupuesto enviado al cliente'],
+  progress:['Publicar avance de obra',`<div class="field"><label for="m13">Obra</label><select id="m13">${WORKS.filter(w=>w.phase==='En curso').map(w=>`<option>${w.title} · ${w.prop}</option>`).join('')}</select></div><div class="field"><label for="m14">Avance (%)</label><input id="m14" type="number" min="0" max="100" value="70"></div><div class="field"><label for="m15">Nota para el cliente</label><textarea id="m15" placeholder="Qué se ha hecho esta semana"></textarea></div><div class="field"><label for="m16">Fotos</label><input id="m16" type="file" accept="image/*" multiple></div>`,'Publicar','Avance publicado'],
+  project:['Nuevo proyecto',`<div class="field"><label for="m17">Propiedad</label><select id="m17">${PROPS.map(p=>`<option>${p[0]}</option>`).join('')}</select></div><div class="field"><label for="m18">Nombre</label><input id="m18"></div><div class="field"><label for="m19">Descripción</label><textarea id="m19"></textarea></div>`,'Crear proyecto','Proyecto creado'],
+  property:['Añadir propiedad',`<div class="field"><label for="m20">Nombre de la villa</label><input id="m20"></div><div class="field"><label for="m21">Zona</label><select id="m21"><option>Marbella</option><option>Nueva Andalucía</option><option>Benahavís</option><option>San Pedro</option></select></div><p class="note" style="margin:0">Quedan 2 plazas en tu cartera de 10.</p>`,'Añadir','Propiedad añadida'],
+};
+function openModal(k){
+  const [t,body,ok,done] = MODALS[k];
+  const m = document.createElement('div');
+  m.className='modal'; m.setAttribute('role','dialog'); m.setAttribute('aria-modal','true'); m.setAttribute('aria-label',t);
+  m.innerHTML = `<div class="modal-box"><h3>${t}</h3><form>${body}<div class="acts"><button type="button" class="btn" data-close>Cancelar</button><button class="btn btn-primary" type="submit">${ok}</button></div></form></div>`;
+  document.body.appendChild(m);
+  const close = ()=>m.remove();
+  m.addEventListener('click',e=>{ if(e.target===m || e.target.closest('[data-close]')) close(); });
+  m.querySelector('form').addEventListener('submit',e=>{ e.preventDefault(); close(); toast(done + ' (prototipo)'); });
+  const f = m.querySelector('input,select,textarea'); f && f.focus();
+  document.addEventListener('keydown', function esc(e){ if(e.key==='Escape'){ close(); document.removeEventListener('keydown',esc);} });
+}
+let toastT;
+function toast(t){
+  document.querySelectorAll('.toast').forEach(x=>x.remove());
+  const el = document.createElement('div'); el.className='toast'; el.setAttribute('role','status');
+  el.innerHTML = ico('check') + `<span>${t}</span>`;
+  document.body.appendChild(el); clearTimeout(toastT); toastT = setTimeout(()=>el.remove(), 3200);
+}
+function today(){ return new Date().toLocaleDateString('es-ES'); }
+
+/* ================= Eventos ================= */
+function bind(h){
+  const burger = $('#burger');
+  if (burger) burger.addEventListener('click',()=>{ const n=$('#nav'); const o=n.classList.toggle('open'); burger.setAttribute('aria-expanded',o); });
+  document.querySelectorAll('[data-jump]').forEach(a=>a.addEventListener('click',e=>{
+    if (location.hash==='#inicio' || location.hash===''){ e.preventDefault(); $('#nav')?.classList.remove('open'); document.getElementById(a.dataset.jump)?.scrollIntoView({behavior:'smooth'}); }
+    else { setTimeout(()=>document.getElementById(a.dataset.jump)?.scrollIntoView(), 50); }
+  }));
+  document.querySelectorAll('[data-jumpto]').forEach(a=>a.addEventListener('click',()=>{ state.jump=a.dataset.jumpto; }));
+  const cf = $('#contactForm');
+  if (cf) cf.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(!$('#c-name').value.trim() || !$('#c-email').value.includes('@')){ toast('Escribe tu nombre y un email válido'); return; }
+    if(!$('#c-ok').checked){ toast('Acepta la política de privacidad para enviar'); return; }
+    cf.reset(); toast('Mensaje enviado. Francisco te responde en menos de 2 h (prototipo)');
+  });
+  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{ state.loginTab=b.dataset.tab; store.set('lps-tab',state.loginTab); route(); }));
+  const lf = $('#loginForm');
+  if (lf) lf.addEventListener('submit', async e=>{ e.preventDefault();
+    const email = $('#l-email').value.trim().toLowerCase(), pass = $('#l-pass').value;
+    let hash = ''; try { hash = await sha256(email + ':' + pass); } catch(err) {}
+    const acc = ACCOUNTS.find(a=>a.h===hash && a.role===state.loginTab);
+    if (!acc) { $('#loginErr').hidden = false; $('#l-pass').value=''; $('#l-pass').focus(); return; }
+    setSession({role:acc.role, name:acc.name, full:acc.full}, $('#l-keep').checked);
+    location.hash = acc.role; });
+  $('#logout2')?.addEventListener('click',()=>setSession(null));
+  $('#forgot')?.addEventListener('click',e=>{ e.preventDefault(); toast('Te hemos enviado un enlace para crear una nueva contraseña (prototipo)'); });
+  $('#logout')?.addEventListener('click',()=>{ setSession(null); location.hash='acceso'; });
+  document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>{ state.folder = state.folder===b.dataset.open?null:b.dataset.open; route(); }));
+  document.querySelectorAll('[data-folder]').forEach(a=>a.addEventListener('click',()=>{ state.folder=a.dataset.folder; state.q=''; }));
+  $('#closeFolder')?.addEventListener('click',()=>{ state.folder=null; route(); });
+  const ds = $('#docSearch');
+  if (ds){ ds.addEventListener('input',()=>{ state.q=ds.value; state.folder=null; const pos=ds.selectionStart; route(); const n=$('#docSearch'); n.focus(); n.setSelectionRange(pos,pos); }); }
+  document.querySelectorAll('[data-dl]').forEach(b=>b.addEventListener('click',()=>toast(`Descarga de «${b.dataset.dl}» (prototipo)`)));
+  document.querySelectorAll('[data-modal]').forEach(b=>b.addEventListener('click',()=>openModal(b.dataset.modal)));
+  document.querySelectorAll('[data-budget]').forEach(r=>{
+    const go=()=>{ state.budget=r.dataset.budget; route(); $('#budgetDetail')?.scrollIntoView({behavior:'smooth'}); };
+    r.addEventListener('click',go); r.addEventListener('keydown',e=>{ if(e.key==='Enter') go(); });
+  });
+  document.querySelectorAll('[data-approve],[data-reject]').forEach(b=>b.addEventListener('click',()=>{
+    const id = b.dataset.approve || b.dataset.reject, ok = !!b.dataset.approve;
+    const bu = BUDGETS.find(x=>x.id===id); bu.status = ok?'Aprobado':'Rechazado'; bu.decided = today(); state.budget=id;
+    if(ok){ const p = PROJECTS.find(x=>x.t===bu.title); if(p) p.s='En curso'; }
+    route(); toast(ok?`Presupuesto ${id} aprobado. Francisco recibe el aviso.`:`Presupuesto ${id} rechazado. Francisco te contactará.`);
+  }));
+  document.querySelectorAll('[data-guide]').forEach(b=>b.addEventListener('click',()=>{ const role=h.startsWith('admin')?'admin':'cliente'; state.guide[role]=b.dataset.guide; state.folder=null; state.q=''; route(); }));
+  document.querySelectorAll('.example a[href^="#cliente"], .example a[href^="#admin"]').forEach(a=>a.addEventListener('click',e=>{
+    e.preventDefault(); const k=a.getAttribute('href').slice(1); const role=k.startsWith('admin')?'admin':'cliente';
+    let sec = k.includes('-')?k.split('-')[1]:(role==='admin'?'panel':'resumen'); if(sec==='propiedad'||GUIDE[role].some(g=>g[0]===sec)){ state.guide[role]=sec; route(); }
+  }));
+  document.querySelectorAll('[data-rmodal]').forEach(b=>b.addEventListener('click',()=> b.dataset.rmodal==='property'?newPropertyModal():inviteModal()));
+  document.querySelectorAll('[data-addclient]').forEach(b=>b.addEventListener('click',()=>inviteModal(b.dataset.addclient)));
+  const bf = $('#bannerForm');
+  if (bf) {
+    bf.addEventListener('submit',e=>{ e.preventDefault();
+      const list = promos().map((p,i)=>({on:$('#b'+i+'on').checked, img:$('#b'+i+'img').value, t:$('#b'+i+'t').value.trim()||p.t, d:$('#b'+i+'d').value.trim()}));
+      try{ localStorage.setItem('lps-promos', JSON.stringify(list)); localStorage.setItem('lps-promo-head', JSON.stringify({t:$('#bh-t').value.trim()||'Novedades de Francisco', s:$('#bh-s').value.trim()})); }catch(err){}
+      route(); toast('Banner guardado. Así lo verán tus clientes al entrar (en este navegador hasta tener backend)'); });
+    $('#bannerReset').addEventListener('click',()=>{ try{ localStorage.removeItem('lps-promos'); localStorage.removeItem('lps-promo-head'); }catch(e){} route(); toast('Banner restaurado'); });
+    bf.querySelectorAll('select[id$="img"]').forEach(sel=>sel.addEventListener('change',()=>{ const img=sel.closest('.card').querySelector('img.photo'); if(img) img.src=PH[sel.value]; }));
+  }
+  const comp = $('#composer');
+  if (comp) comp.addEventListener('submit',e=>{ e.preventDefault(); const v=$('#msgInput').value.trim(); if(!v) return;
+    const msg={me:true, who:(session()?.full||'Tú'), at:'Ahora', t:v.replace(/</g,'&lt;')};
+    if (h.endsWith('guia')) MESSAGES.push(msg); else state.myMsgs.push(msg);
+    route(); toast('Mensaje enviado'); });
+}
+
+route();
+</script>
+
+</body>
+</html>
