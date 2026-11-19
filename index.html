@@ -660,6 +660,28 @@ em{color:var(--clay)}
 .hello img{filter:none}
 /* Huecos de foto */
 img.slot-ph{background:var(--surface)}
+.vh-ad img.slot-ph{background:var(--clay)}
+
+/* ================= Paletas ================= */
+.ac-statement{background:var(--band-bg,var(--surface));color:var(--band-fg,var(--fg))}
+.ac-statement .who{color:inherit;opacity:.75}
+.ac-statement .btn-primary{background:var(--band-btn,var(--accent));border-color:var(--band-btn,var(--accent));color:var(--band-btn-fg,var(--on-accent))}
+.ac-statement .link{color:inherit;border-bottom-color:currentColor}
+.site-footer{background:var(--foot-bg,var(--fg));color:var(--foot-fg,var(--bg))}
+.site-footer .logo,.foot-grid h4,.foot-grid a:hover,.legal nav a:hover{color:var(--foot-fg,var(--bg))}
+.foot-grid ul,.foot-tag,.legal{color:var(--foot-fg,var(--bg));opacity:.68}
+.site-header .logo{color:var(--logo,var(--fg))}
+.ac-item .t{color:var(--fg)}
+.ac-item .t small{color:var(--clay)}
+:root[data-pal="terracota"]{--bg:#F4EDE3;--surface:#EADFCF;--card:#FBF7F1;--fg:#2B201A;--clay:#B4532A;--muted:#6F625A;--line:#DED1BF;--accent:#B4532A;--on-accent:#FFF8F0;--band-bg:#B4532A;--band-fg:#FFF4EA;--band-btn:#2B201A;--band-btn-fg:#FFF4EA;--foot-bg:#2B201A;--foot-fg:#F4EDE3;--logo:#2B201A;color-scheme:light}
+:root[data-pal="oliva"]{--bg:#F2F1EA;--surface:#E4E3D6;--card:#FAFAF5;--fg:#1D2A20;--clay:#6B7A3A;--muted:#5F6A5F;--line:#D7D6C7;--accent:#24382A;--on-accent:#F2F1EA;--band-bg:#24382A;--band-fg:#EEF0E2;--band-btn:#C9B26B;--band-btn-fg:#1D2A20;--foot-bg:#16241A;--foot-fg:#E7E8DA;--logo:#24382A;color-scheme:light}
+:root[data-pal="marino"]{--bg:#F5F3EE;--surface:#E8E4DB;--card:#FCFBF8;--fg:#13243A;--clay:#A8823E;--muted:#5D6675;--line:#DDD8CD;--accent:#13243A;--on-accent:#F5F3EE;--band-bg:#13243A;--band-fg:#F1EBDD;--band-btn:#C9A45C;--band-btn-fg:#13243A;--foot-bg:#0D1A2B;--foot-fg:#E9E3D4;--logo:#13243A;color-scheme:light}
+:root[data-pal="ocre"]{--bg:#EFE6D7;--surface:#E3D6C1;--card:#F8F2E8;--fg:#171412;--clay:#B26B1E;--muted:#6B6155;--line:#D8CAB3;--accent:#171412;--on-accent:#EFE6D7;--band-bg:#171412;--band-fg:#EFE6D7;--band-btn:#C7802F;--band-btn-fg:#171412;--foot-bg:#171412;--foot-fg:#EFE6D7;--logo:#171412;color-scheme:light}
+.pal-bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:90;display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:calc(100% - 32px);background:rgba(20,20,20,.88);color:#fff;padding:8px 10px;border-radius:999px;font:400 .68rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.pal-bar span{padding:0 6px}
+.pal-bar button{display:inline-flex;align-items:center;gap:6px;background:none;border:1px solid transparent;color:#fff;font:inherit;letter-spacing:inherit;text-transform:inherit;padding:7px 10px;border-radius:999px;cursor:pointer}
+.pal-bar button[aria-pressed="true"]{border-color:#fff}
+.pal-bar i{width:12px;height:12px;border-radius:50%;display:inline-block;box-shadow:0 0 0 1px rgba(255,255,255,.4)}
 
 </style>
 
@@ -840,7 +862,7 @@ const SLOT_PAGES = {inicio:'INICIO', servicios:'SERVICIOS', sobre:'SOBRE', conta
 const slotState = {page:'', n:0, list:[]};
 function slotSvg(code, label){
   const t = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#E4DED2"/><rect x="14" y="14" width="1172" height="772" fill="none" stroke="#4E6A5F" stroke-width="3" stroke-dasharray="14 10"/><text x="600" y="400" text-anchor="middle" font-family="Jost,Helvetica,Arial,sans-serif" font-size="96" letter-spacing="6" fill="#1F2B2E">${t(code)}</text><text x="600" y="470" text-anchor="middle" font-family="Jost,Helvetica,Arial,sans-serif" font-size="34" letter-spacing="4" fill="#4E6A5F">${t(label.toUpperCase())}</text></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect x="14" y="14" width="1172" height="772" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="3" stroke-dasharray="14 10"/><text x="600" y="400" text-anchor="middle" font-family="Jost,Helvetica,Arial,sans-serif" font-size="96" letter-spacing="6" fill="#000" fill-opacity=".72">${t(code)}</text><text x="600" y="470" text-anchor="middle" font-family="Jost,Helvetica,Arial,sans-serif" font-size="34" letter-spacing="4" fill="#000" fill-opacity=".5">${t(label.toUpperCase())}</text></svg>`;
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 }
 function slotify(scope){
@@ -854,6 +876,21 @@ function slotify(scope){
     img.title = code + ' · ' + label;
   });
 }
+
+/* Selector de paletas: solo en la vista previa, nunca en velarehome.com */
+const PALETTES = [['piedra','Piedra','#4E6A5F'],['terracota','Terracota','#B4532A'],['oliva','Oliva','#24382A'],['marino','Marino y oro','#13243A'],['ocre','Ocre y negro','#C7802F']];
+(function(){
+  const q = new URLSearchParams(location.search).get('paleta');
+  let pal = q; if(!pal){ try{ pal = sessionStorage.getItem('vh-pal'); }catch(e){} }
+  const set = k => { if(k && k!=='piedra') document.documentElement.dataset.pal = k; else delete document.documentElement.dataset.pal; try{ sessionStorage.setItem('vh-pal', k); }catch(e){} document.querySelectorAll('.pal-bar button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.k===k?'true':'false')); };
+  if (/velarehome\.com$/.test(location.hostname)) return;
+  const bar = document.createElement('div'); bar.className='pal-bar'; bar.setAttribute('role','group'); bar.setAttribute('aria-label','Paleta de colores');
+  bar.innerHTML = '<span>Paleta</span>' + PALETTES.map(([k,t,c])=>`<button type="button" data-k="${k}"><i style="background:${c}"></i>${t}</button>`).join('');
+  document.body.appendChild(bar);
+  bar.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) set(b.dataset.k); });
+  set(pal || 'piedra');
+})();
+
 new MutationObserver(()=>slotify()).observe(document.getElementById('root'), {childList:true, subtree:true});
 
 /* ================= Router ================= */
