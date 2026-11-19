@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-pal="ocre">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -883,15 +883,16 @@ const PALETTES = [['piedra','Piedra','#4E6A5F'],['terracota','Terracota','#B4532
   const q = new URLSearchParams(location.search).get('paleta');
   let pal = q; if(!pal){ try{ pal = sessionStorage.getItem('vh-pal'); }catch(e){} }
   const set = k => { if(k && k!=='piedra') document.documentElement.dataset.pal = k; else delete document.documentElement.dataset.pal; try{ sessionStorage.setItem('vh-pal', k); }catch(e){} document.querySelectorAll('.pal-bar button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.k===k?'true':'false')); };
-  if (/velarehome\.com$/.test(location.hostname)) return;
+  if (/velarehome\.com$|github\.io$/.test(location.hostname)) return;
   const bar = document.createElement('div'); bar.className='pal-bar'; bar.setAttribute('role','group'); bar.setAttribute('aria-label','Paleta de colores');
   bar.innerHTML = '<span>Paleta</span>' + PALETTES.map(([k,t,c])=>`<button type="button" data-k="${k}"><i style="background:${c}"></i>${t}</button>`).join('');
   document.body.appendChild(bar);
   bar.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) set(b.dataset.k); });
-  set(pal || 'piedra');
+  set(pal || 'ocre');
 })();
 
-new MutationObserver(()=>slotify()).observe(document.getElementById('root'), {childList:true, subtree:true});
+/* Huecos con nombre solo con ?huecos en la URL; si no, se ven las fotos actuales */
+if (new URLSearchParams(location.search).has('huecos')) new MutationObserver(()=>slotify()).observe(document.getElementById('root'), {childList:true, subtree:true});
 
 /* ================= Router ================= */
 const PUBLIC = ['inicio','servicios','sobre','contacto'];
