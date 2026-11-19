@@ -850,7 +850,7 @@ let MESSAGES = [
 /* Cuentas del prototipo: solo hashes SHA-256 de email:contraseña. No es seguridad real: falta backend. */
 const ACCOUNTS = [
   {role:'admin', h:'dac6a2a7b250687ed0af6dce1aee39b856eb000a9d566912684c766d12b9503c', name:'Paco', full:'Paco Gatell', sub:'Administrador'},
-  {role:'cliente', h:'43b472df8f786b46c5fd7e8522a83e72e49d52f4a3e719c3fb905b8221e89636', name:'Jose', full:'Jose Plaza', sub:'Villa Albero, Benahavís'},
+  {role:'cliente', h:'be65bb634a58c591ed44782cc97689edd2599e7a76cbf7d5ea3e013ebc400bc2', name:'Jose', full:'Jose Plaza', sub:'Villa Albero, Benahavís'},
 ];
 async function sha256(t){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
 function session(){ try{ return JSON.parse(sessionStorage.getItem('lps-session')||localStorage.getItem('lps-session')||'null'); }catch(e){ return state.session||null; } }
