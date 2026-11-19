@@ -17,17 +17,17 @@
 <style>
 /* Layout: estudio de arquitectura. Blanco y negro, mucho aire, retícula de imágenes con pie en mayúsculas, cabecera mínima. */
 :root{
-  --bg:#FFFFFF;          /* blanco roto */
-  --surface:#F4F4F2;     /* arena suave */
-  --fg:#141414;          /* tierra oscura */
-  --clay:#141414;        /* arcilla */
-  --muted:#737373;       /* olivo gris (AA sobre arena) */
-  --line:#E6E6E6;
-  --accent:#141414;      /* lima flúor: solo CTA, cifra 10, pendiente */
+  --bg:#F5F2EC;          /* blanco roto */
+  --surface:#E9E4DA;     /* arena suave */
+  --fg:#1F2B2E;          /* tierra oscura */
+  --clay:#4E6A5F;        /* arcilla */
+  --muted:#66706D;       /* olivo gris (AA sobre arena) */
+  --line:#DCD6CA;
+  --accent:#1F2B2E;      /* lima flúor: solo CTA, cifra 10, pendiente */
   --on-accent:#FFFFFF;
   --alert:#FF5A1F;       /* naranja neón: solo alertas privadas */
   --alert-bg:#FFE6DB;
-  --card:#FFFFFF;
+  --card:#FBF9F5;
   /* ilustraciones */
   --sky:#E6DCCB; --hill:#CFC3A9; --hill2:#BDB094; --ground:#DDD2BE;
   --wall:#FBF8F2; --wall-shade:#E7DECF; --glass:#3B332D; --pool:#9DB8B2; --tree:#7D7A68; --sun:#E3B9A0;
@@ -38,12 +38,12 @@
   --gutter:clamp(16px,5vw,112px);
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#111111; --surface:#1A1A1A; --fg:#EDEDED; --clay:#EDEDED; --muted:#9E9E9E; --line:#2A2A2A; --card:#171717; --accent:#EDEDED; --on-accent:#111111;
+  --bg:#161D1F; --surface:#1F282B; --fg:#ECE8E0; --clay:#93B3A6; --muted:#A3AAA6; --line:#2E393C; --card:#1B2326; --accent:#ECE8E0; --on-accent:#161D1F;
   --alert-bg:#3A1F14;
   --sky:#2C2622; --hill:#3A332C; --hill2:#443C33; --ground:#332C26; --wall:#D9CFBF; --wall-shade:#BDB2A1; --glass:#2A2420; --pool:#5E7C77; --tree:#6F6C5C; --sun:#8A5A44;
   color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#111111; --surface:#1A1A1A; --fg:#EDEDED; --clay:#EDEDED; --muted:#9E9E9E; --line:#2A2A2A; --card:#171717; --accent:#EDEDED; --on-accent:#111111;
+  --bg:#161D1F; --surface:#1F282B; --fg:#ECE8E0; --clay:#93B3A6; --muted:#A3AAA6; --line:#2E393C; --card:#1B2326; --accent:#ECE8E0; --on-accent:#161D1F;
   --alert-bg:#3A1F14;
   --sky:#2C2622; --hill:#3A332C; --hill2:#443C33; --ground:#332C26; --wall:#D9CFBF; --wall-shade:#BDB2A1; --glass:#2A2420; --pool:#5E7C77; --tree:#6F6C5C; --sun:#8A5A44;
   color-scheme:dark}
@@ -645,6 +645,22 @@ h2{font-size:clamp(1.4rem,2.2vw,2rem)}
 .works figcaption{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase}
 .works figcaption b{font:400 .72rem/1.4 var(--sans);letter-spacing:.2em;margin-bottom:.3rem}
 
+/* Paleta piedra + pizarra + salvia */
+em{color:var(--clay)}
+.ac-filter button[aria-pressed="true"]{color:var(--clay);border-bottom-color:var(--clay)}
+.nav a.on{border-bottom-color:var(--clay)}
+.btn-primary:hover{background:var(--clay);border-color:var(--clay);color:#fff}
+.site-footer{background:var(--fg);color:var(--bg);border-top:0}
+.site-footer .logo{color:var(--bg)}
+.foot-grid h4{color:var(--bg)}
+.foot-grid ul,.foot-tag,.legal{color:rgba(245,242,236,.62)}
+.foot-grid a:hover,.legal nav a:hover{color:var(--bg)}
+.ac-statement{background:var(--surface)}
+.ac-statement .who img{filter:none}
+.hello img{filter:none}
+/* Huecos de foto */
+img.slot-ph{background:var(--surface)}
+
 </style>
 
 </head>
@@ -728,7 +744,8 @@ function villa(i=0, opt={}){
 }
 
 const PH = {cine:'cine.jpg', fachada:'fachada.jpg', solar:'solar.jpg', aerotermia:'aerotermia.jpg', sala:'sala.jpg', aerea:'sienna-aerea.jpg', atardecer:'sienna-atardecer.jpg', terraza:'sienna-terraza.jpg', azotea:'sienna-azotea.jpg', dia:'sienna-fachada.jpg', chillout:'sienna-chillout.jpg', entrada:'sienna-entrada.jpg'};
-const photo = (k, alt, ratio='4/3') => `<div class="ph" style="aspect-ratio:${ratio}"><img class="photo" src="${PH[k]}" alt="${alt}" loading="lazy" decoding="async"></div>`;
+const SLOT_NAME = {chillout:'Chill-out', fachada:'Fachada en obra', solar:'Fotovoltaica', aerotermia:'Aerotermia', sala:'Sala técnica', terraza:'Terraza', entrada:'Acceso villa', cine:'Cine en casa', dia:'Casa lista', aerea:'Vista aérea', azotea:'Piscina azotea', atardecer:'Atardecer'};
+const photo = (k, alt, ratio='4/3') => `<div class="ph" style="aspect-ratio:${ratio}"><img class="photo" src="${PH[k]}" alt="${alt}" data-slot="${SLOT_NAME[k]||''}" loading="lazy" decoding="async"></div>`;
 function workGallery(){
   return `<div class="works">
     <figure class="tall">${photo('fachada','Fachada de villa con andamio durante la rehabilitación','auto')}<figcaption><b>Rehabilitación de fachada</b>Pintura y sellado con la casa protegida por dentro · obra en curso</figcaption></figure>
@@ -817,6 +834,28 @@ async function sha256(t){ const b = await crypto.subtle.digest('SHA-256', new Te
 function session(){ try{ return JSON.parse(sessionStorage.getItem('lps-session')||localStorage.getItem('lps-session')||'null'); }catch(e){ return state.session||null; } }
 function setSession(v, keep){ state.session=v; try{ sessionStorage.removeItem('lps-session'); localStorage.removeItem('lps-session'); if(v) (keep?localStorage:sessionStorage).setItem('lps-session', JSON.stringify(v)); }catch(e){} }
 
+
+/* ================= Huecos de foto con nombre (mientras se eligen las fotos) ================= */
+const SLOT_PAGES = {inicio:'INICIO', servicios:'SERVICIOS', sobre:'SOBRE', contacto:'CONTACTO', acceso:'ACCESO'};
+const slotState = {page:'', n:0, list:[]};
+function slotSvg(code, label){
+  const t = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#E4DED2"/><rect x="14" y="14" width="1172" height="772" fill="none" stroke="#4E6A5F" stroke-width="3" stroke-dasharray="14 10"/><text x="600" y="400" text-anchor="middle" font-family="Jost,Helvetica,Arial,sans-serif" font-size="96" letter-spacing="6" fill="#1F2B2E">${t(code)}</text><text x="600" y="470" text-anchor="middle" font-family="Jost,Helvetica,Arial,sans-serif" font-size="34" letter-spacing="4" fill="#4E6A5F">${t(label.toUpperCase())}</text></svg>`;
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+function slotify(scope){
+  (scope||document).querySelectorAll('#root img:not(.slot-ph)').forEach(img=>{
+    const src = img.getAttribute('src')||'';
+    if (/^(data|blob):/.test(src)) return;
+    const n = ++slotState.n, code = `${slotState.page} ${String(n).padStart(2,'0')}`;
+    const label = (img.dataset.slot||'').trim() || (img.getAttribute('alt')||'').split(' · ')[0] || 'Foto';
+    slotState.list.push({code, label, antes: src});
+    img.src = slotSvg(code, label); img.classList.add('slot-ph'); img.removeAttribute('srcset');
+    img.title = code + ' · ' + label;
+  });
+}
+new MutationObserver(()=>slotify()).observe(document.getElementById('root'), {childList:true, subtree:true});
+
 /* ================= Router ================= */
 const PUBLIC = ['inicio','servicios','sobre','contacto'];
 const CLIENT_NAV = [['cliente','Resumen','grid'],['cliente-propiedad','Mi propiedad','home'],['cliente-documentos','Documentos','folder'],['cliente-obras','Estado de obras','crane'],['cliente-presupuestos','Presupuestos','euro'],['cliente-proyectos','Proyectos','layers'],['cliente-mensajes','Mensajes','chat'],['cliente-guia','Guía y ejemplos','info']];
@@ -836,6 +875,7 @@ function route(){
     else html = appShell(role, h);
   }
   else html = publicShell('inicio');
+  slotState.page = SLOT_PAGES[h] || 'PRIVADA'; slotState.n = 0; slotState.list = [];
   root.innerHTML = html;
   bind(h);
   bindAds();
@@ -868,7 +908,7 @@ function promoBlock(){
   return `<section class="vh-ads" id="vhAds" aria-label="Novedades" aria-roledescription="carrusel">
     <div class="vh-ads-track">${list.map((a,i)=>{
       const w=(a.t||'').trim(), s=(a.s||'').trim();
-      return `<a class="vh-ad ${w||s?'has-words':''}" ${adHref(a)} aria-label="${esc(w||'Novedad')} (${i+1} de ${list.length})"><img src="${adSrc(a.img)}" alt="" ${i?'loading="lazy"':'fetchpriority="high"'} decoding="async"><div class="in">${w?`<b>${esc(w)}</b>`:''}${s?`<p>${esc(s)}</p>`:''}<span class="go">${a.go==='whatsapp'?'Pregúntale a Paco':'Ver más'} ${ico('arrow')}</span></div></a>`;
+      return `<a class="vh-ad ${w||s?'has-words':''}" ${adHref(a)} aria-label="${esc(w||'Novedad')} (${i+1} de ${list.length})"><img src="${adSrc(a.img)}" alt="" data-slot="Banner · ${esc(w||'Anuncio '+(i+1))}" ${i?'loading="lazy"':'fetchpriority="high"'} decoding="async"><div class="in">${w?`<b>${esc(w)}</b>`:''}${s?`<p>${esc(s)}</p>`:''}<span class="go">${a.go==='whatsapp'?'Pregúntale a Paco':'Ver más'} ${ico('arrow')}</span></div></a>`;
     }).join('')}</div>
     ${list.length>1?`<div class="vh-dots">${list.map((_,i)=>`<button type="button" aria-label="Novedad ${i+1}" ${i?'':'aria-current="true"'}></button>`).join('')}</div>`:''}
   </section>`;
@@ -958,7 +998,7 @@ function homeView(){
 
   <section class="ac-statement" id="metodo"><div class="wrap">
     <p>Solo 10 villas por gestor. Tu casa, cuidada como la nuestra.</p>
-    <div class="who"><img src="paco-avatar.jpg" alt="">Paco Gatell</div>
+    <div class="who"><img src="paco-avatar.jpg" alt="" data-slot="Cara de Paco">Paco Gatell</div>
     <div class="acts"><a class="btn btn-primary" href="https://wa.me/34665601092" target="_blank" rel="noopener">Hablar con Paco</a><a class="link" href="#acceso">Área de propietarios</a></div>
   </div></section>`;
 }
@@ -995,9 +1035,9 @@ function aboutView(){
   <section class="page-head"><div class="wrap"><div class="eyebrow">Sobre Paco</div>
     <h1>Conozco cada casa que <em>gestiono</em>.</h1>
     <p class="lead">Soy Paco Gatell, project manager y fundador de Velarehome. Llevo más de quince años gestionando y reformando villas en la Costa del Sol.</p>
-    <div class="page-img tall"><div class="ph" style="aspect-ratio:4/5"><img class="photo" src="paco.jpg" alt="Paco Gatell, fundador de Velarehome" decoding="async"></div></div></div></section>
+    <div class="page-img tall"><div class="ph" style="aspect-ratio:4/5"><img class="photo" src="paco.jpg" data-slot="Retrato de Paco" alt="Paco Gatell, fundador de Velarehome" decoding="async"></div></div></div></section>
   <section class="band"><div class="wrap founder">
-    <div class="portrait"><img src="${PH.entrada}" alt="Acceso de Villa Sienna con muro de piedra natural" loading="lazy"></div>
+    <div class="portrait"><img src="${PH.entrada}" data-slot="Acceso villa" alt="Acceso de Villa Sienna con muro de piedra natural" loading="lazy"></div>
     <div>
       <p class="lead" style="color:var(--fg)">Empecé dirigiendo obras en Marbella y vi que los propietarios no tenían un problema de proveedores, sino de interlocutor. Nadie conocía su casa entera. Por eso fundé una empresa pequeña a propósito: cada gestor lleva como máximo diez villas, y yo sigo visitándolas.</p>
       <ol class="timeline">
@@ -1044,7 +1084,7 @@ function contactView(){
       <div class="full"><button class="btn btn-primary" type="submit">Enviar consulta ${ico('arrow')}</button></div>
     </form>
     <aside class="contact-side">
-      <a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener"><span class="av"><img src="paco-avatar.jpg" alt=""></span><span><b>Paco Gatell</b><small>Fundador · te respondo yo</small></span></a>
+      <a class="hello" href="https://wa.me/34665601092" target="_blank" rel="noopener"><span class="av"><img src="paco-avatar.jpg" alt="" data-slot="Cara de Paco"></span><span><b>Paco Gatell</b><small>Fundador · te respondo yo</small></span></a>
       <div class="item"><span>WhatsApp y teléfono</span><b>+34 665 601 092</b><a class="link" href="https://wa.me/34665601092" target="_blank" rel="noopener" style="align-self:flex-start;margin-top:.3rem">Escribir por WhatsApp</a></div>
       <div class="item"><span>Email</span><b><a href="mailto:paco@velarehome.com">paco@velarehome.com</a></b></div>
       <div class="item"><span>Horario</span><b>Lunes a viernes, 9:00–19:00</b><small style="color:var(--muted)">Urgencias de clientes 24/7</small></div>
