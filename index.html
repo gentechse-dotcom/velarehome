@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-pal="ocre">
+<html lang="es" data-pal="piedra">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -888,7 +888,7 @@ const PALETTES = [['piedra','Piedra','#4E6A5F'],['terracota','Terracota','#B4532
   bar.innerHTML = '<span>Paleta</span>' + PALETTES.map(([k,t,c])=>`<button type="button" data-k="${k}"><i style="background:${c}"></i>${t}</button>`).join('');
   document.body.appendChild(bar);
   bar.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) set(b.dataset.k); });
-  set(pal || 'ocre');
+  set(pal || 'piedra');
 })();
 
 /* Huecos con nombre solo con ?huecos en la URL; si no, se ven las fotos actuales */
