@@ -728,6 +728,18 @@ img[src$="sala-2.jpg"]{object-fit:contain;background:var(--surface)}
 .nav a.access:hover{background:transparent;color:var(--accent)}
 @media (max-width:920px){.nav-main,.nav-side{flex-direction:column;align-items:flex-start;gap:1.6rem}.nav-side{margin-top:1rem;width:100%}}
 
+/* Botones de colores bajo el banner */
+.ac-words .wrap{gap:.8rem;flex-wrap:wrap}
+.ac-words a{display:inline-flex;align-items:center;justify-content:center;min-width:11rem;padding:1rem 1.6rem;border:1px solid transparent;border-radius:2px;font:500 .78rem/1 var(--sans);letter-spacing:.2em;transition:filter .2s,transform .2s}
+.ac-words a:hover{filter:brightness(1.12);transform:translateY(-1px);border-bottom-color:transparent}
+.ac-words a:nth-child(1){background:#242A28;color:#F8F6F2}
+.ac-words a:nth-child(2){background:#343F38;color:#F8F6F2}
+.ac-words a:nth-child(3){background:#A48B70;color:#242A28}
+.ac-words a:nth-child(4){background:#E9E4DB;color:#242A28;border-color:#D6CFC2}
+:root[data-pal="marfil"] .ac-words a:nth-child(1):hover,:root[data-pal="marfil"] .ac-words a:nth-child(2):hover{color:#F8F6F2}
+:root[data-pal="marfil"] .ac-words a:nth-child(n+3):hover{color:#242A28}
+@media (max-width:720px){.ac-words .wrap{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.ac-words a{min-width:0;padding:.95rem .6rem;font-size:.7rem;letter-spacing:.16em}}
+
 </style>
 
 </head>
