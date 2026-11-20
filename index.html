@@ -789,7 +789,7 @@ function villa(i=0, opt={}){
   return s + `</svg>`;
 }
 
-const PH = {cine:'cine-3.jpg', fachada:'fachada.jpg', solar:'solar.jpg', aerotermia:'aerotermia-2.jpg', sala:'sala-2.jpg', aerea:'sienna-aerea.jpg', atardecer:'sienna-atardecer.jpg', terraza:'sienna-terraza.jpg', azotea:'sienna-azotea.jpg', dia:'sienna-fachada.jpg', chillout:'sienna-chillout.jpg', entrada:'sienna-entrada.jpg'};
+const PH = {casa:'casa-principal.jpg', cine:'cine-3.jpg', fachada:'fachada.jpg', solar:'solar.jpg', aerotermia:'aerotermia-2.jpg', sala:'sala-2.jpg', aerea:'sienna-aerea.jpg', atardecer:'sienna-atardecer.jpg', terraza:'sienna-terraza.jpg', azotea:'sienna-azotea.jpg', dia:'sienna-fachada.jpg', chillout:'sienna-chillout.jpg', entrada:'sienna-entrada.jpg'};
 const SLOT_NAME = {chillout:'Chill-out', fachada:'Fachada en obra', solar:'Fotovoltaica', aerotermia:'Aerotermia', sala:'Sala técnica', terraza:'Terraza', entrada:'Acceso villa', cine:'Cine en casa', dia:'Casa lista', aerea:'Vista aérea', azotea:'Piscina azotea', atardecer:'Atardecer'};
 const photo = (k, alt, ratio='4/3') => `<div class="ph" style="aspect-ratio:${ratio}"><img class="photo" src="${PH[k]}" alt="${alt}" data-slot="${SLOT_NAME[k]||''}" loading="lazy" decoding="async"></div>`;
 function workGallery(){
@@ -953,11 +953,11 @@ window.addEventListener('hashchange', route);
 
 /* ================= Banner de Paco (editable desde admin) ================= */
 const DEFAULT_ADS = [
+  {on:true, img:'casa', t:'Villa Sienna', s:'', go:'svc-gestion'},
   {on:true, img:'cine', t:'Cine en casa', s:'', go:'whatsapp'},
-  {on:true, img:'atardecer', t:'Villa Sienna', s:'', go:'svc-gestion'},
 ];
 const PROMO_GO = [['whatsapp','WhatsApp con Paco'],['svc-reformas','Reformas y mejoras'],['svc-gestion','Cuidado de la vivienda'],['svc-concierge','Servicio premium'],['svc-planes','Paquetes'],['contacto','Contacto']];
-const ADS_KEY = 'lps-ads-v3';
+const ADS_KEY = 'lps-ads-v4';
 function ads(){ try{ const l=JSON.parse(localStorage.getItem(ADS_KEY)); if(Array.isArray(l)) return l; }catch(e){} return DEFAULT_ADS.map(a=>({...a})); }
 const adSrc = img => PH[img] || img;
 function adHref(a){ const w=(a.t||'').trim();
@@ -985,7 +985,7 @@ function bindAds(){
   dots.forEach((d,i)=>d.addEventListener('click',()=>go(i)));
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let paused=false; box.addEventListener('mouseenter',()=>paused=true); box.addEventListener('mouseleave',()=>paused=false); box.addEventListener('focusin',()=>paused=true); box.addEventListener('focusout',()=>paused=false);
-  state.adTimer = setInterval(()=>{ if(!paused && document.contains(track)) go(cur()+1); }, 6000);
+  state.adTimer = setInterval(()=>{ if(!paused && document.contains(track)) go(cur()+1); }, 3000);
 }
 
 /* ================= Público ================= */
