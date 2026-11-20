@@ -509,6 +509,22 @@ tr.click:hover td{background:var(--surface)}
 .kv dd{margin:0}
 @media (max-width:820px){.prop{grid-template-columns:1fr}}
 .empty{color:var(--muted);font-size:.9rem;padding:1rem 0}
+.mailbox{display:grid;grid-template-columns:minmax(260px,360px) 1fr;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);min-height:540px;overflow:hidden}
+.mb-list{border-right:1px solid var(--line);display:flex;flex-direction:column;overflow:auto;max-height:72vh}
+.mb-tools{display:grid;gap:.6rem;padding:.9rem;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card)}
+.mb-tabs{display:flex;gap:.3rem}.mb-tabs button{font:inherit;font-size:.85rem;border:0;background:none;padding:.35rem .7rem;border-radius:999px;cursor:pointer;color:var(--muted)}
+.mb-tabs button.on{background:var(--surface);color:var(--fg);font-weight:600}.mb-tabs b{color:var(--clay)}
+.mb-search{display:flex;align-items:center;gap:.4rem;border:1px solid var(--line);border-radius:999px;padding:.3rem .8rem}.mb-search svg{width:16px;height:16px;flex:none}.mb-search input{border:0;background:none;font:inherit;font-size:.88rem;width:100%;outline:none;color:var(--fg)}
+.mb-row{display:grid;grid-template-columns:1fr auto;gap:.15rem .6rem;text-align:left;font:inherit;border:0;border-bottom:1px solid var(--line);background:none;padding:.85rem 1rem;cursor:pointer;color:var(--fg)}
+.mb-row:hover{background:var(--bg)}.mb-row.on{background:var(--surface)}
+.mb-from{font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mb-date{font-size:.75rem;color:var(--muted)}.mb-subj{grid-column:1/-1;font-size:.82rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mb-row.unread .mb-from,.mb-row.unread .mb-subj{font-weight:600;color:var(--fg)}.mb-row.unread .mb-from::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--clay);margin-right:.45rem;vertical-align:middle}
+.mb-pad{padding:1rem}.mb-pane{padding:clamp(1.2rem,3vw,2rem);overflow:auto;max-height:72vh}
+.mb-read{display:grid;gap:.9rem}.mb-read h3{font-size:1.15rem}.mb-text{white-space:pre-wrap;line-height:1.7;font-size:.95rem;border-top:1px solid var(--line);padding-top:1rem}
+.mb-html{width:100%;min-height:420px;border:0;border-top:1px solid var(--line);background:#fff}
+.mb-none{height:100%;min-height:300px;display:grid;place-content:center;justify-items:center;gap:.6rem;color:var(--muted)}.mb-none svg{width:34px;height:34px}
+.mb-compose{display:grid;gap:.9rem}.mailbox .acts,.welcome .acts{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}.mb-compose textarea{font:inherit}
+@media(max-width:760px){.mailbox{grid-template-columns:1fr}.mb-list{border-right:0;max-height:none}.mb-pane{border-top:1px solid var(--line)}}
 .emptybox{border:1px dashed var(--line);border-radius:var(--radius);padding:clamp(2rem,5vw,3.5rem) 1.5rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.8rem;background:var(--card)}
 .emptybox .ico{width:30px;height:30px;color:var(--clay)}
 .emptybox p{color:var(--muted);max-width:46ch;font-size:.92rem}
@@ -1281,9 +1297,51 @@ function inviteModal(propId){
     });
 }
 
+/* ---------- Correo de Paco (IONOS vía función segura de Supabase) ---------- */
+// MAIL.api: URL de la función «correo» de Supabase. Vacío = buzón aún sin conectar.
+const MAIL = { api: '', key: '' };
+const MAIL_DEMO = /[?&]correo-demo\b/.test(location.search);
+const MAIL_SAMPLE = [
+  {uid:4, from:{name:'Marta Ruiz', address:'marta@ejemplo.com'}, subject:'Visita a la villa el jueves', date:'2026-11-20T09:12:00', seen:false, text:'Hola Paco,\n\n¿Podrías pasar el jueves por la mañana a revisar la piscina? Llegamos el sábado.\n\nGracias,\nMarta'},
+  {uid:3, from:{name:'Aquaclima', address:'info@aquaclima.es'}, subject:'Presupuesto aerotermia Villa Sienna', date:'2026-11-19T17:40:00', seen:false, text:'Buenas tardes,\n\nAdjuntamos el presupuesto de la instalación de aerotermia. Quedamos a la espera.\n\nUn saludo.'},
+  {uid:2, from:{name:'Tom Becker', address:'tom@ejemplo.de'}, subject:'Cine en casa: fechas', date:'2026-11-18T11:05:00', seen:true, text:'Hi Paco,\n\nWe would love to start the home cinema works in January. Does that work for you?\n\nBest,\nTom'},
+  {uid:1, from:{name:'IONOS', address:'noreply@ionos.es'}, subject:'Tu buzón está listo', date:'2026-11-15T08:00:00', seen:true, text:'Tu buzón paco@velarehome.com está activo.'}
+];
+state.mail = state.mail || {folder:'INBOX', items:null, open:null, err:null, compose:null, q:''};
+async function mailCall(action, body={}){
+  const tok = (window.sbSession && window.sbSession.access_token) || '';
+  const r = await fetch(MAIL.api, {method:'POST', headers:{'Content-Type':'application/json', apikey:MAIL.key, Authorization:'Bearer '+tok}, body:JSON.stringify({action, folder:state.mail.folder, ...body})});
+  const j = await r.json().catch(()=>({error:'Respuesta no válida'}));
+  if(!r.ok) throw new Error(j.error||'Error del servidor'); return j;
+}
+const mDate = d => { const x=new Date(d), n=new Date(); return x.toDateString()===n.toDateString() ? x.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}) : x.toLocaleDateString('es-ES',{day:'numeric',month:'short'}); };
+const mWho = f => esc((f&&(f.name||f.address))||'Desconocido');
 function eMail(){
-  return `<div class="welcome"><div><h3>Correo de Velarehome</h3><p>Tu buzón <b>paco@velarehome.com</b> está alojado en IONOS. Ábrelo desde aquí para leer y contestar los correos.</p></div><a class="btn btn-primary btn-sm" href="https://mail.ionos.es" target="_blank" rel="noopener">${ico('mail')}Abrir correo</a></div>
-  <div class="card" style="gap:.6rem"><b>Próximamente</b><p class="muted">Ver la bandeja de entrada aquí mismo, sin salir del panel, cuando la web tenga acceso seguro con servidor.</p></div>`;
+  const m = state.mail, live = MAIL.api || MAIL_DEMO;
+  const head = `<div class="welcome"><div><h3>Correo</h3><p><b>paco@velarehome.com</b></p></div><div class="acts">${live?`<button class="btn btn-primary btn-sm" id="mCompose">${ico('plus')}Redactar</button>`:''}<a class="btn btn-sm" href="https://mail.ionos.es" target="_blank" rel="noopener">${ico('mail')}Abrir en IONOS</a></div></div>`;
+  if(!live) return head + emptyBox('mail','Bandeja casi lista','Los correos de IONOS aparecerán aquí en cuanto el buzón quede conectado de forma segura. Mientras tanto, ábrelo en IONOS.');
+  const list = (m.items||[]).filter(x=>!m.q || (x.subject+' '+mWho(x.from)).toLowerCase().includes(m.q.toLowerCase()));
+  const unread = (m.items||[]).filter(x=>!x.seen).length;
+  const rows = m.items===null ? '<p class="muted mb-pad">Cargando correos…</p>' : m.err ? `<p class="muted mb-pad">${esc(m.err)}</p>` : !list.length ? '<p class="muted mb-pad">No hay correos.</p>'
+    : list.map(x=>`<button class="mb-row ${x.seen?'':'unread'} ${m.open&&m.open.uid===x.uid?'on':''}" data-mail="${x.uid}"><span class="mb-from">${mWho(x.from)}</span><span class="mb-date">${mDate(x.date)}</span><span class="mb-subj">${esc(x.subject||'(sin asunto)')}</span></button>`).join('');
+  let pane;
+  if(m.compose){ const c=m.compose;
+    pane = `<form id="mForm" class="mb-compose"><h3>${c.reply?'Responder':'Nuevo correo'}</h3>
+      <div class="field"><label for="mTo">Para</label><input id="mTo" type="email" required value="${esc(c.to||'')}"></div>
+      <div class="field"><label for="mSubj">Asunto</label><input id="mSubj" required value="${esc(c.subject||'')}"></div>
+      <div class="field"><label for="mBody">Mensaje</label><textarea id="mBody" rows="10" required>${esc(c.text||'')}</textarea></div>
+      <div class="acts"><button class="btn btn-primary" type="submit">${ico('arrow')}Enviar</button><button class="btn" type="button" id="mCancel">Cancelar</button></div></form>`;
+  } else if(m.open){ const o=m.open;
+    pane = `<article class="mb-read"><h3>${esc(o.subject||'(sin asunto)')}</h3>
+      <p class="muted"><b>${mWho(o.from)}</b> &lt;${esc((o.from&&o.from.address)||'')}&gt; · ${new Date(o.date).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'})}</p>
+      <div class="acts"><button class="btn btn-primary btn-sm" id="mReply">${ico('back')}Responder</button><button class="btn btn-sm" id="mDel">Borrar</button></div>
+      ${o.html?`<iframe class="mb-html" sandbox="" title="Contenido del correo"></iframe>`:`<div class="mb-text">${esc(o.text||'')}</div>`}
+      ${(o.attachments||[]).length?`<p class="muted">Adjuntos: ${o.attachments.map(a=>esc(a.name||'archivo')).join(', ')} (ábrelos en IONOS)</p>`:''}</article>`;
+  } else pane = `<div class="mb-none">${ico('mail')}<p>Elige un correo para leerlo</p></div>`;
+  return head + `<div class="mailbox" id="mailbox">
+    <div class="mb-list"><div class="mb-tools"><div class="mb-tabs"><button data-mfold="INBOX" class="${m.folder==='INBOX'?'on':''}">Entrada${unread&&m.folder==='INBOX'?` <b>${unread}</b>`:''}</button><button data-mfold="Elementos enviados" class="${m.folder!=='INBOX'?'on':''}">Enviados</button></div>
+      <label class="mb-search">${ico('search')}<input id="mQ" placeholder="Buscar" value="${esc(m.q)}" aria-label="Buscar correos"></label></div>${rows}</div>
+    <div class="mb-pane">${pane}</div></div>`;
 }
 function eBanner(){
   const list = ads(), imgs = Object.keys(PH);
@@ -1642,6 +1700,22 @@ function bind(h){
   }));
   document.querySelectorAll('[data-rmodal]').forEach(b=>b.addEventListener('click',()=> b.dataset.rmodal==='property'?newPropertyModal():inviteModal()));
   document.querySelectorAll('[data-addclient]').forEach(b=>b.addEventListener('click',()=>inviteModal(b.dataset.addclient)));
+  if ($('#mailbox') || $('#mCompose')) {
+    const m = state.mail;
+    const load = async () => { m.err=null; try{ if(MAIL_DEMO){ m.items = m.folder==='INBOX' ? MAIL_SAMPLE.map(x=>({...x})) : []; } else { m.items=(await mailCall('list')).items; } }catch(err){ m.items=[]; m.err='No se pudo abrir el buzón: '+err.message; } route(); };
+    if (m.items===null && $('#mailbox')) load();
+    const fr = $('.mb-html'); if (fr && m.open) fr.srcdoc = m.open.html;
+    document.querySelectorAll('[data-mail]').forEach(b=>b.addEventListener('click',async()=>{ const uid=+b.dataset.mail; m.compose=null;
+      try{ const it=m.items.find(x=>x.uid===uid); m.open = MAIL_DEMO ? {...it} : await mailCall('read',{uid}); if(it) it.seen=true; route(); }catch(err){ toast('No se pudo abrir el correo'); } }));
+    document.querySelectorAll('[data-mfold]').forEach(b=>b.addEventListener('click',()=>{ m.folder=b.dataset.mfold; m.items=null; m.open=null; route(); }));
+    const q=$('#mQ'); if(q) q.addEventListener('input',()=>{ m.q=q.value; clearTimeout(m.t); m.t=setTimeout(()=>{ route(); const n=$('#mQ'); if(n){ n.focus(); n.setSelectionRange(n.value.length,n.value.length);} },250); });
+    const cp=$('#mCompose'); if(cp) cp.addEventListener('click',()=>{ m.compose={}; route(); });
+    const rp=$('#mReply'); if(rp) rp.addEventListener('click',()=>{ const o=m.open; m.compose={reply:true, to:o.from&&o.from.address, subject:/^re:/i.test(o.subject||'')?o.subject:'Re: '+(o.subject||''), inReplyTo:o.messageId||'', text:'\n\n— '+mWho(o.from)+' escribió:\n'+(o.text||'').split('\n').map(l=>'> '+l).join('\n')}; route(); });
+    const dl=$('#mDel'); if(dl) dl.addEventListener('click',async()=>{ const uid=m.open.uid; try{ if(!MAIL_DEMO) await mailCall('delete',{uid}); m.items=m.items.filter(x=>x.uid!==uid); m.open=null; route(); toast('Correo borrado'); }catch(err){ toast('No se pudo borrar'); } });
+    const cc=$('#mCancel'); if(cc) cc.addEventListener('click',()=>{ m.compose=null; route(); });
+    const mf=$('#mForm'); if(mf) mf.addEventListener('submit',async e=>{ e.preventDefault(); const body={to:$('#mTo').value.trim(), subject:$('#mSubj').value.trim(), text:$('#mBody').value, inReplyTo:m.compose.inReplyTo||undefined};
+      try{ if(!MAIL_DEMO) await mailCall('send',body); m.compose=null; route(); toast('Correo enviado'); }catch(err){ toast('No se pudo enviar: '+err.message); } });
+  }
   const bf = $('#bannerForm');
   if (bf) {
     let draft = ads();
