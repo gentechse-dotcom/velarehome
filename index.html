@@ -2,6 +2,7 @@
 <html lang="es" data-pal="marfil">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Velarehome: gestión, mantenimiento, reformas y ampliaciones de villas en Marbella, Nueva Andalucía, Benahavís y San Pedro. Máximo 10 villas por gestor. Te atiende Paco Gatell.">
 <meta property="og:title" content="Velarehome · Project Management & Home Care">
@@ -798,6 +799,9 @@ img[src$="sala-2.jpg"],img[src$="aerotermia-2.jpg"]{object-fit:contain;backgroun
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
+/* Versión publicada: si el navegador tiene una copia vieja guardada, carga la nueva (cambiar BUILD y version.txt en cada publicación). */
+const BUILD = '202611201403';
+(function(){ try{ fetch('/version.txt?t='+Date.now(), {cache:'no-store'}).then(r=>r.ok?r.text():'').then(v=>{ v=(v||'').trim(); if(v && v!==BUILD && new URLSearchParams(location.search).get('b')!==v) location.replace(location.pathname+'?b='+v+location.hash); }).catch(()=>{}); }catch(e){} })();
 /* ================= Utilidades ================= */
 const $ = (s, el=document) => el.querySelector(s);
 const ico = (n, cls='') => `<svg class="ico ${cls}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
