@@ -411,6 +411,8 @@ form.grid .full{grid-column:1/-1}
 .side .out button:hover{color:var(--fg)}
 .main{padding:2rem clamp(1rem,3vw,2.8rem) 4rem;padding-left:max(clamp(1rem,3vw,2.8rem),env(safe-area-inset-left,0px));padding-right:max(clamp(1rem,3vw,2.8rem),env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:2rem}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding-bottom:1.5rem;border-bottom:1px solid var(--line)}
+.topbar:has(.topbar-mid){display:grid;grid-template-columns:1fr auto 1fr}.topbar:has(.topbar-mid)>div:last-child{justify-self:end}
+@media(max-width:700px){.topbar:has(.topbar-mid){grid-template-columns:1fr auto}.topbar-mid{grid-row:2;justify-self:start}}
 .topbar h1{font-size:clamp(1.6rem,2.6vw,2.1rem)}
 .who{display:flex;align-items:center;gap:.8rem;font-size:.85rem}
 .who .av{width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font:500 .85rem/1 var(--sans);color:var(--clay);flex:none}
@@ -1258,6 +1260,7 @@ function appShell(role, h){
     <main class="main view">
       <nav class="mobile-nav" aria-label="Área privada">${nav.map(([k,t])=>`<a href="#${k}" class="${k===cur[0]?'on':''}">${t}</a>`).join('')}<a href="#acceso" id="logout2">Salir</a></nav>
       <div class="topbar"><div><div class="eyebrow">${cur[0]===nav[0][0]?greet:(cur[0].endsWith('guia')?'Ejemplos de lo que puedes hacer':(role==='cliente'?'Área de propietarios':'Administración'))}</div><h1 style="margin-top:.4rem">${cur[1]}</h1></div>
+        ${cur[0]==='admin-correo' && (MAIL.api||MAIL_DEMO) ? `<button class="btn btn-primary btn-sm topbar-mid" id="mCompose">${ico('plus')}Redactar</button>` : ''}
         <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap">${who}</div></div>
       ${(views[cur[0]]||views[nav[0][0]])()}
     </main></div>`;
@@ -1334,7 +1337,7 @@ const mDate = d => { const x=new Date(d), n=new Date(); return x.toDateString()=
 const mWho = f => esc((f&&(f.name||f.address))||'Desconocido');
 function eMail(){
   const m = state.mail, live = MAIL.api || MAIL_DEMO;
-  const head = `<div class="welcome"><div><h3>Correo</h3><p><b>paco@velarehome.com</b></p></div><div class="acts">${live?`<button class="btn btn-primary btn-sm" id="mCompose">${ico('plus')}Redactar</button>`:''}<a class="btn btn-sm" href="https://mail.ionos.es" target="_blank" rel="noopener">${ico('mail')}Abrir en IONOS</a></div></div>`;
+  const head = '';
   if(!live) return head + emptyBox('mail','Bandeja casi lista','Los correos de IONOS aparecerán aquí en cuanto el buzón quede conectado de forma segura. Mientras tanto, ábrelo en IONOS.');
   const list = (m.items||[]).filter(x=>!m.q || (x.subject+' '+mWho(x.from)).toLowerCase().includes(m.q.toLowerCase()));
   const unread = (m.items||[]).filter(x=>!x.seen).length;
