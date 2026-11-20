@@ -13,7 +13,7 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Velarehome</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap">
 <style>
 /* Layout: estudio de arquitectura. Blanco y negro, mucho aire, retícula de imágenes con pie en mayúsculas, cabecera mínima. */
 :root{
@@ -682,6 +682,13 @@ img.slot-ph{background:var(--surface)}
 .pal-bar button{display:inline-flex;align-items:center;gap:6px;background:none;border:1px solid transparent;color:#fff;font:inherit;letter-spacing:inherit;text-transform:inherit;padding:7px 10px;border-radius:999px;cursor:pointer}
 .pal-bar button[aria-pressed="true"]{border-color:#fff}
 .pal-bar i{width:12px;height:12px;border-radius:50%;display:inline-block;box-shadow:0 0 0 1px rgba(255,255,255,.4)}
+
+/* Cabecera: menú principal más hacia el centro y más peso; Acceso clientes destacado */
+.nav a:not(.access):not(.btn){font-weight:500}
+@media (min-width:921px){.nav a[href="#contacto"]:not(.btn){margin-right:clamp(2.5rem,8vw,9rem)}}
+.nav .access{font-weight:700;color:var(--clay)}
+.nav .access:hover{color:var(--fg)}
+.nav .access .ico{stroke-width:2}
 
 </style>
 
