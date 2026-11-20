@@ -13,7 +13,7 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Velarehome</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
 <style>
 /* Layout: estudio de arquitectura. Blanco y negro, mucho aire, retícula de imágenes con pie en mayúsculas, cabecera mínima. */
 :root{
@@ -31,8 +31,8 @@
   /* ilustraciones */
   --sky:#E6DCCB; --hill:#CFC3A9; --hill2:#BDB094; --ground:#DDD2BE;
   --wall:#FBF8F2; --wall-shade:#E7DECF; --glass:#3B332D; --pool:#9DB8B2; --tree:#7D7A68; --sun:#E3B9A0;
-  --serif:"Jost",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --sans:"Jost",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --sans:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --radius:0px;
   --wrap:100%;
   --gutter:clamp(16px,5vw,112px);
@@ -689,6 +689,12 @@ img.slot-ph{background:var(--surface)}
 .nav .access{font-weight:700;color:#3E5A4F}
 .nav .access:hover{color:var(--fg)}
 .nav .access .ico{stroke-width:2}
+/* Menú en minúscula, más grande y nítido (Poppins) */
+.nav a{font-size:.88rem;letter-spacing:.01em;text-transform:none;-webkit-font-smoothing:antialiased}
+.nav a:not(.access):not(.btn){font-weight:500}
+.nav .access{font-weight:600}
+.nav a.btn{font:500 .88rem/1 var(--sans);letter-spacing:.01em;text-transform:none}
+@media (max-width:920px){.nav a,.nav a.btn{font-size:1.15rem}}
 /* Home: banner alto y solo las palabras debajo */
 .vh-ads{height:clamp(420px,calc(100svh - 88px - 7.5rem),900px)}
 .ac-words .wrap{display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem clamp(2rem,6vw,5.5rem);padding-block:clamp(2.2rem,4vw,3rem)}
@@ -880,7 +886,7 @@ const SLOT_PAGES = {inicio:'INICIO', servicios:'SERVICIOS', sobre:'SOBRE', conta
 const slotState = {page:'', n:0, list:[]};
 function slotSvg(code, label){
   const t = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect x="14" y="14" width="1172" height="772" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="3" stroke-dasharray="14 10"/><text x="600" y="400" text-anchor="middle" font-family="Jost,Helvetica,Arial,sans-serif" font-size="96" letter-spacing="6" fill="#000" fill-opacity=".72">${t(code)}</text><text x="600" y="470" text-anchor="middle" font-family="Jost,Helvetica,Arial,sans-serif" font-size="34" letter-spacing="4" fill="#000" fill-opacity=".5">${t(label.toUpperCase())}</text></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect x="14" y="14" width="1172" height="772" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="3" stroke-dasharray="14 10"/><text x="600" y="400" text-anchor="middle" font-family="Poppins,Helvetica,Arial,sans-serif" font-size="96" letter-spacing="6" fill="#000" fill-opacity=".72">${t(code)}</text><text x="600" y="470" text-anchor="middle" font-family="Poppins,Helvetica,Arial,sans-serif" font-size="34" letter-spacing="4" fill="#000" fill-opacity=".5">${t(label.toUpperCase())}</text></svg>`;
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 }
 function slotify(scope){
