@@ -19,13 +19,20 @@ let cors: Record<string, string> = {
 };
 const json = (b: unknown, s = 200) => new Response(JSON.stringify(b), { status: s, headers: { ...cors, "Content-Type": "application/json" } });
 
+// Caché corta de tokens ya comprobados (ahorra una llamada a Auth en cada petición).
+const okTokens = new Map<string, number>();
 async function adminOk(req: Request) {
+  const auth = req.headers.get("Authorization") ?? "";
+  const hit = okTokens.get(auth);
+  if (hit && hit > Date.now()) return true;
   const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, {
     global: { headers: { Authorization: req.headers.get("Authorization") ?? "" } },
   });
   const { data } = await sb.auth.getUser();
   const admin = (Deno.env.get("ADMIN_EMAIL") ?? "").toLowerCase();
-  return !!admin && data.user?.email?.toLowerCase() === admin;
+  const ok = !!admin && data.user?.email?.toLowerCase() === admin;
+  if (ok) okTokens.set(auth, Date.now() + 120_000);
+  return ok;
 }
 
 async function withImap<T>(fn: (c: ImapFlow) => Promise<T>) {
@@ -43,6 +50,13 @@ Deno.serve(async (req) => {
   const folder = body.folder || "INBOX";
   try {
     switch (body.action) {
+      case "check": {
+        // Consulta ligera: solo cuántos correos hay y cuál será el siguiente, sin descargar nada.
+        return json(await withImap(async (c) => {
+          const st = await c.status(folder, { messages: true, uidNext: true, unseen: true });
+          return { messages: st.messages, uidNext: st.uidNext, unseen: st.unseen };
+        }));
+      }
       case "list": {
         const page = Math.max(1, body.page || 1), per = 30;
         return json(await withImap(async (c) => {

@@ -1324,7 +1324,7 @@ const MAIL_SAMPLE = [
   {uid:2, from:{name:'Tom Becker', address:'tom@ejemplo.de'}, subject:'Cine en casa: fechas', date:'2026-11-18T11:05:00', seen:true, text:'Hi Paco,\n\nWe would love to start the home cinema works in January. Does that work for you?\n\nBest,\nTom'},
   {uid:1, from:{name:'IONOS', address:'noreply@ionos.es'}, subject:'Tu buzón está listo', date:'2026-11-15T08:00:00', seen:true, text:'Tu buzón paco@velarehome.com está activo.'}
 ];
-state.mail = state.mail || {folder:'INBOX', items:null, open:null, err:null, compose:null, q:''};
+state.mail = state.mail || {folder:'INBOX', items:null, open:null, err:null, compose:null, q:'', sig:{}, last:0};
 async function mailCall(action, body={}){
   if (!window.sbSession && sb) { const {data} = await sb.auth.getSession(); window.sbSession = data.session; }
   const tok = (window.sbSession && window.sbSession.access_token) || '';
@@ -1333,6 +1333,31 @@ async function mailCall(action, body={}){
   const j = await r.json().catch(()=>({error:'Respuesta no válida'}));
   if(!r.ok) throw new Error(j.error||'Error del servidor'); return j;
 }
+// Caché y sincronización: la lista se guarda en el navegador y se muestra al instante.
+// Cada 45 s (solo con la pestaña visible y en Correo) se hace una consulta ligera; si hay cambios, se baja la lista.
+const MAIL_READ = {};
+const mailCache = f => { try{ return JSON.parse(sessionStorage.getItem('vh-mail-'+f)||'null'); }catch(e){ return null; } };
+function mailSave(){ const m=state.mail; try{ if(m.items) sessionStorage.setItem('vh-mail-'+m.folder, JSON.stringify(m.items)); }catch(e){} }
+async function mailLoad(full){
+  const m = state.mail, f = m.folder;
+  if (m.busy) return; m.busy = true; m.err = null;
+  try{
+    if (MAIL_DEMO){ m.items = f==='INBOX' ? MAIL_SAMPLE.map(x=>({...x})) : []; }
+    else {
+      if (!full && m.items){ const s = await mailCall('check'); const sig = [s.messages,s.uidNext,s.unseen].join('-'); if (sig===m.sig[f]) { m.last=Date.now(); return; } m.sig[f]=sig; }
+      const items = (await mailCall('list')).items;
+      if (f !== m.folder) return;
+      if (JSON.stringify(items)===JSON.stringify(m.items)) { m.last=Date.now(); return; }
+      m.items = items; mailSave();
+    }
+  }catch(err){ if(!m.items){ m.items=[]; m.err='No se pudo abrir el buzón: '+err.message; } }
+  finally{ m.busy=false; m.last=Date.now(); }
+  const typing = m.compose || document.activeElement?.id==='mQ';
+  if (location.hash==='#admin-correo' && !typing) route();
+}
+function mailTick(){ const m=state.mail; if(MAIL_DEMO || !MAIL.api || location.hash!=='#admin-correo' || document.hidden || !m.items) return; if(Date.now()-(m.last||0) < 40000) return; mailLoad(false); }
+setInterval(mailTick, 45000);
+document.addEventListener('visibilitychange', mailTick);
 const mDate = d => { const x=new Date(d), n=new Date(); return x.toDateString()===n.toDateString() ? x.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}) : x.toLocaleDateString('es-ES',{day:'numeric',month:'short'}); };
 const mWho = f => esc((f&&(f.name||f.address))||'Desconocido');
 function eMail(){
@@ -1723,16 +1748,19 @@ function bind(h){
   document.querySelectorAll('[data-addclient]').forEach(b=>b.addEventListener('click',()=>inviteModal(b.dataset.addclient)));
   if ($('#mailbox') || $('#mCompose')) {
     const m = state.mail;
-    const load = async () => { m.err=null; try{ if(MAIL_DEMO){ m.items = m.folder==='INBOX' ? MAIL_SAMPLE.map(x=>({...x})) : []; } else { m.items=(await mailCall('list')).items; } }catch(err){ m.items=[]; m.err='No se pudo abrir el buzón: '+err.message; } route(); };
-    if (m.items===null && $('#mailbox')) load();
+    if (m.items===null && $('#mailbox')) { const c=mailCache(m.folder); if(c && !MAIL_DEMO){ m.items=c; route(); } mailLoad(true); }
     const fr = $('.mb-html'); if (fr && m.open) fr.srcdoc = m.open.html;
     document.querySelectorAll('[data-mail]').forEach(b=>b.addEventListener('click',async()=>{ const uid=+b.dataset.mail; m.compose=null;
-      try{ const it=m.items.find(x=>x.uid===uid); m.open = MAIL_DEMO ? {...it} : await mailCall('read',{uid}); if(it) it.seen=true; route(); }catch(err){ toast('No se pudo abrir el correo'); } }));
+      const it=m.items.find(x=>x.uid===uid), key=m.folder+':'+uid;
+      if (MAIL_DEMO) { m.open={...it}; it.seen=true; route(); return; }
+      if (MAIL_READ[key]) { m.open=MAIL_READ[key]; if(it) it.seen=true; route(); return; }
+      m.open={...it, text:'Abriendo…', html:null}; route();
+      try{ const r=await mailCall('read',{uid}); MAIL_READ[key]=r; if(m.open&&m.open.uid===uid){ m.open=r; } if(it){ it.seen=true; mailSave(); } route(); }catch(err){ m.open=null; route(); toast('No se pudo abrir el correo'); } }));
     document.querySelectorAll('[data-mfold]').forEach(b=>b.addEventListener('click',()=>{ m.folder=b.dataset.mfold; m.items=null; m.open=null; route(); }));
     const q=$('#mQ'); if(q) q.addEventListener('input',()=>{ m.q=q.value; clearTimeout(m.t); m.t=setTimeout(()=>{ route(); const n=$('#mQ'); if(n){ n.focus(); n.setSelectionRange(n.value.length,n.value.length);} },250); });
     const cp=$('#mCompose'); if(cp) cp.addEventListener('click',()=>{ m.compose={}; route(); });
     const rp=$('#mReply'); if(rp) rp.addEventListener('click',()=>{ const o=m.open; m.compose={reply:true, to:o.from&&o.from.address, subject:/^re:/i.test(o.subject||'')?o.subject:'Re: '+(o.subject||''), inReplyTo:o.messageId||'', text:'\n\n— '+mWho(o.from)+' escribió:\n'+(o.text||'').split('\n').map(l=>'> '+l).join('\n')}; route(); });
-    const dl=$('#mDel'); if(dl) dl.addEventListener('click',async()=>{ const uid=m.open.uid; try{ if(!MAIL_DEMO) await mailCall('delete',{uid}); m.items=m.items.filter(x=>x.uid!==uid); m.open=null; route(); toast('Correo borrado'); }catch(err){ toast('No se pudo borrar'); } });
+    const dl=$('#mDel'); if(dl) dl.addEventListener('click',async()=>{ const uid=m.open.uid; try{ if(!MAIL_DEMO) await mailCall('delete',{uid}); m.items=m.items.filter(x=>x.uid!==uid); mailSave(); m.open=null; route(); toast('Correo borrado'); }catch(err){ toast('No se pudo borrar'); } });
     const cc=$('#mCancel'); if(cc) cc.addEventListener('click',()=>{ m.compose=null; route(); });
     const mf=$('#mForm'); if(mf) mf.addEventListener('submit',async e=>{ e.preventDefault(); const body={to:$('#mTo').value.trim(), subject:$('#mSubj').value.trim(), text:$('#mBody').value, inReplyTo:m.compose.inReplyTo||undefined};
       try{ if(!MAIL_DEMO) await mailCall('send',body); m.compose=null; route(); toast('Correo enviado'); }catch(err){ toast('No se pudo enviar: '+err.message); } });
