@@ -523,7 +523,8 @@ tr.click:hover td{background:var(--surface)}
 .mb-from{font-size:.93rem;font-weight:600;color:#242A28;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mb-date{font-size:.75rem;color:var(--muted)}.mb-subj{grid-column:1/-1;font-size:.8rem;font-weight:400;color:#8C8F8A;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mb-row.unread .mb-from,.mb-row.unread .mb-date{font-weight:700;color:#E07B12}.mb-row.unread .mb-subj{font-weight:500;color:#5F625E}.mb-row.unread .mb-from::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#E07B12;margin-right:.45rem;vertical-align:middle}.mb-row.unread{box-shadow:inset 3px 0 0 #E07B12}
 .mb-pad{padding:1rem}.mb-pane{padding:clamp(1.2rem,3vw,2rem);overflow:auto;max-height:72vh}
-.mb-read{display:grid;gap:.9rem}.mb-read>.acts{justify-self:end;display:flex;gap:.4rem;margin-top:-.4rem}.mb-read>.acts .btn{padding:.3rem .65rem;font-size:.6rem;letter-spacing:.08em;min-height:0;line-height:1.4}.mb-read>.acts .btn .ico{width:.8rem;height:.8rem}.mb-read h3{font-size:1.15rem}.mb-text{white-space:pre-wrap;line-height:1.7;font-size:.95rem;border-top:1px solid var(--line);padding-top:1rem}
+.mb-read{display:grid;gap:.9rem}.mb-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}.mb-icons{display:flex;gap:.35rem;flex:none}.mb-ic{width:34px;height:34px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;transition:transform .15s,filter .15s}.mb-ic svg{width:17px;height:17px;fill:#fff}.mb-ic:hover{transform:translateY(-1px);filter:brightness(1.08)}.ic-reply{background:#343F38}.ic-fwd{background:#A48B70}.ic-del{background:#C0643F}
+.mb-read>.acts{justify-self:end;display:flex;gap:.4rem;margin-top:-.4rem}.mb-read>.acts .btn{padding:.3rem .65rem;font-size:.6rem;letter-spacing:.08em;min-height:0;line-height:1.4}.mb-read>.acts .btn .ico{width:.8rem;height:.8rem}.mb-read h3{font-size:1.15rem}.mb-text{white-space:pre-wrap;line-height:1.7;font-size:.95rem;border-top:1px solid var(--line);padding-top:1rem}
 .mb-html{width:100%;min-height:420px;border:0;border-top:1px solid var(--line);background:#fff}
 .mb-none{height:100%;min-height:300px;display:grid;place-content:center;justify-items:center;gap:.6rem;color:var(--muted)}.mb-none svg{width:34px;height:34px}
 .mb-compose{display:grid;gap:.9rem}.mailbox .acts,.welcome .acts{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}.mb-compose textarea{font:inherit}
@@ -800,7 +801,7 @@ img[src$="sala-2.jpg"],img[src$="aerotermia-2.jpg"]{object-fit:contain;backgroun
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 /* Versión publicada: si el navegador tiene una copia vieja guardada, carga la nueva (cambiar BUILD y version.txt en cada publicación). */
-const BUILD = '202611201403';
+const BUILD = '202611201410';
 (function(){ try{ fetch('/version.txt?t='+Date.now(), {cache:'no-store'}).then(r=>r.ok?r.text():'').then(v=>{ v=(v||'').trim(); if(v && v!==BUILD && new URLSearchParams(location.search).get('b')!==v) location.replace(location.pathname+'?b='+v+location.hash); }).catch(()=>{}); }catch(e){} })();
 /* ================= Utilidades ================= */
 const $ = (s, el=document) => el.querySelector(s);
@@ -1374,15 +1375,19 @@ function eMail(){
     : list.map(x=>`<button class="mb-row ${x.seen?'':'unread'} ${m.open&&m.open.uid===x.uid?'on':''}" data-mail="${x.uid}"><span class="mb-from">${mWho(x.from)}</span><span class="mb-date">${mDate(x.date)}</span><span class="mb-subj">${esc(x.subject||'(sin asunto)')}</span></button>`).join('');
   let pane;
   if(m.compose){ const c=m.compose;
-    pane = `<form id="mForm" class="mb-compose"><h3>${c.reply?'Responder':'Nuevo correo'}</h3>
+    pane = `<form id="mForm" class="mb-compose"><h3>${c.reply?'Responder':c.fwd?'Reenviar':'Nuevo correo'}</h3>
       <div class="field"><label for="mTo">Para</label><input id="mTo" type="email" required value="${esc(c.to||'')}"></div>
       <div class="field"><label for="mSubj">Asunto</label><input id="mSubj" required value="${esc(c.subject||'')}"></div>
       <div class="field"><label for="mBody">Mensaje</label><textarea id="mBody" rows="10" required>${esc(c.text||'')}</textarea></div>
       <div class="acts"><button class="btn btn-primary" type="submit">${ico('arrow')}Enviar</button><button class="btn" type="button" id="mCancel">Cancelar</button></div></form>`;
   } else if(m.open){ const o=m.open;
-    pane = `<article class="mb-read"><h3>${esc(o.subject||'(sin asunto)')}</h3>
+    pane = `<article class="mb-read"><div class="mb-head"><h3>${esc(o.subject||'(sin asunto)')}</h3>
+      <div class="mb-icons">
+        <button class="mb-ic ic-reply" id="mReply" title="Responder" aria-label="Responder"><svg viewBox="0 0 24 24"><path d="M10 8V4L3 11l7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg></button>
+        <button class="mb-ic ic-fwd" id="mFwd" title="Reenviar" aria-label="Reenviar"><svg viewBox="0 0 24 24"><path d="M14 8V4l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11z"/></svg></button>
+        <button class="mb-ic ic-del" id="mDel" title="Borrar" aria-label="Borrar"><svg viewBox="0 0 24 24"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zm-3 6h12l-1 11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L6 9zm4 2v8h1.5v-8H10zm3.5 0v8H15v-8h-1.5z"/></svg></button>
+      </div></div>
       <p class="muted"><b>${mWho(o.from)}</b> &lt;${esc((o.from&&o.from.address)||'')}&gt; · ${new Date(o.date).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'})}</p>
-      <div class="acts"><button class="btn btn-primary btn-sm" id="mReply">${ico('back')}Responder</button><button class="btn btn-sm" id="mDel">Borrar</button></div>
       ${o.html?`<iframe class="mb-html" sandbox="" title="Contenido del correo"></iframe>`:`<div class="mb-text">${esc(o.text||'')}</div>`}
       ${(o.attachments||[]).length?`<p class="muted">Adjuntos: ${o.attachments.map(a=>esc(a.name||'archivo')).join(', ')} (ábrelos en IONOS)</p>`:''}</article>`;
   } else pane = `<div class="mb-none">${ico('mail')}<p>Elige un correo para leerlo</p></div>`;
@@ -1763,6 +1768,7 @@ function bind(h){
     document.querySelectorAll('[data-mfold]').forEach(b=>b.addEventListener('click',()=>{ m.folder=b.dataset.mfold; m.items=null; m.open=null; route(); }));
     const q=$('#mQ'); if(q) q.addEventListener('input',()=>{ m.q=q.value; clearTimeout(m.t); m.t=setTimeout(()=>{ route(); const n=$('#mQ'); if(n){ n.focus(); n.setSelectionRange(n.value.length,n.value.length);} },250); });
     const cp=$('#mCompose'); if(cp) cp.addEventListener('click',()=>{ m.compose={}; route(); });
+    const fw=$('#mFwd'); if(fw) fw.addEventListener('click',()=>{ const o=m.open; m.compose={fwd:true, to:'', subject:/^(rv|fwd?):/i.test(o.subject||'')?o.subject:'Rv: '+(o.subject||''), text:'\n\n---------- Mensaje reenviado ----------\nDe: '+mWho(o.from)+' <'+((o.from&&o.from.address)||'')+'>\nFecha: '+new Date(o.date).toLocaleString('es-ES')+'\nAsunto: '+(o.subject||'')+'\n\n'+(o.text||'')}; route(); });
     const rp=$('#mReply'); if(rp) rp.addEventListener('click',()=>{ const o=m.open; m.compose={reply:true, to:o.from&&o.from.address, subject:/^re:/i.test(o.subject||'')?o.subject:'Re: '+(o.subject||''), inReplyTo:o.messageId||'', text:'\n\n— '+mWho(o.from)+' escribió:\n'+(o.text||'').split('\n').map(l=>'> '+l).join('\n')}; route(); });
     const dl=$('#mDel'); if(dl) dl.addEventListener('click',async()=>{ const uid=m.open.uid; try{ if(!MAIL_DEMO) await mailCall('delete',{uid}); m.items=m.items.filter(x=>x.uid!==uid); mailSave(); m.open=null; route(); toast('Correo borrado'); }catch(err){ toast('No se pudo borrar'); } });
     const cc=$('#mCancel'); if(cc) cc.addEventListener('click',()=>{ m.compose=null; route(); });
