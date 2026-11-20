@@ -689,6 +689,10 @@ img.slot-ph{background:var(--surface)}
 .nav .access{font-weight:700;color:#3E5A4F}
 .nav .access:hover{color:var(--fg)}
 .nav .access .ico{stroke-width:2}
+/* Sala técnica: foto vertical, se ve entera */
+.ac-item.tall .img{aspect-ratio:3/4}
+img[src$="sala-2.jpg"]{object-fit:contain;background:var(--surface)}
+.ac-item.tall img{object-fit:cover}
 :root[data-pal="piedra"] .site-header{background:#FFFFFF}
 
 </style>
@@ -1029,7 +1033,7 @@ const WORK = [
   {k:'fachada', c:'mejorar', t:'Rehabilitación de fachada', l:'Obra en curso', go:'svc-reformas'},
   {k:'entrada', c:'cuidar', t:'Acceso', l:'Villa Sienna · piedra natural', go:'svc-gestion'},
   {k:'atardecer', c:'disfrutar', t:'Atardecer', l:'Villa Sienna', go:'svc-concierge', big:true},
-  {k:'sala', c:'mejorar', t:'Sala técnica', l:'Circuitos etiquetados', go:'svc-reformas'},
+  {k:'sala', c:'mejorar', t:'Sala técnica', l:'Circuitos etiquetados', go:'svc-reformas', tall:true},
   {k:'terraza', c:'cuidar', t:'Terraza', l:'Vistas a la sierra', go:'svc-gestion', big:true},
 ];
 const CATS = [['todo','Ver todo'],['cuidar','Cuidar'],['mejorar','Mejorar'],['disfrutar','Disfrutar']];
@@ -1039,7 +1043,7 @@ function homeView(){
 
   <section class="ac-work" id="servicios-home"><div class="wrap">
     <div class="ac-filter" role="group" aria-label="Filtrar">${CATS.map(([k,t],i)=>`<button type="button" data-cat="${k}" aria-pressed="${i?'false':'true'}">${t}</button>`).join('')}</div>
-    <div class="ac-grid">${WORK.map((w,i)=>`<a class="ac-item${w.big?' big':''}" data-c="${w.c}" href="#servicios" data-jumpto="${w.go}"><div class="img"><img src="${PH[w.k]}" alt="${esc(w.t+' · '+w.l)}" ${i<3?'':'loading="lazy"'} decoding="async"></div><div class="t">${w.t}<small>${w.l}</small></div></a>`).join('')}</div>
+    <div class="ac-grid">${WORK.map((w,i)=>`<a class="ac-item${w.big?' big':''}${w.tall?' tall':''}" data-c="${w.c}" href="#servicios" data-jumpto="${w.go}"><div class="img"><img src="${PH[w.k]}" alt="${esc(w.t+' · '+w.l)}" ${i<3?'':'loading="lazy"'} decoding="async"></div><div class="t">${w.t}<small>${w.l}</small></div></a>`).join('')}</div>
   </div></section>
 
   <section class="ac-statement" id="metodo"><div class="wrap">
