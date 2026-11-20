@@ -523,7 +523,7 @@ tr.click:hover td{background:var(--surface)}
 .mb-from{font-size:.93rem;font-weight:600;color:#242A28;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mb-date{font-size:.75rem;color:var(--muted)}.mb-subj{grid-column:1/-1;font-size:.8rem;font-weight:400;color:#8C8F8A;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mb-row.unread .mb-from,.mb-row.unread .mb-date{font-weight:700;color:#E07B12}.mb-row.unread .mb-subj{font-weight:500;color:#5F625E}.mb-row.unread .mb-from::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#E07B12;margin-right:.45rem;vertical-align:middle}.mb-row.unread{box-shadow:inset 3px 0 0 #E07B12}
 .mb-pad{padding:1rem}.mb-pane{padding:clamp(1.2rem,3vw,2rem);overflow:auto;max-height:72vh}
-.mb-read{display:grid;gap:.9rem}.mb-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}.mb-icons{display:flex;gap:.35rem;flex:none}.mb-ic{width:34px;height:34px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;transition:transform .15s,filter .15s}.mb-ic svg{width:17px;height:17px;fill:#fff}.mb-ic:hover{transform:translateY(-1px);filter:brightness(1.08)}.ic-reply{background:#343F38}.ic-fwd{background:#A48B70}.ic-del{background:#C0643F}
+.mb-read{display:grid;gap:.9rem}.mb-read{gap:0!important}.mb-card{background:var(--surface);border-radius:8px;padding:.75rem 1rem .8rem;display:grid;gap:.5rem}.mb-card h3{font-size:1.02rem!important;font-weight:600;line-height:1.3;margin:0}.mb-head{display:flex;align-items:center;justify-content:space-between;gap:1rem}.mb-from-line{display:flex;align-items:center;gap:.6rem;font-size:.85rem}.mb-av{width:28px;height:28px;border-radius:50%;background:#343F38;color:#F8F6F2;display:grid;place-items:center;font-size:.75rem;font-weight:600;flex:none}.mb-who{display:flex;flex-direction:column;line-height:1.25;min-width:0}.mb-who small{color:var(--muted);font-size:.75rem;overflow:hidden;text-overflow:ellipsis}.mb-from-line time{margin-left:auto;font-size:.75rem;color:var(--muted);white-space:nowrap}.mb-body{padding:1.1rem .2rem 1.2rem}.mb-body .mb-text{border:0;padding:0}.mb-frame{width:100%;border:0;display:block;min-height:60px;background:transparent}.mb-sig{border-top:1px dashed var(--line);padding:.9rem .2rem 0;display:grid;gap:.4rem;opacity:.9}.mb-sig .mb-text{border:0;padding:0;font-size:.8rem;color:var(--muted)}.mb-sig-l{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.mb-ic{width:30px!important;height:30px!important}.mb-ic svg{width:15px!important;height:15px!important}.mb-icons{display:flex;gap:.35rem;flex:none}.mb-ic{width:34px;height:34px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer;transition:transform .15s,filter .15s}.mb-ic svg{width:17px;height:17px;fill:#fff}.mb-ic:hover{transform:translateY(-1px);filter:brightness(1.08)}.ic-reply{background:#343F38}.ic-fwd{background:#A48B70}.ic-del{background:#C0643F}
 .mb-read>.acts{justify-self:end;display:flex;gap:.4rem;margin-top:-.4rem}.mb-read>.acts .btn{padding:.3rem .65rem;font-size:.6rem;letter-spacing:.08em;min-height:0;line-height:1.4}.mb-read>.acts .btn .ico{width:.8rem;height:.8rem}.mb-read h3{font-size:1.15rem}.mb-text{white-space:pre-wrap;line-height:1.7;font-size:.95rem;border-top:1px solid var(--line);padding-top:1rem}
 .mb-html{width:100%;min-height:420px;border:0;border-top:1px solid var(--line);background:#fff}
 .mb-none{height:100%;min-height:300px;display:grid;place-content:center;justify-items:center;gap:.6rem;color:var(--muted)}.mb-none svg{width:34px;height:34px}
@@ -801,7 +801,7 @@ img[src$="sala-2.jpg"],img[src$="aerotermia-2.jpg"]{object-fit:contain;backgroun
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 /* Versión publicada: si el navegador tiene una copia vieja guardada, carga la nueva (cambiar BUILD y version.txt en cada publicación). */
-const BUILD = '202611201410';
+const BUILD = '202611201425';
 (function(){ try{ fetch('/version.txt?t='+Date.now(), {cache:'no-store'}).then(r=>r.ok?r.text():'').then(v=>{ v=(v||'').trim(); if(v && v!==BUILD && new URLSearchParams(location.search).get('b')!==v) location.replace(location.pathname+'?b='+v+location.hash); }).catch(()=>{}); }catch(e){} })();
 /* ================= Utilidades ================= */
 const $ = (s, el=document) => el.querySelector(s);
@@ -1363,6 +1363,38 @@ async function mailLoad(full){
 function mailTick(){ const m=state.mail; if(MAIL_DEMO || !MAIL.api || location.hash!=='#admin-correo' || document.hidden || !m.items) return; if(Date.now()-(m.last||0) < 40000) return; mailLoad(false); }
 setInterval(mailTick, 45000);
 document.addEventListener('visibilitychange', mailTick);
+// Separa cuerpo y firma. HTML: marcas habituales (gmail_signature, Signature, «-- ») o el primer bloque con imagen/tabla tras el texto.
+function mailSplit(o){
+  if (o._split) return o._split;
+  let r;
+  if (o.html){
+    const doc = new DOMParser().parseFromString(o.html, 'text/html'), body = doc.body;
+    let cut = body.querySelector('.gmail_signature,[id*="ignature" i],[class*="ignature" i]');
+    if (!cut){
+      const walker = doc.createTreeWalker(body, NodeFilter.SHOW_ELEMENT|NodeFilter.SHOW_TEXT); let seenText=false, n;
+      while ((n = walker.nextNode())){
+        if (n.nodeType===3){ const t=n.textContent.trim(); if (/^--\s*$/.test(t)){ cut=n.parentElement; break; } if (t) seenText=true; continue; }
+        if (seenText && (n.tagName==='TABLE' || n.tagName==='IMG')){ cut=n; break; }
+      }
+      // sube mientras sea el primer contenido de su bloque, para cortar el bloque entero
+      const empty = x => !x || (x.nodeType===3 && !x.textContent.trim()) || (x.nodeType===1 && x.tagName==='BR');
+      const firstIn = el => { let q = el.previousSibling; while (q && empty(q)) q = q.previousSibling; return !q; };
+      while (cut && cut.parentElement && cut.parentElement!==body && firstIn(cut)) cut = cut.parentElement;
+    }
+    if (cut && cut!==body && cut.parentElement){
+      const sig = doc.createElement('div'); let x = cut;
+      while (x){ const nx = x.nextSibling; sig.appendChild(x); x = nx; }
+      r = {html:true, body:body.innerHTML, sig: sig.innerHTML.trim() ? sig.innerHTML : ''};
+      if (!body.textContent.trim() && !body.querySelector('img')) r = {html:true, body:sig.innerHTML, sig:''};
+    } else r = {html:true, body:o.html, sig:''};
+  } else {
+    const t = o.text||''; let i = t.search(/\n-- ?\n/);
+    if (i<0){ const mm = t.match(/\n\s*(un saludo|saludos|atentamente|best|regards|kind regards|cheers|gracias|thanks)[^\n]{0,20}\n/i); if (mm) i = mm.index; }
+    r = i>0 ? {html:false, body:t.slice(0,i).trim(), sig:t.slice(i).replace(/^\n-- ?\n/,'').trim()} : {html:false, body:t, sig:''};
+  }
+  return (o._split = r);
+}
+const mailDoc = (h, sig) => `<!doctype html><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;padding:0;background:transparent}body{font:${sig?'12.5px':'14.5px'}/1.6 Poppins,Arial,sans-serif;color:${sig?'#5F625E':'#242A28'}}img{max-width:100%;height:auto}${sig?'img{max-height:160px;width:auto}':''}a{color:#8A6F52}table{max-width:100%}</style>${h||''}`;
 const mDate = d => { const x=new Date(d), n=new Date(); return x.toDateString()===n.toDateString() ? x.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}) : x.toLocaleDateString('es-ES',{day:'numeric',month:'short'}); };
 const mWho = f => esc((f&&(f.name||f.address))||'Desconocido');
 function eMail(){
@@ -1381,14 +1413,16 @@ function eMail(){
       <div class="field"><label for="mBody">Mensaje</label><textarea id="mBody" rows="10" required>${esc(c.text||'')}</textarea></div>
       <div class="acts"><button class="btn btn-primary" type="submit">${ico('arrow')}Enviar</button><button class="btn" type="button" id="mCancel">Cancelar</button></div></form>`;
   } else if(m.open){ const o=m.open;
-    pane = `<article class="mb-read"><div class="mb-head"><h3>${esc(o.subject||'(sin asunto)')}</h3>
+    const parts = mailSplit(o), who = (o.from&&(o.from.name||o.from.address))||'?';
+    pane = `<article class="mb-read"><header class="mb-card"><div class="mb-head"><h3>${esc(o.subject||'(sin asunto)')}</h3>
       <div class="mb-icons">
         <button class="mb-ic ic-reply" id="mReply" title="Responder" aria-label="Responder"><svg viewBox="0 0 24 24"><path d="M10 8V4L3 11l7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg></button>
         <button class="mb-ic ic-fwd" id="mFwd" title="Reenviar" aria-label="Reenviar"><svg viewBox="0 0 24 24"><path d="M14 8V4l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11z"/></svg></button>
         <button class="mb-ic ic-del" id="mDel" title="Borrar" aria-label="Borrar"><svg viewBox="0 0 24 24"><path d="M9 3h6l1 2h4v2H4V5h4l1-2zm-3 6h12l-1 11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L6 9zm4 2v8h1.5v-8H10zm3.5 0v8H15v-8h-1.5z"/></svg></button>
       </div></div>
-      <p class="muted"><b>${mWho(o.from)}</b> &lt;${esc((o.from&&o.from.address)||'')}&gt; · ${new Date(o.date).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'})}</p>
-      ${o.html?`<iframe class="mb-html" sandbox="" title="Contenido del correo"></iframe>`:`<div class="mb-text">${esc(o.text||'')}</div>`}
+      <div class="mb-from-line"><span class="mb-av">${esc(who.trim().charAt(0).toUpperCase())}</span><span class="mb-who"><b>${mWho(o.from)}</b><small>${esc((o.from&&o.from.address)||'')}</small></span><time>${new Date(o.date).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'})}</time></div></header>
+      <section class="mb-body">${parts.html?`<iframe class="mb-frame" data-part="body" sandbox="allow-same-origin allow-popups" title="Mensaje"></iframe>`:`<div class="mb-text">${esc(parts.body)}</div>`}</section>
+      ${parts.sig?`<section class="mb-sig"><span class="mb-sig-l">Firma</span>${parts.html?`<iframe class="mb-frame" data-part="sig" sandbox="allow-same-origin allow-popups" title="Firma"></iframe>`:`<div class="mb-text">${esc(parts.sig)}</div>`}</section>`:''}
       ${(o.attachments||[]).length?`<p class="muted">Adjuntos: ${o.attachments.map(a=>esc(a.name||'archivo')).join(', ')} (ábrelos en IONOS)</p>`:''}</article>`;
   } else pane = `<div class="mb-none">${ico('mail')}<p>Elige un correo para leerlo</p></div>`;
   return head + `<div class="mailbox" id="mailbox">
@@ -1758,7 +1792,7 @@ function bind(h){
   if ($('#mailbox') || $('#mCompose')) {
     const m = state.mail;
     if (m.items===null && $('#mailbox')) { const c=mailCache(m.folder); if(c && !MAIL_DEMO){ m.items=c; route(); } mailLoad(true); }
-    const fr = $('.mb-html'); if (fr && m.open) fr.srcdoc = m.open.html;
+    if (m.open) { const parts = mailSplit(m.open); document.querySelectorAll('.mb-frame').forEach(fr=>{ fr.addEventListener('load',()=>{ try{ const d=fr.contentDocument, fit=()=>{ fr.style.height = (Math.ceil(d.body.getBoundingClientRect().height)+8)+'px'; }; fit(); d.querySelectorAll('img').forEach(i=>i.addEventListener('load',fit)); }catch(e){} }); fr.srcdoc = mailDoc(fr.dataset.part==='sig'?parts.sig:parts.body, fr.dataset.part==='sig'); }); }
     document.querySelectorAll('[data-mail]').forEach(b=>b.addEventListener('click',async()=>{ const uid=+b.dataset.mail; m.compose=null;
       const it=m.items.find(x=>x.uid===uid), key=m.folder+':'+uid;
       if (MAIL_DEMO) { m.open={...it}; it.seen=true; route(); return; }
