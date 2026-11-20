@@ -17,7 +17,7 @@
 <style>
 /* Layout: estudio de arquitectura. Blanco y negro, mucho aire, retícula de imágenes con pie en mayúsculas, cabecera mínima. */
 :root{
-  --bg:#F5F2EC;          /* blanco roto */
+  --bg:#FDFCFA;          /* blanco roto */
   --surface:#E9E4DA;     /* arena suave */
   --fg:#1F2B2E;          /* tierra oscura */
   --clay:#4E6A5F;        /* arcilla */
@@ -686,9 +686,10 @@ img.slot-ph{background:var(--surface)}
 /* Cabecera: menú principal más hacia el centro y más peso; Acceso clientes destacado */
 .nav a:not(.access):not(.btn){font-weight:500}
 @media (min-width:921px){.nav a[href="#contacto"]:not(.btn){margin-right:clamp(2.5rem,8vw,9rem)}}
-.nav .access{font-weight:700;color:var(--clay)}
+.nav .access{font-weight:700;color:#3E5A4F}
 .nav .access:hover{color:var(--fg)}
 .nav .access .ico{stroke-width:2}
+:root[data-pal="piedra"] .site-header{background:#FFFFFF}
 
 </style>
 
