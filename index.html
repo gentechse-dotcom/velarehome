@@ -724,6 +724,7 @@ img[src$="sala-2.jpg"]{object-fit:contain;background:var(--surface)}
 }
 .nav a.access{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent);color:var(--on-accent);padding:.7rem 1.15rem;border:1px solid var(--accent);border-radius:2px;font-weight:500;transition:background .2s,color .2s}
 .nav a.access .ico{width:15px;height:15px;stroke-width:1.8}
+.side .logo{font-size:.78rem;letter-spacing:.3em}
 .nav a.access:hover{background:transparent;color:var(--accent)}
 @media (max-width:920px){.nav-main,.nav-side{flex-direction:column;align-items:flex-start;gap:1.6rem}.nav-side{margin-top:1rem;width:100%}}
 
@@ -744,6 +745,7 @@ img[src$="sala-2.jpg"]{object-fit:contain;background:var(--surface)}
     <symbol id="i-crane" viewBox="0 0 24 24"><path d="M6 21V4l14 3M6 4 3 7h3M16 6v5m-2 0h4v3h-4zM3 21h8"/></symbol>
     <symbol id="i-euro" viewBox="0 0 24 24"><path d="M18 6.5A7 7 0 1 0 18 17.5M4 10h10M4 14h10"/></symbol>
     <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3.5 6 8.5 7 8.5-7"/></symbol>
     <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
     <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14a6.5 6.5 0 0 1 3 6"/></symbol>
     <symbol id="i-out" viewBox="0 0 24 24"><path d="M15 4h4.5v16H15M10 8l-4 4 4 4M6 12h10"/></symbol>
@@ -893,7 +895,7 @@ let MESSAGES = [
 
 /* Cuentas del prototipo: solo hashes SHA-256 de email:contraseña. No es seguridad real: falta backend. */
 const ACCOUNTS = [
-  {role:'admin', h:'dac6a2a7b250687ed0af6dce1aee39b856eb000a9d566912684c766d12b9503c', name:'Paco', full:'Paco Gatell', sub:'Administrador'},
+  {role:'admin', h:'5e96028ee11b5b7b2d914ebec5de730c82321782a117022c614ff1da7b59b262', name:'Paco', full:'Paco Gatell', sub:'Administrador'},
   {role:'cliente', h:'be65bb634a58c591ed44782cc97689edd2599e7a76cbf7d5ea3e013ebc400bc2', name:'Jose', full:'Jose Plaza', sub:'Villa Albero, Benahavís'},
 ];
 async function sha256(t){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
@@ -941,7 +943,7 @@ if (new URLSearchParams(location.search).has('huecos')) new MutationObserver(()=
 /* ================= Router ================= */
 const PUBLIC = ['inicio','servicios','sobre','contacto'];
 const CLIENT_NAV = [['cliente','Resumen','grid'],['cliente-propiedad','Mi propiedad','home'],['cliente-documentos','Documentos','folder'],['cliente-obras','Estado de obras','crane'],['cliente-presupuestos','Presupuestos','euro'],['cliente-proyectos','Proyectos','layers'],['cliente-mensajes','Mensajes','chat'],['cliente-guia','Guía y ejemplos','info']];
-const ADMIN_NAV = [['admin','Panel','grid'],['admin-propiedades','Propiedades','home'],['admin-clientes','Clientes','users'],['admin-documentos','Documentos','folder'],['admin-obras','Obras','crane'],['admin-presupuestos','Presupuestos','euro'],['admin-proyectos','Proyectos','layers'],['admin-banner','Banner de entrada','cloche'],['admin-guia','Guía y ejemplos','info']];
+const ADMIN_NAV = [['admin','Panel','grid'],['admin-correo','Correo','mail'],['admin-propiedades','Propiedades','home'],['admin-clientes','Clientes','users'],['admin-documentos','Documentos','folder'],['admin-obras','Obras','crane'],['admin-presupuestos','Presupuestos','euro'],['admin-proyectos','Proyectos','layers'],['admin-banner','Banner de entrada','cloche'],['admin-guia','Guía y ejemplos','info']];
 const state = { guide:{cliente:'resumen', admin:'panel'}, myMsgs:[], folder:null, q:'', budget:null, loginTab: store.get('lps-tab') || 'cliente', menu:false };
 
 function route(){
@@ -1202,7 +1204,7 @@ function appShell(role, h){
   const cur = nav.find(n=>n[0]===h) || nav[0];
   const views = role==='cliente'
     ? {cliente:eResumen,'cliente-propiedad':eProp,'cliente-documentos':()=>eDocs(false),'cliente-obras':()=>eWorks(false),'cliente-presupuestos':()=>eBudgets(false),'cliente-proyectos':()=>eProjects(false),'cliente-mensajes':eMsgs,'cliente-guia':()=>guideView('cliente')}
-    : {admin:ePanel,'admin-clientes':eClients,'admin-propiedades':eProps,'admin-documentos':()=>eDocs(true),'admin-obras':()=>eWorks(true),'admin-presupuestos':()=>eBudgets(true),'admin-proyectos':()=>eProjects(true),'admin-banner':eBanner,'admin-guia':()=>guideView('admin')};
+    : {admin:ePanel,'admin-clientes':eClients,'admin-propiedades':eProps,'admin-documentos':()=>eDocs(true),'admin-obras':()=>eWorks(true),'admin-presupuestos':()=>eBudgets(true),'admin-proyectos':()=>eProjects(true),'admin-banner':eBanner,'admin-correo':eMail,'admin-guia':()=>guideView('admin')};
   const who = role==='cliente'
     ? `<div class="who"><div class="av"><img src="paco-avatar.jpg" alt=""></div><div><b>Paco Gatell</b> · tu gestor<small><a href="https://wa.me/34665601092" target="_blank" rel="noopener" style="color:var(--clay)">WhatsApp +34 665 601 092</a> · responde en menos de 2 h</small></div></div>`
     : `<div class="who"><div class="av"><img src="paco-avatar.jpg" alt=""></div><div><b>Paco Gatell</b><small>Administrador</small></div></div>`;
@@ -1269,6 +1271,10 @@ function inviteModal(propId){
     });
 }
 
+function eMail(){
+  return `<div class="welcome"><div><h3>Correo de Velarehome</h3><p>Tu buzón <b>paco@velarehome.com</b> está alojado en IONOS. Ábrelo desde aquí para leer y contestar los correos.</p></div><a class="btn btn-primary btn-sm" href="https://mail.ionos.es" target="_blank" rel="noopener">${ico('mail')}Abrir correo</a></div>
+  <div class="card" style="gap:.6rem"><b>Próximamente</b><p class="muted">Ver la bandeja de entrada aquí mismo, sin salir del panel, cuando la web tenga acceso seguro con servidor.</p></div>`;
+}
 function eBanner(){
   const list = ads(), imgs = Object.keys(PH);
   return `<div class="welcome"><div><h3>Anuncios de la portada</h3><p>Es la imagen grande que abre la web. Sube una foto de buena calidad en horizontal y, si quieres, dos o tres palabras encima. Al pulsar, lleva a donde elijas.</p></div><a class="btn btn-sm" href="#inicio">Ver la portada</a></div>
@@ -1593,8 +1599,7 @@ function bind(h){
   const lf = $('#loginForm');
   if (lf) lf.addEventListener('submit', async e=>{ e.preventDefault();
     const email = $('#l-email').value.trim().toLowerCase(), pass = $('#l-pass').value;
-    // El admin entra ahora con paco@velarehome.com y su contraseña de siempre (el hash guardado usa el email antiguo).
-    const LOGIN_ALIAS = {'paco@velarehome.com':'info@luxury-property-services.com'};
+        const LOGIN_ALIAS = {};
     let hash = ''; if (!Object.values(LOGIN_ALIAS).includes(email)) { try { hash = await sha256((LOGIN_ALIAS[email]||email) + ':' + pass); } catch(err) {} }
     const acc = ACCOUNTS.find(a=>a.h===hash && a.role===state.loginTab);
     if (!acc) { $('#loginErr').hidden = false; $('#l-pass').value=''; $('#l-pass').focus(); return; }
