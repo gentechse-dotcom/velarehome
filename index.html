@@ -1687,13 +1687,13 @@ function bind(h){
   if (lf) lf.addEventListener('submit', async e=>{ e.preventDefault();
     const email = $('#l-email').value.trim().toLowerCase(), pass = $('#l-pass').value;
     const sbAcc = await sbLogin(email, pass).catch(()=>null);
-    if (sbAcc && sbAcc.role===state.loginTab) { setSession({role:sbAcc.role, name:sbAcc.name, full:sbAcc.full, sb:true}, $('#l-keep').checked); location.hash = sbAcc.role; return; }
+    if (sbAcc && sbAcc.role===state.loginTab) { setSession({role:sbAcc.role, name:sbAcc.name, full:sbAcc.full, sb:true}, $('#l-keep').checked); location.hash = sbAcc.role==='admin' ? 'admin-correo' : sbAcc.role; return; }
         const LOGIN_ALIAS = {};
     let hash = ''; if (!Object.values(LOGIN_ALIAS).includes(email)) { try { hash = await sha256((LOGIN_ALIAS[email]||email) + ':' + pass); } catch(err) {} }
     const acc = ACCOUNTS.find(a=>a.h===hash && a.role===state.loginTab);
     if (!acc) { $('#loginErr').hidden = false; $('#l-pass').value=''; $('#l-pass').focus(); return; }
     setSession({role:acc.role, name:acc.name, full:acc.full}, $('#l-keep').checked);
-    location.hash = acc.role; });
+    location.hash = acc.role==='admin' ? 'admin-correo' : acc.role; });
   $('#logout2')?.addEventListener('click',()=>{ sb?.auth.signOut(); setSession(null); });
   $('#forgot')?.addEventListener('click',e=>{ e.preventDefault(); toast('Te hemos enviado un enlace para crear una nueva contraseña (prototipo)'); });
   $('#logout')?.addEventListener('click',()=>{ sb?.auth.signOut(); setSession(null); location.hash='acceso'; });
