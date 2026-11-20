@@ -11,8 +11,9 @@ import nodemailer from "npm:nodemailer@6.9.15";
 
 const IMAP = { host: "imap.ionos.es", port: 993, secure: true };
 const SMTP = { host: "smtp.ionos.es", port: 465, secure: true };
-const cors = {
-  "Access-Control-Allow-Origin": "https://velarehome.com",
+const ORIGINS = ["https://velarehome.com", "https://www.velarehome.com"];
+let cors: Record<string, string> = {
+  "Access-Control-Allow-Origin": ORIGINS[0],
   "Access-Control-Allow-Headers": "authorization, content-type, apikey, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
@@ -23,7 +24,8 @@ async function adminOk(req: Request) {
     global: { headers: { Authorization: req.headers.get("Authorization") ?? "" } },
   });
   const { data } = await sb.auth.getUser();
-  return data.user?.email?.toLowerCase() === (Deno.env.get("ADMIN_EMAIL") ?? "").toLowerCase();
+  const admin = (Deno.env.get("ADMIN_EMAIL") ?? "").toLowerCase();
+  return !!admin && data.user?.email?.toLowerCase() === admin;
 }
 
 async function withImap<T>(fn: (c: ImapFlow) => Promise<T>) {
@@ -33,6 +35,8 @@ async function withImap<T>(fn: (c: ImapFlow) => Promise<T>) {
 }
 
 Deno.serve(async (req) => {
+  const o = req.headers.get("Origin") ?? "";
+  cors = { ...cors, "Access-Control-Allow-Origin": ORIGINS.includes(o) ? o : ORIGINS[0], Vary: "Origin" };
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (!(await adminOk(req))) return json({ error: "No autorizado" }, 401);
   const body = await req.json().catch(() => ({}));

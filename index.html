@@ -794,6 +794,7 @@ img[src$="sala-2.jpg"],img[src$="aerotermia-2.jpg"]{object-fit:contain;backgroun
 
 <div id="root"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 /* ================= Utilidades ================= */
 const $ = (s, el=document) => el.querySelector(s);
@@ -925,6 +926,19 @@ const ACCOUNTS = [
   {role:'cliente', h:'be65bb634a58c591ed44782cc97689edd2599e7a76cbf7d5ea3e013ebc400bc2', name:'Jose', full:'Jose Plaza', sub:'Villa Albero, Benahavís'},
 ];
 async function sha256(t){ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+/* Acceso seguro con Supabase Auth. Las contraseñas las guarda Supabase, no esta web. */
+const SB_URL = 'https://rnjwuuptfzjdqtcsnfan.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuand1dXB0ZnpqZHF0Y3NuZmFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUxNDUyNTAsImV4cCI6MjExMDcyMTI1MH0.nJqicK_HbkVpxEFPiNktlR_Qifm_2My7rYLxsa_i3_Q';
+const SB_USERS = { 'paco@velarehome.com':{role:'admin', name:'Paco', full:'Paco Gatell'}, 'joseplaza@joseplaza.es':{role:'cliente', name:'Jose', full:'Jose Plaza'} };
+const sb = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SB_URL, SB_KEY) : null;
+window.sbSession = null;
+if (sb) { sb.auth.getSession().then(({data})=>{ window.sbSession = data.session; }); sb.auth.onAuthStateChange((_e, s)=>{ window.sbSession = s; }); }
+async function sbLogin(email, pass, keep){
+  if (!sb || !SB_USERS[email]) return null;
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if (error || !data.session) return null;
+  window.sbSession = data.session; return SB_USERS[email];
+}
 function session(){ try{ return JSON.parse(sessionStorage.getItem('lps-session')||localStorage.getItem('lps-session')||'null'); }catch(e){ return state.session||null; } }
 function setSession(v, keep){ state.session=v; try{ sessionStorage.removeItem('lps-session'); localStorage.removeItem('lps-session'); if(v) (keep?localStorage:sessionStorage).setItem('lps-session', JSON.stringify(v)); }catch(e){} }
 
@@ -1299,7 +1313,7 @@ function inviteModal(propId){
 
 /* ---------- Correo de Paco (IONOS vía función segura de Supabase) ---------- */
 // MAIL.api: URL de la función «correo» de Supabase. Vacío = buzón aún sin conectar.
-const MAIL = { api: '', key: '' };
+const MAIL = { api: SB_URL + '/functions/v1/correo', key: SB_KEY };
 const MAIL_DEMO = /[?&]correo-demo\b/.test(location.search);
 const MAIL_SAMPLE = [
   {uid:4, from:{name:'Marta Ruiz', address:'marta@ejemplo.com'}, subject:'Visita a la villa el jueves', date:'2026-11-20T09:12:00', seen:false, text:'Hola Paco,\n\n¿Podrías pasar el jueves por la mañana a revisar la piscina? Llegamos el sábado.\n\nGracias,\nMarta'},
@@ -1309,7 +1323,9 @@ const MAIL_SAMPLE = [
 ];
 state.mail = state.mail || {folder:'INBOX', items:null, open:null, err:null, compose:null, q:''};
 async function mailCall(action, body={}){
+  if (!window.sbSession && sb) { const {data} = await sb.auth.getSession(); window.sbSession = data.session; }
   const tok = (window.sbSession && window.sbSession.access_token) || '';
+  if (!tok) throw new Error('Para ver el correo, sal y vuelve a entrar con tu cuenta de Supabase.');
   const r = await fetch(MAIL.api, {method:'POST', headers:{'Content-Type':'application/json', apikey:MAIL.key, Authorization:'Bearer '+tok}, body:JSON.stringify({action, folder:state.mail.folder, ...body})});
   const j = await r.json().catch(()=>({error:'Respuesta no válida'}));
   if(!r.ok) throw new Error(j.error||'Error del servidor'); return j;
@@ -1667,15 +1683,17 @@ function bind(h){
   const lf = $('#loginForm');
   if (lf) lf.addEventListener('submit', async e=>{ e.preventDefault();
     const email = $('#l-email').value.trim().toLowerCase(), pass = $('#l-pass').value;
+    const sbAcc = await sbLogin(email, pass).catch(()=>null);
+    if (sbAcc && sbAcc.role===state.loginTab) { setSession({role:sbAcc.role, name:sbAcc.name, full:sbAcc.full, sb:true}, $('#l-keep').checked); location.hash = sbAcc.role; return; }
         const LOGIN_ALIAS = {};
     let hash = ''; if (!Object.values(LOGIN_ALIAS).includes(email)) { try { hash = await sha256((LOGIN_ALIAS[email]||email) + ':' + pass); } catch(err) {} }
     const acc = ACCOUNTS.find(a=>a.h===hash && a.role===state.loginTab);
     if (!acc) { $('#loginErr').hidden = false; $('#l-pass').value=''; $('#l-pass').focus(); return; }
     setSession({role:acc.role, name:acc.name, full:acc.full}, $('#l-keep').checked);
     location.hash = acc.role; });
-  $('#logout2')?.addEventListener('click',()=>setSession(null));
+  $('#logout2')?.addEventListener('click',()=>{ sb?.auth.signOut(); setSession(null); });
   $('#forgot')?.addEventListener('click',e=>{ e.preventDefault(); toast('Te hemos enviado un enlace para crear una nueva contraseña (prototipo)'); });
-  $('#logout')?.addEventListener('click',()=>{ setSession(null); location.hash='acceso'; });
+  $('#logout')?.addEventListener('click',()=>{ sb?.auth.signOut(); setSession(null); location.hash='acceso'; });
   document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>{ state.folder = state.folder===b.dataset.open?null:b.dataset.open; route(); }));
   document.querySelectorAll('[data-folder]').forEach(a=>a.addEventListener('click',()=>{ state.folder=a.dataset.folder; state.q=''; }));
   $('#closeFolder')?.addEventListener('click',()=>{ state.folder=null; route(); });
